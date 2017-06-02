@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lockbur.trackr.mapper.ProjectMapper">
+    
+    <resultMap id="project" type="com.lockbur.trackr.domain.Project">
+        <id property="id" column="id"></id>
+        <result property="name" column="api_name"></result>
+        <result property="createDate" column="createDate"></result>
+        <result property="modifyDate" column="modifyDate"></result>
+    </resultMap>
+  
+    <cache />
+  
+    <insert id="save" parameterType="project" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO project
+        (
+        name,description,createDate,modifyDate
+        )
+        VALUES
+        (
+        #{name},#{description},now(),now()
+        )
+    </insert>
+
+    
+    <select id="findById" resultMap="project">
+        SELECT
+        p.id id,p.name name,p.description description
+        FROM
+        project p
+        WHERE 
+        p.id=#{id}
+    </select>
+
+    <select id="findByLikeName" resultMap="project">
+        SELECT
+        p.id id,p.name name,p.description description
+        FROM
+        project p
+        WHERE
+        p.name LIKE CONCAT('%',#{name},'%')
+    </select>
+
+</mapper>
