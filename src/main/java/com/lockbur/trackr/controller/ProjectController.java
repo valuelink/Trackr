@@ -25,11 +25,11 @@ public class ProjectController {
     private ProjectService projectService;
 
 
-    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    @RequestMapping(value = "/list")
     public String search(String keyword, Model model) {
         List<Project> list = projectService.search(keyword);
         model.addAttribute("list", list);
-        return "/project/list";
+        return "project/list";
     }
 
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)

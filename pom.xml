@@ -119,7 +119,7 @@
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
-            <version>6.0</version>
+            <version>7.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -150,24 +150,18 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+
             <plugin>
-                <groupId>org.mortbay.jetty</groupId>
-                <!-- <artifactId>maven-jetty-plugin</artifactId>
-               <version>6.1.10</version> -->
+                <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>7.3.1.v20110307</version>
+                <version>9.3.14.v20161028</version>
                 <configuration>
-                    <connectors>
-                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
-                            <port>8080</port>
-                        </connector>
-                    </connectors>
-                    <webAppConfig>
-                        <contextPath>/</contextPath>
-                    </webAppConfig>
-                    <scanIntervalSeconds>5000</scanIntervalSeconds>
-                    <stopKey>foo</stopKey>
-                    <stopPort>8005</stopPort>
+                    <stopKey>fookey</stopKey>
+                    <stopPort>9090</stopPort>
+                    <scanIntervalSeconds>1</scanIntervalSeconds>
+                    <httpConnector>
+                    <port>8080</port>
+                    </httpConnector>
                 </configuration>
             </plugin>
         </plugins>
