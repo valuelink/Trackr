@@ -5,12 +5,15 @@
 <head>
     <meta charset="utf-8"/>
     <title>项目管理系统</title>
-    <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav"/>
+    <meta name="description"
+          content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/bootstrap.css" type="text/css"/>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/animate.css" type="text/css"/>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/font-awesome.min.css" type="text/css"/>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/simple-line-icons.css" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/font-awesome.min.css"
+          type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/simple-line-icons.css"
+          type="text/css"/>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/font.css" type="text/css"/>
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/app.css" type="text/css"/>
     <!--[if lt IE 9]>
@@ -95,7 +98,7 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-                <img src="images/m0.jpg" alt="...">
+                <img src="${pageContext.servletContext.contextPath}/assets/images/m0.jpg" alt="...">
               </span>
                         图形控制 <b class="caret"></b>
                     </a>
@@ -112,7 +115,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="modal.lockme.html" data-toggle="ajaxModal" >退出</a>
+                            <a href="modal.lockme.html" data-toggle="ajaxModal">退出</a>
                         </li>
                     </ul>
                 </li>
@@ -125,7 +128,8 @@
             <aside class="bg-inverse aside hidden-print" id="nav">
                 <section class="vbox">
                     <section class="scrollable">
-                        <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">
+                        <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0"
+                             data-size="10px" data-railOpacity="0.2">
 
                             <!-- nav -->
                             <nav class="nav-primary hidden-xs">
@@ -155,19 +159,19 @@
                                             <span>客户管理</span>
                                         </a>
                                         <ul class="nav dk text-sm">
-                                            <li  class="active">
+                                            <li class="active">
                                                 <a href="layout-color.html" class="auto">
                                                     <i class="fa fa-angle-right text-xs"></i>
                                                     <span>客户管理</span>
                                                 </a>
                                             </li>
-                                            <li >
+                                            <li>
                                                 <a href="layout-boxed.html" class="auto">
                                                     <i class="fa fa-angle-right text-xs"></i>
                                                     <span>潜在客户管理</span>
                                                 </a>
                                             </li>
-                                            <li >
+                                            <li>
                                                 <a href="layout-fluid.html" class="auto">
                                                     <i class="fa fa-angle-right text-xs"></i>
                                                     <span>友商管理</span>
@@ -186,14 +190,14 @@
                                             <span>项目管理</span>
                                         </a>
                                         <ul class="nav dk text-sm">
-                                            <li  class="active">
+                                            <li class="active">
                                                 <a href="layout-color.html" class="auto">
                                                     <i class="fa fa-angle-right text-xs"></i>
 
                                                     <span>立项管理</span>
                                                 </a>
                                             </li>
-                                            <li >
+                                            <li>
                                                 <a href="layout-boxed.html" class="auto">
                                                     <i class="fa fa-angle-right text-xs"></i>
                                                     <span>项目列表</span>
@@ -201,7 +205,7 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li >
+                                    <li>
                                         <a href="#" class="auto">
                         <span class="pull-right text-muted">
                           <i class="fa fa-angle-left text"></i>
@@ -212,13 +216,13 @@
                                             <span>文档管理</span>
                                         </a>
                                         <ul class="nav dk text-sm">
-                                            <li >
+                                            <li>
                                                 <a href="buttons.html" class="auto">
                                                     <i class="fa fa-angle-right text-xs"></i>
                                                     <span>文档模板</span>
                                                 </a>
                                             </li>
-                                            <li >
+                                            <li>
                                                 <a href="icons.html" class="auto">
                                                     <i class="fa fa-angle-right text-xs"></i>
                                                     <span>报价函和保密函</span>
@@ -226,7 +230,7 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li >
+                                    <li>
                                         <a href="#" class="auto">
                         <span class="pull-right text-muted">
                           <i class="fa fa-angle-left text"></i>
@@ -237,19 +241,19 @@
                                             <span>任务管理</span>
                                         </a>
                                         <ul class="nav dk text-sm">
-                                            <li >
+                                            <li>
                                                 <a href="profile.html" class="auto">
                                                     <i class="fa fa-angle-right text-xs"></i>
                                                     <span>待办任务</span>
                                                 </a>
                                             </li>
-                                            <li >
+                                            <li>
                                                 <a href="blog.html" class="auto">
                                                     <i class="fa fa-angle-right text-xs"></i>
                                                     <span>已办任务</span>
                                                 </a>
                                             </li>
-                                            <li >
+                                            <li>
                                                 <a href="invoice.html" class="auto">
                                                     <i class="fa fa-angle-right text-xs"></i>
                                                     <span>任务历史</span>
@@ -320,10 +324,51 @@
             <section id="content">
                 <section class="vbox">
                     <section class="scrollable wrapper bg-white-only">
-                        <p class="h4">Contents...</p>
+                        <section class="panel panel-default">
+                            <header class="panel-heading">
+                                <strong>待处理任务</strong>
+                            </header>
+                            <div class="panel-body">
+                                <table class="table table-striped m-b-none">
+                                    <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>任务名称</th>
+                                        <th>创建时间</th>
+                                        <th style="width:70px;">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            1
+                                        </td>
+                                        <td>App prototype design</td>
+                                        <td class="text-right">
+                                            2017-06-06 12:56
+                                        </td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                                                        class="fa fa-pencil"></i></a>
+                                                <ul class="dropdown-menu pull-right">
+                                                    <li><a href="#">Action</a></li>
+                                                    <li><a href="#">Another action</a></li>
+                                                    <li><a href="#">Something else here</a></li>
+                                                    <li class="divider"></li>
+                                                    <li><a href="#">Separated link</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
                     </section>
                 </section>
-                <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+                <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open"
+                   data-target="#nav,html"></a>
             </section>
         </section>
     </section>
