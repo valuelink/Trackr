@@ -1,4 +1,4 @@
-package com.lockbur.trackr.test.dao;
+package com.lockbur.trackr.test.mapper;
 
 import com.lockbur.trackr.domain.Project;
 import com.lockbur.trackr.mapper.ProjectMapper;

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lockbur.trackr.mapper.AuthorityMapper">
+
+    <insert id="insert"
+            parameterType="com.lockbur.trackr.domain.Authority"
+            useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO tb_authority
+        (
+          type,type_id,authority,creator_id,create_date,update_date
+        )
+        VALUES
+        (
+         #{type},#{typeId}, #{authority},#{creatorId},now(),now()
+        )
+    </insert>
+
+    <select id="findAuthorityByRoles" resultType="String">
+        SELECT authority FROM tb_authority
+        WHERE
+        type = 'ROLE' AND
+        type_id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="findAuthorityByRoleId" resultType="String">
+        SELECT authority FROM tb_authority
+        WHERE
+        type = 'ROLE' AND
+        type_id =#{typeId}
+    </select>
+
+    <select id="deleteByRoleId">
+        DELETE
+        FROM
+        tb_authority
+        WHERE
+       type = 'ROLE' AND type_id =#{roleId}
+    </select>
+
+</mapper>

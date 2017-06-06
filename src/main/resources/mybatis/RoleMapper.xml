@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lockbur.trackr.mapper.RoleMapper">
+
+    <insert id="insert" parameterType="com.lockbur.trackr.domain.Role" useGeneratedKeys="true"
+            keyProperty="id">
+        INSERT INTO tb_role
+        (
+          name,description,creator_id,create_date,update_date
+        )
+        VALUES
+        (
+         #{name}, #{description},#{creatorId},now(),now()
+        )
+    </insert>
+
+    <!-- 通过用户ID查询对应角色 -->
+    <select id="findRolesByDepartmentId" resultType="com.lockbur.trackr.domain.Role">
+        SELECT
+         tr.*
+        FROM tb_role tr
+        INNER JOIN department_role dept ON tr.id = tar.role_id
+        WHERE dept.deparment_id = #{departmentId}
+    </select>
+
+    <select id="findAll" resultType="com.lockbur.trackr.domain.Role">
+        SELECT
+        tr.*
+        FROM tb_role tr
+    </select>
+
+    <select id="findById" resultType="com.lockbur.trackr.domain.Role">
+        SELECT
+        tr.*
+        FROM
+         tb_role tr
+        WHERE
+        tr.id=#{id}
+    </select>
+
+    <update id="update" parameterType="com.lockbur.trackr.domain.Role">
+        UPDATE
+        tb_role
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            modified_time = now()
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+</mapper>
