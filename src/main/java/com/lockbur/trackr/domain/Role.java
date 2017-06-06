@@ -18,7 +18,7 @@ public class Role implements Serializable {
     private Integer creatorId;//创建人
 
     //时间
-    private Date createdTime;
+    private Date createTime;
     private Date updateTime;
 
     /**

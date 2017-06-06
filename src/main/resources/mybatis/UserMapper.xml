@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lockbur.trackr.mapper.UserMapper">
+    <resultMap id="user" type="User">
+        <result property="id" column="id"/>
+        <result property="loginName" column="login_name"/>
+        <result property="password" column="password"/>
+        <result property="salt" column="salt"/>
+        <result property="realName" column="real_name"/>
+        <result property="companyEmail" column="company_email"/>
+        <result property="departmentId" column="department_id"/>
+        <result property="gender" column="gender"/>
+        <result property="roleId" column="role_id"/>
+        <result property="mobile" column="mobile"/>
+        <result property="mobilePassword" column="mobile_password"/>
+        <result property="mobileCreateTime" column="mobile_create_time"/>
+        <result property="companyEmailPassword" column="company_email_password"/>
+        <result property="mailSigned" column="mail_signed"/>
+        <result property="avatar" column="avatar"/>
+        <result property="loginIp" column="login_ip"/>
+        <result property="loginTime" column="login_time"/>
+        <result property="lastLoginIp" column="last_login_ip"/>
+        <result property="lastLoginTime" column="last_login_time"/>
+        <result property="empNo" column="emp_no"/>
+        <result property="position" column="position"/>
+        <result property="subCompany" column="sub_company"/>
+        <result property="status" column="status"/>
+        <result property="creatorId" column="creator_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <!-- 用户和附加权限 -->
+    <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+		insert into tb_user (
+ 			login_name ,
+			password ,
+			salt ,
+			real_name ,
+			company_email ,
+			department_id ,
+			gender ,
+			role_id ,
+			mobile ,
+			mobile_password ,
+			mobile_create_time ,
+			company_email_password ,
+			mail_signed ,
+			avatar ,
+			login_ip ,
+			login_time ,
+			last_login_ip ,
+			last_login_time ,
+			emp_no ,
+			`position` ,
+			sub_company ,
+			status ,
+			creator_id ,
+			create_time ,
+			update_time 
+		) values (
+			#{loginName} ,
+			#{password} ,
+			#{salt} ,
+			#{realName} ,
+			#{companyEmail} ,
+			#{departmentId} ,
+			#{gender} ,
+			#{roleId} ,
+			#{mobile} ,
+			#{mobilePassword} ,
+			#{mobileCreateTime},
+			#{companyEmailPassword} ,
+			#{mailSigned} ,
+			#{avatar} ,
+			#{loginIp} ,
+			#{loginTime} ,
+			#{lastLoginIp} ,
+			#{lastLoginTime} ,
+			#{empNo} ,
+			#{position} ,
+			#{subCompany} ,
+			#{status} ,
+			#{creatorId} ,
+			now() ,
+			now() 	)
+	</insert>
+
+    <update id="update" parameterType="User">
+        update tb_user
+        <set>
+            <if test="loginName != null">
+                login_name = #{loginName},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="salt != null">
+                salt = #{salt},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName},
+            </if>
+            <if test="companyEmail != null">
+                company_email = #{companyEmail},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="roleId != null">
+                role_id = #{roleId},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile},
+            </if>
+            <if test="mobilePassword != null">
+                mobile_password = #{mobilePassword},
+            </if>
+            <if test="mobileCreateTime != null">
+                mobile_create_time = #{mobileCreateTime},
+            </if>
+            <if test="companyEmailPassword != null">
+                company_email_password = #{companyEmailPassword},
+            </if>
+            <if test="mailSigned != null">
+                mail_signed = #{mailSigned},
+            </if>
+            <if test="avatar != null">
+                avatar = #{avatar},
+            </if>
+            <if test="loginIp != null">
+                login_ip = #{loginIp},
+            </if>
+            <if test="loginTime != null">
+                login_time = #{loginTime},
+            </if>
+            <if test="lastLoginIp != null">
+                last_login_ip = #{lastLoginIp},
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time = #{lastLoginTime},
+            </if>
+
+            <if test="empNo != null">
+                emp_no = #{empNo},
+            </if>
+            <if test="position != null">
+                `position` = #{position},
+            </if>
+            <if test="subCompany != null">
+                sub_company = #{subCompany},
+            </if>
+
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="creatorId != null">
+                creator_id = #{creatorId},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            update_time = now()
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="remove" parameterType="User">
+         delete from tb_user where id = #{id}
+	</delete>
+
+    <!--分页使用 findByPage-->
+    <select id="findByPage" resultMap="user" parameterType="com.lockbur.trackr.rest.Pageable"
+            statementType="PREPARED">
+        SELECT
+        *
+        FROM t_user u
+        <if test="filters!=null and filters.size>0">
+            <where>
+                <foreach collection="filters" index="index" item="filter" separator=" ">
+                    <choose>
+                        <when test="filter.operator.key=='in'">
+                            ${filter.property} ${filter.operator.key}
+                            <foreach collection="filter.value" index="valueIndex" item="value" open="(" separator=","
+                                     close=")">
+                                ${value}
+                            </foreach>
+                        </when>
+                        <otherwise>
+                            <foreach collection="filters" index="index" item="filter" open="" separator="and" close="">
+                                ${filter.property} ${filter.operator.key} #{filter.value}
+                            </foreach>
+                        </otherwise>
+                    </choose>
+                </foreach>
+            </where>
+        </if>
+        <if test="sorts!=null and sorts.size>0">
+            <foreach collection="sorts" item="sort" open="order by " separator="," close=" ">
+                ${sort.property} ${sort.direction}
+            </foreach>
+        </if>
+        ORDER BY convert(u.real_name using gbk) asc
+        LIMIT ${pageNow},${pageSize}
+    </select>
+
+    <select id="countByPage" resultType="long" parameterType="com.lockbur.trackr.rest.Pageable"
+            statementType="PREPARED">
+        SELECT
+        count(*)
+        FROM t_user
+        <if test="filters!=null and filters.size>0">
+            <where>
+                <foreach collection="filters" index="index" item="filter" separator=" ">
+                    <choose>
+                        <when test="filter.operator.key=='in'">
+                            ${filter.property} ${filter.operator.key}
+                            <foreach collection="filter.value" index="valueIndex" item="value" open="(" separator=","
+                                     close=")">
+                                ${value}
+                            </foreach>
+                        </when>
+                        <otherwise>
+                            <foreach collection="filters" index="index" item="filter" open="" separator="and" close="">
+                                ${filter.property} ${filter.operator.key} #{filter.value}
+                            </foreach>
+                        </otherwise>
+                    </choose>
+                </foreach>
+            </where>
+        </if>
+    </select>
+    <!--//END 分页使用 findByPage-->
+
+    <!-- 根据主键查询 -->
+    <select id="get" resultMap="user" parameterType="java.lang.Integer">
+		SELECT
+		*
+		FROM tb_user
+		WHERE id=#{id,jdbcType=INTEGER}
+	</select>
+
+    <!-- 更新用户状态 -->
+    <update id="updateStatus" parameterType="User">
+		update tb_user
+		set
+		status = #{status},
+		update_time = now()
+		where id = #{id}
+	</update>
+
+    <!-- 通过用户名查找User对象 -->
+    <select id="getByUserName" resultMap="user" parameterType="java.lang.String">
+		SELECT
+		*
+		FROM tb_user
+		WHERE login_name = #{loginName,jdbcType=CHAR}
+	</select>
+
+    <!-- 通过用户名查找有效User对象 -->
+    <select id="getValidUserByUserName" resultMap="user" parameterType="java.lang.String">
+		SELECT
+		*
+		FROM tb_user
+		WHERE login_name = #{loginName,jdbcType=CHAR} AND status = 1
+	</select>
+
+    <!-- 通过移动端用户名查找有效User对象 -->
+    <select id="getValidUserByMobile" resultMap="user" parameterType="java.lang.String">
+		SELECT
+		*
+		FROM tb_user
+		WHERE mobile = #{mobile,jdbcType=CHAR} AND status = 1
+	</select>
+
+    <!-- 获得用户集, 通过多个用户ID -->
+    <select id="findUserByIds" resultMap="user" parameterType="java.util.List">
+        SELECT
+        *
+        FROM tb_user
+        WHERE id IN
+        <foreach collection="list" index="valueIndex" item="value" open="(" separator="," close=")">
+            ${value}
+        </foreach>
+    </select>
+
+    <!-- 获得所有用户 -->
+    <select id="getAll" resultMap="user">
+		SELECT
+		*
+		FROM tb_user
+	</select>
+
+    <!-- 通过roleId获得记录 -->
+    <select id="getByRoleId" resultMap="user" parameterType="java.lang.Integer">
+		SELECT
+		*
+		FROM tb_user
+		WHERE role_id = #{id,jdbcType=INTEGER}
+	</select>
+
+    <!-- 获得所有合伙人 -->
+    <select id="getAllChecker" resultMap="user">
+		SELECT *
+		FROM t_user
+		WHERE role_id = 99 AND status > 0
+	</select>
+
+    <!-- 获得所有合伙人 -->
+    <select id="getAllPartner" resultMap="user">
+		SELECT *
+		FROM t_user
+		WHERE role_id = 2 AND status > 0
+	</select>
+
+    <!-- 获得所有普通员工 -->
+    <select id="getAllEmployee" resultMap="user">
+		SELECT *
+		FROM t_user
+		WHERE role_id = 4 AND status > 0
+	</select>
+
+    <!-- 获得负责人(合伙人+普通员工) -->
+    <select id="getResponsiblePerson" resultMap="user">
+		SELECT *
+		FROM t_user
+		WHERE role_id in (2,4) AND status > 0
+	</select>
+
+    <!-- 通过手机号获得用户的数量 -->
+    <select id="findUserCountByMobile" resultType="int" parameterType="java.lang.String">
+		SELECT count(*) FROM t_user WHERE mobile=#{mobile,jdbcType=CHAR} AND status > 0
+	</select>
+
+
+    <!-- 通过员工号查找用户 -->
+    <select id="findByEmpNo" resultMap="user" parameterType="java.lang.String">
+		SELECT * FROM t_user WHERE emp_no = #{empNo,jdbcType=CHAR}
+	</select>
+
+    <select id="findNextEmpNo" resultType="Integer">
+		SELECT
+		count(id)+1
+		FROM t_user
+	</select>
+
+</mapper>

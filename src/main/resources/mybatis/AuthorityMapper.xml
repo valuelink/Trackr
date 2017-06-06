@@ -9,7 +9,7 @@
             keyProperty="id">
         INSERT INTO tb_authority
         (
-          type,type_id,authority,creator_id,create_date,update_date
+          type,type_id,authority,creator_id,create_time,update_time
         )
         VALUES
         (

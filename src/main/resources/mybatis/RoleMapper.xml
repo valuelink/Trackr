@@ -7,7 +7,7 @@
             keyProperty="id">
         INSERT INTO tb_role
         (
-          name,description,creator_id,create_date,update_date
+          name,description,creator_id,create_time,update_time
         )
         VALUES
         (
