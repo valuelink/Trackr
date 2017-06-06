@@ -40,7 +40,23 @@
         <!-- 设置连接池最小空闲值 -->
         <property name="minIdle" value="20"/>
         <!-- 设置连接池最大空闲值 -->
-        <property name="maxIdle" value="50"/>
+        <property name="validationQuery" value="SELECT 1;"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="timeBetweenEvictionRunsMillis" value="1800000"/>
+        <property name="numTestsPerEvictionRun" value="3"/>
+        <property name="minEvictableIdleTimeMillis" value="1800000"/>
+        <!--/**-->
+        <!--* @Seelink http://blog.csdn.net/fgakjfd/article/details/5600462-->
+        <!--*/-->
+        <!--dataSource.setValidationQuery("SELECT 1;");-->
+        <!--dataSource.setTestOnBorrow(true);-->
+        <!--dataSource.setTestOnReturn(true);-->
+        <!--dataSource.setTestWhileIdle(true);-->
+        <!--dataSource.setTimeBetweenEvictionRunsMillis(1800000);-->
+        <!--dataSource.setNumTestsPerEvictionRun(3);-->
+        <!--dataSource.setMinEvictableIdleTimeMillis(1800000);-->
     </bean>
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>

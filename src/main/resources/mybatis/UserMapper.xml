@@ -176,7 +176,7 @@
             statementType="PREPARED">
         SELECT
         *
-        FROM t_user u
+        FROM tb_user u
         <if test="filters!=null and filters.size>0">
             <where>
                 <foreach collection="filters" index="index" item="filter" separator=" ">
@@ -210,7 +210,7 @@
             statementType="PREPARED">
         SELECT
         count(*)
-        FROM t_user
+        FROM tb_user
         <if test="filters!=null and filters.size>0">
             <where>
                 <foreach collection="filters" index="index" item="filter" separator=" ">
@@ -304,46 +304,46 @@
     <!-- 获得所有合伙人 -->
     <select id="getAllChecker" resultMap="user">
 		SELECT *
-		FROM t_user
+		FROM tb_user
 		WHERE role_id = 99 AND status > 0
 	</select>
 
     <!-- 获得所有合伙人 -->
     <select id="getAllPartner" resultMap="user">
 		SELECT *
-		FROM t_user
+		FROM tb_user
 		WHERE role_id = 2 AND status > 0
 	</select>
 
     <!-- 获得所有普通员工 -->
     <select id="getAllEmployee" resultMap="user">
 		SELECT *
-		FROM t_user
+		FROM tb_user
 		WHERE role_id = 4 AND status > 0
 	</select>
 
     <!-- 获得负责人(合伙人+普通员工) -->
     <select id="getResponsiblePerson" resultMap="user">
 		SELECT *
-		FROM t_user
+		FROM tb_user
 		WHERE role_id in (2,4) AND status > 0
 	</select>
 
     <!-- 通过手机号获得用户的数量 -->
     <select id="findUserCountByMobile" resultType="int" parameterType="java.lang.String">
-		SELECT count(*) FROM t_user WHERE mobile=#{mobile,jdbcType=CHAR} AND status > 0
+		SELECT count(*) FROM tb_user WHERE mobile=#{mobile,jdbcType=CHAR} AND status > 0
 	</select>
 
 
     <!-- 通过员工号查找用户 -->
     <select id="findByEmpNo" resultMap="user" parameterType="java.lang.String">
-		SELECT * FROM t_user WHERE emp_no = #{empNo,jdbcType=CHAR}
+		SELECT * FROM tb_user WHERE emp_no = #{empNo,jdbcType=CHAR}
 	</select>
 
     <select id="findNextEmpNo" resultType="Integer">
 		SELECT
 		count(id)+1
-		FROM t_user
+		FROM tb_user
 	</select>
 
 </mapper>
