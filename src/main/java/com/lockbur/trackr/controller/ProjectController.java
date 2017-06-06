@@ -29,7 +29,7 @@ public class ProjectController {
     public String search(String keyword, Model model) {
         List<Project> list = projectService.search(keyword);
         model.addAttribute("list", list);
-        return "project/list";
+        return "/project/list";
     }
 
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)

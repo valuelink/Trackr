@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
 /**
  * Created by wangkun23 on 2016/6/2.
  */
@@ -18,16 +17,10 @@ public class HomeController {
 
     private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
+    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+    public String home(HttpServletRequest request, Model model) {
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String home(HttpServletRequest request,Model model) {
-
-        return "index";
+        return "/index";
     }
 
-    @RequestMapping(value = "/editor", method = RequestMethod.GET)
-    public String editor(Model model) {
-
-        return "editor";
-    }
 }
