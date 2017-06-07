@@ -3,9 +3,7 @@
     Created on : 2016-6-19, 16:25:13
     Author     : wangkun23
 --%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <header class="bg-primary header header-md navbar navbar-fixed-top-xs">
     <div class="navbar-header aside">
         <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
@@ -57,7 +55,7 @@
                         <div class="list-group list-group-alt">
                             <a href="#" class="media list-group-item">
                     <span class="pull-left thumb-sm">
-                      <img src="images/a0.png" alt="..." class="img-circle">
+                      <img src="${pageContext.servletContext.contextPath}/assets/images/a0.png" class="img-circle">
                     </span>
                                     <span class="media-body block m-b-none">
                       合同审核申请<br>

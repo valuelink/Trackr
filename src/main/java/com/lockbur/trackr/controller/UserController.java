@@ -14,7 +14,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
 
     @RequestMapping("/list")
-    public String displayList() {
+    public String list() {
         return "/user/list";
+    }
+
+    @RequestMapping("/add")
+    public String add() {
+        return "/user/add";
     }
 }

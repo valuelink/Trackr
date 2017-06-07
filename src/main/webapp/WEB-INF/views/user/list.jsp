@@ -100,6 +100,7 @@
 <script src="${pageContext.servletContext.contextPath}/assets/js/bootstrap.js"></script>
 <script src="${pageContext.servletContext.contextPath}/assets/js/slimscroll/jquery.slimscroll.min.js"></script>
 
+<script src="${pageContext.request.contextPath}/assets/js/format.js"></script>
 <!-- DataTables JavaScript -->
 <script src="${pageContext.servletContext.contextPath}/assets/js/datatables/js/jquery.dataTables.min.js"></script>
 <script src="${pageContext.servletContext.contextPath}/assets/js/datatables-plugins/dataTables.bootstrap.min.js"></script>
@@ -128,37 +129,52 @@
                 {data: 'id', 'name': 'id'},
                 {data: 'realName', name: 'realName'},
                 {data: 'loginName', name: 'loginName'},
-                {data: 'subCompany', name: 'subCompany'},
+                {
+                    data: 'subCompany',
+                    name: 'subCompany',
+                    render: function (data, type, row, meta) {
+                        if (data === "BJ") {
+                            return "北京";
+                        } else if (data === "SH") {
+                            return "上海";
+                        } else {
+                            return "未知";
+                        }
+                    }
+                },
                 {data: 'mobile', name: 'mobile'},
                 {data: 'roleId', name: 'roleId'},
                 {data: 'departmentId', name: 'departmentId'},
-                {data: 'createTime', name: 'createTime'},
-                {data: 'status', name: 'status'},
-                {data: 'id', name: 'id'}
-            ],
-            "columnDefs": [{
-                "targets": 8,
-                "orderable": false,
-                "searchable": false,
-                "render": function (data, type, full, meta) {
-                    if (data == 1) {
-                        return '<span class="label label-success ml5">正常</span>';
-                    } else {
-                        return '<span class="label label-danger ml5">禁用</span>';
+                {
+                    data: 'createTime',
+                    name: 'createTime',
+                    render: function (data, type, row, meta) {
+                        return new Date(data).Format("yyyy-MM-dd hh:mm:ss");
+                    }
+                },
+                {
+                    data: 'status',
+                    name: 'status',
+                    "render": function (data, type, full, meta) {
+                        if (data == 1) {
+                            return '<span class="label label-success ml5">正常</span>';
+                        } else {
+                            return '<span class="label label-danger ml5">禁用</span>';
+                        }
+                    }
+                },
+                {
+                    data: 'id',
+                    name: 'id',
+                    "render": function (data, type, full, meta) {
+                        return '<div class="btn-group" role="group" aria-label="...">' +
+                                '<button type="button" class="btn btn-default">冻结</button>' +
+                                '<button type="button" class="btn btn-danger">删除</button>' +
+                                '<button type="button" class="btn btn-success">编辑</button>' +
+                                '</div>';
                     }
                 }
-            }, {
-                "targets": 9,
-                "orderable": false,
-                "searchable": false,
-                "render": function (data, type, full, meta) {
-                    return '<div class="btn-group" role="group" aria-label="...">' +
-                            '<button type="button" class="btn btn-default">冻结</button>' +
-                            '<button type="button" class="btn btn-danger">删除</button>' +
-                            '<button type="button" class="btn btn-success">编辑</button>' +
-                            '</div>';
-                }
-            }],
+            ],
             //"sDom": '<"dt-panelmenu clearfix"lfr>t<"dt-panelfooter clearfix"ip>',
             "fnDrawCallback": function () {
                 this.api().column(0).nodes().each(function (cell, i) {
