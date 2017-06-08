@@ -16,4 +16,13 @@ public interface UserService {
      * @return
      */
     public Page<User> findByPage(Pageable pageable);
+
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public User findById(Integer id);
+
 }

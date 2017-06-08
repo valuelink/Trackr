@@ -28,4 +28,9 @@ public class UserServiceImpl implements UserService {
         return new Page(content, count, pageable);
     }
 
+    @Override
+    public User findById(Integer id) {
+        return userMapper.findById(id);
+    }
+
 }

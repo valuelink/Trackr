@@ -235,11 +235,11 @@
     <!--//END 分页使用 findByPage-->
 
     <!-- 根据主键查询 -->
-    <select id="get" resultMap="user" parameterType="java.lang.Integer">
+    <select id="findById" resultMap="user" parameterType="java.lang.Integer">
 		SELECT
 		*
 		FROM tb_user
-		WHERE id=#{id,jdbcType=INTEGER}
+		WHERE id=#{id}
 	</select>
 
     <!-- 更新用户状态 -->
