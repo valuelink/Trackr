@@ -24,7 +24,7 @@ public class ProjectDaoTest extends TestBase {
         Project project = new Project();
 
         project.setName("testName");
-        project.setDescription("test描述");
+        project.setNote("test描述");
 
         projectMapper.save(project);
         LOGGER.info("##########");

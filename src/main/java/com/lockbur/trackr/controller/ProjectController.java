@@ -32,6 +32,16 @@ public class ProjectController {
         return "/project/list";
     }
 
+    /**
+     * 立项申请
+     *
+     * @return
+     */
+    @RequestMapping("/add")
+    public String add() {
+        return "/project/add";
+    }
+
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String details(@PathVariable("id") Long id, Model model) {
         return "/project/details";
