@@ -1,9 +1,14 @@
 package com.lockbur.trackr.controller;
 
+import com.lockbur.trackr.domain.User;
+import com.lockbur.trackr.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.annotation.Resource;
 
 /**
  * 用户管理
@@ -13,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping(value = "/user")
 public class UserController {
 
+
+    @Resource
+    private UserService userService;
+
     @RequestMapping("/list")
     public String list() {
         return "/user/list";
@@ -21,5 +30,14 @@ public class UserController {
     @RequestMapping("/add")
     public String add() {
         return "/user/add";
+    }
+
+
+    @RequestMapping("/details/{id}")
+    public String details(@PathVariable("id") Integer id, Model model) {
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+
+        return "/user/details";
     }
 }
