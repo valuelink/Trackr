@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en" class="app">
+<html class="app">
 <head>
   <meta charset="utf-8"/>
   <title>京东金融接口说明文档</title>

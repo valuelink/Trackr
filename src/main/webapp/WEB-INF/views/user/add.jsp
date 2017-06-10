@@ -25,8 +25,6 @@
                                     <span class="h4"><span class="fa fa-plus"></span> 新建用户</span>
                                 </header>
                                 <div class="panel-body">
-
-
                                     <div class="form-group">
                                         <label for="name" class="col-sm-2 control-label">姓名 </label>
                                         <div class="col-sm-3">
@@ -158,7 +156,7 @@
 
                                 </div>
                                 <footer class="panel-footer bg-light lter">
-                                    <button type="submit" class="btn btn-success btn-s-xs col-lg-offset-2">保存</button>
+                                    <button type="submit" class="btn btn-info btn-s-xs col-lg-offset-2">保存</button>
                                 </footer>
                             </section>
                         </form>

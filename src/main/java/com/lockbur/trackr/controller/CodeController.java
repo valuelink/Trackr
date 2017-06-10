@@ -43,7 +43,7 @@ public class CodeController {
     public String list(Model model) {
         List<Code> list = codeService.findAll();
         model.addAttribute("list", list);
-        return "code/list";
+        return "/code/list";
     }
 
     @RequestMapping("/details/{id}")
@@ -51,22 +51,22 @@ public class CodeController {
         CodeDetails details = codeService.findDetailsById(id);
         model.addAttribute("details", details);
         model.addAttribute("codeId", id);
-        return "code/details";
+        return "/code/details";
     }
 
     @RequestMapping("/add")
     public String add() {
-        return "code/add";
+        return "/code/add";
     }
 
     @RequestMapping("/addValue/{codeId}")
     public String addValue(@PathVariable("codeId") Integer codeId, Model model) {
         model.addAttribute("codeId", codeId);
-        return "code/addValue";
+        return "/code/addValue";
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addDictionary(String name, Model model) {
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String saveCode(String name, Model model) {
         Integer creator = employeeService.getCurrentUserId();
         if (StringUtils.isNotEmpty(name)) {
             Code code = new Code(name);
@@ -90,7 +90,7 @@ public class CodeController {
     public String edit(@PathVariable("id") Integer id, Model model) {
         CodeValue codeValue = codeValueService.findById(id);
         model.addAttribute("codeValue", codeValue);
-        return "code/edit";
+        return "/code/edit";
     }
 
     @RequestMapping(value = "/editValue", method = RequestMethod.POST)
