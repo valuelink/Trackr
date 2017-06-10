@@ -181,6 +181,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="/code/list">
+                                <i class="fa fa-sitemap"></i>
+                                <span>数据字典</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="#">
                                 <i class="icon-settings"></i>
                                 <span>系统设置</span>
