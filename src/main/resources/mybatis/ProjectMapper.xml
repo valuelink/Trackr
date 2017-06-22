@@ -19,7 +19,6 @@
         <result column="amount" jdbcType="INTEGER" property="amount"/>
         <result column="currency" jdbcType="BIT" property="currency"/>
         <result column="pay_scale" jdbcType="CHAR" property="payScale"/>
-        <result column="detail_money" jdbcType="VARCHAR" property="detailMoney"/>
         <result column="report_name" jdbcType="VARCHAR" property="reportName"/>
         <result column="note" jdbcType="VARCHAR" property="note"/>
         <result column="creator_id" jdbcType="INTEGER" property="creatorId"/>
@@ -30,7 +29,7 @@
     <sql id="Base_Column_List">
         id, name, company_id, risk_level, economic_behavior, purpose, valuate_content, valuate_type,
         valuate_type_other, report_type, valuate_time, delegate_id, report_id, amount, currency,
-        pay_scale, detail_money, report_name, note, creator_id, create_time, update_time
+        pay_scale, report_name, note, creator_id, create_time, update_time
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -55,7 +54,7 @@
         valuate_content, valuate_type, valuate_type_other,
         report_type, valuate_time, delegate_id,
         report_id, amount, currency,
-        pay_scale, detail_money, report_name,
+        pay_scale, report_name,
         note, creator_id,
         create_time,update_time
         )
@@ -65,7 +64,7 @@
         #{valuateContent,jdbcType=VARCHAR}, #{valuateType,jdbcType=VARCHAR}, #{valuateTypeOther,jdbcType=VARCHAR},
         #{reportType,jdbcType=INTEGER}, #{valuateTime,jdbcType=VARCHAR}, #{delegateId,jdbcType=INTEGER},
         #{reportId,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, #{currency,jdbcType=BIT},
-        #{payScale,jdbcType=CHAR}, #{detailMoney,jdbcType=VARCHAR}, #{reportName,jdbcType=VARCHAR},
+        #{payScale,jdbcType=CHAR}, #{reportName,jdbcType=VARCHAR},
         #{note,jdbcType=VARCHAR}, #{creatorId,jdbcType=INTEGER},
         now(),now()
         )
@@ -118,9 +117,6 @@
             </if>
             <if test="payScale != null">
                 pay_scale = #{payScale,jdbcType=CHAR},
-            </if>
-            <if test="detailMoney != null">
-                detail_money = #{detailMoney,jdbcType=VARCHAR},
             </if>
             <if test="reportName != null">
                 report_name = #{reportName,jdbcType=VARCHAR},

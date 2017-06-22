@@ -1,6 +1,5 @@
 package com.lockbur.trackr.domain;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,6 +9,7 @@ import java.util.Date;
 
 
 /**
+ * 立项申请
  * Created by wangkun23 on 2016/6/2.
  */
 @ToString
@@ -40,6 +40,11 @@ public class Project implements Serializable {
     @Setter
     private Integer purpose;
 
+
+    @Getter
+    @Setter
+    private String valuateContent;//评估内容
+
     @Getter
     @Setter
     private String valuateType; //评估内容(类型)
@@ -58,6 +63,10 @@ public class Project implements Serializable {
     @Getter
     @Setter
     private Integer delegateId;//受托方
+
+    @Getter
+    @Setter
+    private Integer reportId;//报告出具公司ID，与受托方相同，可自行选择
 
     @Getter
     @Setter
@@ -82,6 +91,10 @@ public class Project implements Serializable {
     @Getter
     @Setter
     private String note;//备注信息
+
+    @Getter
+    @Setter
+    private Integer creatorId;//项目创建人
 
     @Getter
     @Setter
