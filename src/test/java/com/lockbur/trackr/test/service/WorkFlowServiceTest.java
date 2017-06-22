@@ -18,7 +18,7 @@ public class WorkFlowServiceTest extends TestBase {
     @Test
     public void start() {
         // 启动流程
-        ProcessInstance procIns = runtimeService.startProcessInstanceByKey("lendingPorcess", "CT000001");
+        ProcessInstance procIns = runtimeService.startProcessInstanceByKey("projectProcess", "CT000002");
     }
 
 }

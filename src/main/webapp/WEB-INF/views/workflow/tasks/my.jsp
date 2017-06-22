@@ -27,12 +27,7 @@
                     <section class="scrollable wrapper bg-white-only">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <i class="fa fa-list"></i> 用户数据列表
-                                <div class="pull-right">
-                                    <a href="/user/add" class="btn btn-success btn-xs">
-                                        <i class="fa fa-plus"></i> 增加用户
-                                    </a>
-                                </div>
+                                <i class="fa fa-list"></i> 待办任务列表
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -115,11 +110,7 @@
                     data: 'id',
                     name: 'id',
                     "render": function (data, type, full, meta) {
-                        return '<div class="btn-group" role="group" aria-label="...">' +
-                                '<button type="button" class="btn btn-default">冻结</button>' +
-                                '<button type="button" class="btn btn-danger">删除</button>' +
-                                '<button type="button" class="btn btn-success">编辑</button>' +
-                                '</div>';
+                        return '<button type="button" class="btn btn-default">办理任务</button>';
                     }
                 }
             ],

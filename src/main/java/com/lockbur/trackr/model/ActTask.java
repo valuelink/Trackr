@@ -13,6 +13,7 @@ public class ActTask implements Serializable {
 
     private String id;        // 任务编号
     private String name;    // 任务名称
+    private String executionId;    // 任务名称
     private String assignee;
     private Date createTime;
     private Date dueDate;

@@ -3,7 +3,6 @@ package com.lockbur.trackr.service;
 import com.lockbur.trackr.model.ActTask;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
-import org.activiti.engine.impl.persistence.entity.TaskEntity;
 
 import java.util.List;
 
@@ -18,4 +17,13 @@ public interface WorkFlowService {
      * @return
      */
     public Page<ActTask> todoList(Pageable pageable);
+
+
+    /**
+     * 查询任务详情
+     *
+     * @param taskId
+     * @return
+     */
+    public ActTask findTaskByTaskId(String taskId);
 }
