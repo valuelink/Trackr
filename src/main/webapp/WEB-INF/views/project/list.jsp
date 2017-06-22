@@ -3,368 +3,51 @@
 <!DOCTYPE html>
 <html class="app">
 <head>
-    <meta charset="utf-8"/>
-    <title>项目管理系统</title>
-    <meta name="description"
-          content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/bootstrap.css" type="text/css"/>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/animate.css" type="text/css"/>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/font-awesome.min.css"
-          type="text/css"/>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/simple-line-icons.css"
-          type="text/css"/>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/font.css" type="text/css"/>
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/app.css" type="text/css"/>
-    <!--[if lt IE 9]>
-    <script src="${pageContext.servletContext.contextPath}/assets/js/ie/html5shiv.js"></script>
-    <script src="${pageContext.servletContext.contextPath}/assets/js/ie/respond.min.js"></script>
-    <script src="${pageContext.servletContext.contextPath}/assets/js/ie/excanvas.js"></script>
-    <![endif]-->
+    <title>用户列表-项目管理系统</title>
+    <jsp:include page="/WEB-INF/views/commons/head.jsp"/>
+    <!-- DataTables CSS -->
+    <link href="/assets/js/datatables-plugins/dataTables.bootstrap.css"
+          rel="stylesheet">
+    <!-- DataTables Responsive CSS -->
+    <link href="/assets/js/datatables-responsive/dataTables.responsive.css"
+          rel="stylesheet">
+    <link href="/assets/css/app.css" rel="stylesheet"/>
 </head>
 <body class="">
 <section class="vbox">
-    <header class="bg-primary header header-md navbar navbar-fixed-top-xs">
-        <div class="navbar-header aside">
-            <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
-                <i class="icon-list"></i>
-            </a>
-            <a href="index.html" class="navbar-brand text-lt">
-                <i class="fa-vimeo-square fa"></i>
-                <span class="hidden-nav-xs m-l-sm">蓝策</span>
-            </a>
-            <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
-                <i class="icon-settings"></i>
-            </a>
-        </div>
-        <ul class="nav navbar-nav hidden-xs">
-            <li>
-                <a href="#nav,.navbar-header" data-toggle="class:nav-xs,nav-xs" class="text-muted">
-                    <i class="fa fa-indent text"></i>
-                    <i class="fa fa-dedent text-active"></i>
-                </a>
-            </li>
-        </ul>
-        <form class="navbar-form navbar-left input-s-lg m-t m-l-n-xs hidden-xs" role="search">
-            <div class="form-group">
-                <div class="input-group">
-            <span class="input-group-btn">
-              <button type="submit" class="btn btn-sm bg-white btn-icon rounded"><i class="fa fa-search"></i></button>
-            </span>
-                    <input type="text" class="form-control input-sm no-border rounded" placeholder="搜索">
-                </div>
-            </div>
-        </form>
-        <div class="navbar-right ">
-            <ul class="nav navbar-nav m-n hidden-xs nav-user user">
-                <li class="hidden-xs">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-grid"></i>
-                    </a>
-                </li>
-                <li class="hidden-xs">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-bell"></i>
-                        <span class="badge badge-sm up bg-danger count">2</span>
-                    </a>
-                    <section class="dropdown-menu aside-xl animated fadeInUp">
-                        <section class="panel bg-white">
-                            <div class="panel-heading b-light bg-light">
-                                <strong>有 <span class="count">2</span> 条未读消息</strong>
-                            </div>
-                            <div class="list-group list-group-alt">
-                                <a href="#" class="media list-group-item">
-                    <span class="pull-left thumb-sm">
-                      <img src="images/a0.png" alt="..." class="img-circle">
-                    </span>
-                                    <span class="media-body block m-b-none">
-                      合同审核申请<br>
-                      <small class="text-muted">10 分钟以前</small>
-                    </span>
-                                </a>
-                                <a href="#" class="media list-group-item">
-                    <span class="media-body block m-b-none">
-                      张三上传了合同文件<br>
-                      <small class="text-muted">1 小时前</small>
-                    </span>
-                                </a>
-                            </div>
-                            <div class="panel-footer text-sm">
-                                <a href="#notes" data-toggle="class:show animated fadeInRight">查看所有消息</a>
-                            </div>
-                        </section>
-                    </section>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-                <img src="${pageContext.servletContext.contextPath}/assets/images/m0.jpg" alt="...">
-              </span>
-                        图形控制 <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu animated fadeInRight">
-                        <li>
-                            <span class="arrow top"></span>
-                            <a href="#">个人资料</a>
-                        </li>
-                        <li>
-                            <a href="profile.html">修改密码</a>
-                        </li>
-                        <li>
-                            <a href="docs.html">帮助文档</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="modal.lockme.html" data-toggle="ajaxModal">退出</a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </header>
+    <jsp:include page="/WEB-INF/views/commons/header.jsp"/>
     <section>
         <section class="hbox stretch">
             <!-- .aside -->
-            <aside class="bg-inverse aside hidden-print" id="nav">
-                <section class="vbox">
-                    <section class="scrollable">
-                        <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0"
-                             data-size="10px" data-railOpacity="0.2">
-
-                            <!-- nav -->
-                            <nav class="nav-primary hidden-xs">
-                                <ul class="nav bg clearfix">
-                                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
-                                        项目
-                                    </li>
-                                    <li>
-                                        <a href="index.html">
-                                            <i class="fa-dashboard fa"></i>
-                                            <span class="font-bold">控制面板</span>
-                                        </a>
-                                    </li>
-                                    <li class="m-b hidden-nav-xs"></li>
-                                </ul>
-                                <ul class="nav" data-ride="collapse">
-                                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
-                                        项目评估
-                                    </li>
-                                    <li>
-                                        <a href="#" class="auto">
-						<span class="pull-right text-muted">
-                          <i class="fa fa-angle-left text"></i>
-                          <i class="fa fa-angle-down text-active"></i>
-                        </span>
-                                            <i class="icon-user icon"></i>
-                                            <span>客户管理</span>
-                                        </a>
-                                        <ul class="nav dk text-sm">
-                                            <li class="active">
-                                                <a href="layout-color.html" class="auto">
-                                                    <i class="fa fa-angle-right text-xs"></i>
-                                                    <span>客户管理</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="layout-boxed.html" class="auto">
-                                                    <i class="fa fa-angle-right text-xs"></i>
-                                                    <span>潜在客户管理</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="layout-fluid.html" class="auto">
-                                                    <i class="fa fa-angle-right text-xs"></i>
-                                                    <span>友商管理</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="auto">
-                        <span class="pull-right text-muted">
-                          <i class="fa fa-angle-left text"></i>
-                          <i class="fa fa-angle-down text-active"></i>
-                        </span>
-                                            <i class="icon-screen-desktop icon">
-                                            </i>
-                                            <span>项目管理</span>
-                                        </a>
-                                        <ul class="nav dk text-sm">
-                                            <li class="active">
-                                                <a href="layout-color.html" class="auto">
-                                                    <i class="fa fa-angle-right text-xs"></i>
-
-                                                    <span>立项管理</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="layout-boxed.html" class="auto">
-                                                    <i class="fa fa-angle-right text-xs"></i>
-                                                    <span>项目列表</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="auto">
-                        <span class="pull-right text-muted">
-                          <i class="fa fa-angle-left text"></i>
-                          <i class="fa fa-angle-down text-active"></i>
-                        </span>
-                                            <i class="icon-folder-alt icon">
-                                            </i>
-                                            <span>文档管理</span>
-                                        </a>
-                                        <ul class="nav dk text-sm">
-                                            <li>
-                                                <a href="buttons.html" class="auto">
-                                                    <i class="fa fa-angle-right text-xs"></i>
-                                                    <span>文档模板</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="icons.html" class="auto">
-                                                    <i class="fa fa-angle-right text-xs"></i>
-                                                    <span>报价函和保密函</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="auto">
-                        <span class="pull-right text-muted">
-                          <i class="fa fa-angle-left text"></i>
-                          <i class="fa fa-angle-down text-active"></i>
-                        </span>
-                                            <i class="fa-tasks fa">
-                                            </i>
-                                            <span>任务管理</span>
-                                        </a>
-                                        <ul class="nav dk text-sm">
-                                            <li>
-                                                <a href="profile.html" class="auto">
-                                                    <i class="fa fa-angle-right text-xs"></i>
-                                                    <span>待办任务</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="blog.html" class="auto">
-                                                    <i class="fa fa-angle-right text-xs"></i>
-                                                    <span>已办任务</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="invoice.html" class="auto">
-                                                    <i class="fa fa-angle-right text-xs"></i>
-                                                    <span>任务历史</span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                                <ul class="nav text-sm">
-                                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
-                                        数据
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-pie-chart icon"></i>
-                                            <span>收款统计</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-speedometer icon"></i>
-                                            <span>工作统计</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <ul class="nav text-sm">
-                                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
-                                        财务
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="fa-dollar fa"></i>
-                                            <span>收款核实</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                                <ul class="nav text-sm">
-                                    <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
-                                        <span class="pull-right"><a href="#"><i class="icon-plus i-lg"></i></a></span>
-                                        系统
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-equalizer icon"></i>
-                                            <span>受托方</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-lock icon"></i>
-                                            <span>权限管理</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="icon-settings"></i>
-                                            <span>系统设置</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                            <!-- / nav -->
-                        </div>
-                    </section>
-                </section>
-            </aside>
+            <jsp:include page="/WEB-INF/views/commons/sidebar.jsp"/>
             <!-- /.aside -->
             <section id="content">
                 <section class="vbox">
                     <section class="scrollable wrapper bg-white-only">
-                        <section class="panel panel-default">
-                            <header class="panel-heading">
-                                <strong>待处理任务</strong>
-                            </header>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-list"></i> 项目申请列表
+                            </div>
+                            <!-- /.panel-heading -->
                             <div class="panel-body">
-                                <table class="table table-striped m-b-none">
+                                <table width="100%" class="table table-bordered"
+                                       id="dataTables-example">
                                     <thead>
                                     <tr>
-                                        <th>序号</th>
-                                        <th>任务名称</th>
+                                        <th>项目名称</th>
+                                        <th>客户简称</th>
+                                        <th>项目金额</th>
+                                        <th>评估时间</th>
                                         <th>创建时间</th>
-                                        <th style="width:70px;">操作</th>
+                                        <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            1
-                                        </td>
-                                        <td>App prototype design</td>
-                                        <td class="text-right">
-                                            2017-06-06 12:56
-                                        </td>
-                                        <td>
-                                            <div class="btn-group">
-                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
-                                                        class="fa fa-pencil"></i></a>
-                                                <ul class="dropdown-menu pull-right">
-                                                    <li><a href="#">Action</a></li>
-                                                    <li><a href="#">Another action</a></li>
-                                                    <li><a href="#">Something else here</a></li>
-                                                    <li class="divider"></li>
-                                                    <li><a href="#">Separated link</a></li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    </tbody>
                                 </table>
+                                <!-- /.table-responsive -->
                             </div>
-                        </section>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
                     </section>
                 </section>
                 <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open"
@@ -374,13 +57,81 @@
     </section>
 </section>
 <!-- footer -->
-<script src="${pageContext.servletContext.contextPath}/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.min.js"></script>
 <!-- Bootstrap -->
-<script src="${pageContext.servletContext.contextPath}/assets/js/bootstrap.js"></script>
-<!-- App -->
-<script src="${pageContext.servletContext.contextPath}/assets/js/app.js"></script>
-<script src="${pageContext.servletContext.contextPath}/assets/js/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/assets/js/app.plugin.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/slimscroll/jquery.slimscroll.min.js"></script>
 
+<script src="/assets/js/format.js"></script>
+<!-- DataTables JavaScript -->
+<script src="/assets/js/datatables/js/jquery.dataTables.min.js"></script>
+<script src="/assets/js/datatables-plugins/dataTables.bootstrap.min.js"></script>
+<script src="/assets/js/datatables-responsive/dataTables.responsive.js"></script>
+<!-- App -->
+<script src="/assets/js/app.js"></script>
+<script src="/assets/js/app.plugin.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var dataTable = $('#dataTables-example').DataTable({
+            "bProcessing": true,
+            "processing": true,
+            "serverSide": true,
+            "searching": false,
+            ajax: {
+                url: '/api/v1/project/tables',
+                method: 'POST',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: function (data) {
+                    return JSON.stringify(data);
+                }
+            },
+            columns: [
+                {data: 'id', 'name': 'id'},
+                {data: 'name', name: 'name'},
+                {data: 'amount', name: 'amount'},
+                {data: 'valuateTime', name: 'valuateTime'},
+                {
+                    data: 'createTime',
+                    name: 'createTime',
+                    render: function (data, type, row, meta) {
+                        return new Date(data).Format("yyyy-MM-dd hh:mm:ss");
+                    }
+                },
+                {
+                    data: 'id',
+                    name: 'id',
+                    "render": function (data, type, full, meta) {
+                        return '<a href="/project/details/'+data+'">详细信息</a> | <a href="#">查看项目</a>';
+                    }
+                }
+            ],
+            //"sDom": '<"dt-panelmenu clearfix"lfr>t<"dt-panelfooter clearfix"ip>',
+            "fnDrawCallback": function () {
+                this.api().column(0).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            },
+            "language": {
+                "processing": "正在努力加载中...",
+                "lengthMenu": "显示 _MENU_ 项结果 ",
+                "zeroRecords": "没有匹配结果",
+                "info": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "infoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "infoFiltered": "(由 _MAX_ 项结果过滤)",
+                "infoPostFix": "",
+                "sSearch": "搜索",
+                "url": "",
+                "paginate": {
+                    "first": "首页",
+                    "previous": "上一页",
+                    "next": "下一页",
+                    "last": "末页"
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>

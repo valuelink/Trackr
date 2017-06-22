@@ -6,6 +6,7 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.impl.bpmn.diagram.ProcessDiagramGenerator;
+import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,10 +68,12 @@ public class WorkFlowController {
      * @return
      */
     @RequestMapping(value = "/diagram")
-    public void diagram(HttpServletResponse response, @RequestParam("executionId") String executionId) throws Exception {
-        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(executionId).singleResult();
+    public void diagram(HttpServletResponse response) throws Exception {
+        String businessKey = "CT000002";
+        Execution execution = runtimeService.createExecutionQuery().processInstanceBusinessKey(businessKey).singleResult();
+        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(execution.getId()).singleResult();
         BpmnModel bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
-        List<String> activeActivityIds = runtimeService.getActiveActivityIds(executionId);
+        List<String> activeActivityIds = runtimeService.getActiveActivityIds(execution.getId());
         // 使用spring注入引擎请使用下面的这行代码
         InputStream imageStream = ProcessDiagramGenerator.generateDiagram(bpmnModel, "png", activeActivityIds);
         // 输出资源内容到相应对象

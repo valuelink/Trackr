@@ -3,46 +3,112 @@
 <!DOCTYPE html>
 <html class="app">
 <head>
-  <meta charset="utf-8"/>
-  <title>京东金融接口说明文档</title>
-  <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-  <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/bootstrap.css" type="text/css"/>
-  <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/animate.css" type="text/css"/>
-  <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/font-awesome.min.css" type="text/css"/>
-  <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/simple-line-icons.css" type="text/css"/>
-  <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/font.css" type="text/css"/>
-  <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/assets/css/app.css" type="text/css"/>
-  <!--[if lt IE 9]>
-  <script src="${pageContext.servletContext.contextPath}/assets/js/ie/html5shiv.js"></script>
-  <script src="${pageContext.servletContext.contextPath}/assets/js/ie/respond.min.js"></script>
-  <script src="${pageContext.servletContext.contextPath}/assets/js/ie/excanvas.js"></script>
-  <![endif]-->
+    <title>用户列表-项目管理系统</title>
+    <jsp:include page="/WEB-INF/views/commons/head.jsp"/>
+    <!-- DataTables Responsive CSS -->
+    <link href="/assets/css/app.css" rel="stylesheet"/>
 </head>
-<body class="bg-light dker">
-<section id="content" class="m-t-lg wrapper-md animated fadeInDown">
-  <div class="container aside-xl">
-    <a class="navbar-brand block" href="index.html"><span class="h1 font-bold">京东金融</span></a>
-    <section class="m-b-lg">
-      <header class="wrapper text-center">
-        <strong>接口说明文档</strong>
-      </header>
-      <form action="index.html">
-        <c:forEach items="${list}" var="category">
-          <a href="${pageContext.servletContext.contextPath}/docs/list?categoryId=${category.id}" class="btn btn-lg btn-info btn-block btn-rounded">${category.name}</a>
-        </c:forEach>
-      </form>
+<body class="">
+<section class="vbox">
+    <jsp:include page="/WEB-INF/views/commons/header.jsp"/>
+    <section>
+        <section class="hbox stretch">
+            <!-- .aside -->
+            <jsp:include page="/WEB-INF/views/commons/sidebar.jsp"/>
+            <!-- /.aside -->
+            <section id="content">
+                <section class="vbox">
+                    <section class="scrollable wrapper bg-white-only">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-list"></i> 项目详情
+                            </div>
+                            <!-- /.panel-heading -->
+                            <div class="panel-body">
+                                <form role="form" action="/jobCode/updateGroup" class="form-horizontal" method="POST">
+                                    <div class="clearfix">
+                                        <fieldset>
+                                            <legend>
+                                                <h4>
+                                                <i class="glyphicon glyphicon-plus-sign"></i>
+                                                    王坤项目借款申请
+                                                    <small>详细信息</small>
+                                                </h4>
+                                            </legend>
+                                            <div class="form-group clearfix">
+                                                <label class="col-sm-2 control-label">xxx项目借款申请 </label>
+                                                <div class="col-sm-3">
+                                                    <p class="form-control-static">项目名称</p>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group clearfix">
+                                                <label class="col-sm-2 control-label">项目邮件组 </label>
+                                                <div class="col-sm-3">
+                                                    <p class="form-control-static">项目邮件组</p>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">底稿提交客户时间</label>
+                                                <div class="col-sm-3">
+                                                    <p class="form-control-static">底稿提交客户时间</p>
+                                                </div>
+                                                <label class="col-sm-2 control-label">底稿提交审核时间</label>
+                                                <div class="col-sm-3">
+                                                    <p class="form-control-static">底稿提交审核时间</p>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">报告草稿提交客户时间</label>
+                                                <div class="col-sm-3">
+                                                    <p class="form-control-static">报告草稿提交客户时间</p>
+                                                </div>
+                                                <label class="col-sm-2 control-label">报告草稿提交审核时间</label>
+                                                <div class="col-sm-3">
+                                                    <p class="form-control-static">报告草稿提交客户时间</p>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-list"></i> 审批流程
+                            </div>
+                            <div class="panel-body">
+                                    <img src="/workflow/diagram?executionId=${executionId}">
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+                    </section>
+                </section>
+                <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open"
+                   data-target="#nav,html"></a>
+            </section>
+        </section>
     </section>
-  </div>
 </section>
 <!-- footer -->
-<script src="${pageContext.servletContext.contextPath}/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.min.js"></script>
 <!-- Bootstrap -->
-<script src="${pageContext.servletContext.contextPath}/assets/js/bootstrap.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/slimscroll/jquery.slimscroll.min.js"></script>
 <!-- App -->
-<script src="${pageContext.servletContext.contextPath}/assets/js/app.js"></script>
-<script src="${pageContext.servletContext.contextPath}/assets/js/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/assets/js/app.plugin.js"></script>
+<script src="/assets/js/app.js"></script>
+<script src="/assets/js/app.plugin.js"></script>
 
+<script>
+    $(document).ready(function () {
+
+    });
+</script>
 </body>
 </html>
