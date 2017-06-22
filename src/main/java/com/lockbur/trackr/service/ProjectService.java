@@ -1,6 +1,8 @@
 package com.lockbur.trackr.service;
 
 import com.lockbur.trackr.domain.Project;
+import com.lockbur.trackr.rest.Page;
+import com.lockbur.trackr.rest.Pageable;
 
 import java.util.List;
 
@@ -16,4 +18,10 @@ public interface ProjectService {
 
     public List<Project> search(String keyword);
 
+    /**
+     *
+     * @param pageable
+     * @return
+     */
+    public Page<Project> findByPage(Pageable pageable);
 }

@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lockbur.trackr.mapper.ProjectMapper">
-    
-    <resultMap id="project" type="com.lockbur.trackr.domain.Project">
-        <id property="id" column="id"></id>
-        <result property="name" column="api_name"></result>
-        <result property="createDate" column="createDate"></result>
-        <result property="modifyDate" column="modifyDate"></result>
-    </resultMap>
-  
-    <cache />
-  
-    <insert id="save" parameterType="project" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO project
+
+    <insert id="save" parameterType="com.lockbur.trackr.domain.Project" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tb_project
         (
         name,description,createDate,modifyDate
         )
@@ -23,12 +14,11 @@
         )
     </insert>
 
-    
     <select id="findById" resultMap="project">
         SELECT
         p.id id,p.name name,p.description description
         FROM
-        project p
+        tb_project p
         WHERE 
         p.id=#{id}
     </select>
@@ -41,5 +31,28 @@
         WHERE
         p.name LIKE CONCAT('%',#{name},'%')
     </select>
+
+
+    <!--分页使用 findByPage-->
+    <select id="findByPage"
+            resultType="com.lockbur.trackr.domain.Project"
+            parameterType="com.lockbur.trackr.rest.Pageable">
+        SELECT
+        *
+        FROM tb_project u
+        LIMIT ${pageNow},${pageSize}
+    </select>
+
+    <select id="countByPage" resultType="long" parameterType="com.lockbur.trackr.rest.Pageable">
+        SELECT
+        count(*)
+        FROM tb_project
+        <if test="filters!=null and filters.size>0">
+            <where>
+
+            </where>
+        </if>
+    </select>
+    <!--//END 分页使用 findByPage-->
 
 </mapper>
