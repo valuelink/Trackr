@@ -115,7 +115,7 @@
                             </a>
                             <ul class="nav dk text-sm">
                                 <li>
-                                    <a href="profile.html" class="auto">
+                                    <a href="/workflow/tasks/my" class="auto">
                                         <i class="fa fa-angle-right text-xs"></i>
                                         <span>待办任务</span>
                                     </a>
