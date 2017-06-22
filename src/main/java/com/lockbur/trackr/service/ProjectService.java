@@ -23,5 +23,5 @@ public interface ProjectService {
      * @param pageable
      * @return
      */
-    public Page<Project> findByPage(Pageable pageable);
+    public Page<Project> selectByPage(Pageable pageable);
 }

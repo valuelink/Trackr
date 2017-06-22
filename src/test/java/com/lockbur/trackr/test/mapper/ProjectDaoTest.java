@@ -26,19 +26,19 @@ public class ProjectDaoTest extends TestBase {
         project.setName("testName");
         project.setNote("test描述");
 
-        projectMapper.save(project);
+        projectMapper.insert(project);
         LOGGER.info("##########");
     }
 
     //@Test
     public void findById() {
-        Project project = projectMapper.findById(6L);
+        Project project = projectMapper.selectByPrimaryKey(6);
         LOGGER.info("########## {}", project);
     }
 
     @Test
     public void findByLikeName() {
-        List<Project> list = projectMapper.findByLikeName("test");
+        List<Project> list = projectMapper.selectByLikeName("test");
         LOGGER.info("########## {}", list.size());
     }
 

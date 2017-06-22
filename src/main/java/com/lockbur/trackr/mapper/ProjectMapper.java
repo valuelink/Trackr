@@ -1,23 +1,26 @@
 package com.lockbur.trackr.mapper;
 
-
 import com.lockbur.trackr.domain.Project;
-import com.lockbur.trackr.domain.User;
 import com.lockbur.trackr.rest.Pageable;
 
 import java.util.List;
 
 
 /**
+ * 立项申请管理
  * Created by wangkun23 on 2016/6/2.
  */
 public interface ProjectMapper {
 
-    public void save(Project project);
+    public int deleteByPrimaryKey(Integer id);
 
-    public Project findById(Long id);
+    public int insert(Project record);
 
-    public List<Project> findByLikeName(String name);
+    public Project selectByPrimaryKey(Integer id);
+
+    public int updateByPrimaryKeySelective(Project record);
+
+    public List<Project> selectByLikeName(String name);
 
     /**
      * 分页查询列表
@@ -25,7 +28,7 @@ public interface ProjectMapper {
      * @param pageable
      * @return
      */
-    public List<Project> findByPage(Pageable pageable);
+    public List<Project> selectByPage(Pageable pageable);
 
     /**
      * *

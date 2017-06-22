@@ -1,58 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lockbur.trackr.mapper.ProjectMapper">
 
-    <insert id="save" parameterType="com.lockbur.trackr.domain.Project" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO tb_project
-        (
-        name,description,createDate,modifyDate
+    <resultMap id="BaseResultMap" type="com.lockbur.trackr.domain.Project">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="company_id" jdbcType="INTEGER" property="companyId"/>
+        <result column="risk_level" jdbcType="INTEGER" property="riskLevel"/>
+        <result column="economic_behavior" jdbcType="VARCHAR" property="economicBehavior"/>
+        <result column="purpose" jdbcType="TINYINT" property="purpose"/>
+        <result column="valuate_content" jdbcType="VARCHAR" property="valuateContent"/>
+        <result column="valuate_type" jdbcType="VARCHAR" property="valuateType"/>
+        <result column="valuate_type_other" jdbcType="VARCHAR" property="valuateTypeOther"/>
+        <result column="report_type" jdbcType="INTEGER" property="reportType"/>
+        <result column="valuate_time" jdbcType="VARCHAR" property="valuateTime"/>
+        <result column="delegate_id" jdbcType="INTEGER" property="delegateId"/>
+        <result column="report_id" jdbcType="INTEGER" property="reportId"/>
+        <result column="amount" jdbcType="INTEGER" property="amount"/>
+        <result column="currency" jdbcType="BIT" property="currency"/>
+        <result column="pay_scale" jdbcType="CHAR" property="payScale"/>
+        <result column="detail_money" jdbcType="VARCHAR" property="detailMoney"/>
+        <result column="report_name" jdbcType="VARCHAR" property="reportName"/>
+        <result column="note" jdbcType="VARCHAR" property="note"/>
+        <result column="creator_id" jdbcType="INTEGER" property="creatorId"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, name, company_id, risk_level, economic_behavior, purpose, valuate_content, valuate_type,
+        valuate_type_other, report_type, valuate_time, delegate_id, report_id, amount, currency,
+        pay_scale, detail_money, report_name, note, creator_id, create_time, update_time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        tb_project
+        where
+        id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from tb_project
+        where
+        id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.lockbur.trackr.domain.Project">
+        insert into tb_project (
+        id, name, company_id,
+        risk_level, economic_behavior, purpose,
+        valuate_content, valuate_type, valuate_type_other,
+        report_type, valuate_time, delegate_id,
+        report_id, amount, currency,
+        pay_scale, detail_money, report_name,
+        note, creator_id,
+        create_time,update_time
         )
-        VALUES
-        (
-        #{name},#{description},now(),now()
+        values (
+        #{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{companyId,jdbcType=INTEGER},
+        #{riskLevel,jdbcType=INTEGER}, #{economicBehavior,jdbcType=VARCHAR}, #{purpose,jdbcType=TINYINT},
+        #{valuateContent,jdbcType=VARCHAR}, #{valuateType,jdbcType=VARCHAR}, #{valuateTypeOther,jdbcType=VARCHAR},
+        #{reportType,jdbcType=INTEGER}, #{valuateTime,jdbcType=VARCHAR}, #{delegateId,jdbcType=INTEGER},
+        #{reportId,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, #{currency,jdbcType=BIT},
+        #{payScale,jdbcType=CHAR}, #{detailMoney,jdbcType=VARCHAR}, #{reportName,jdbcType=VARCHAR},
+        #{note,jdbcType=VARCHAR}, #{creatorId,jdbcType=INTEGER},
+        now(),now()
         )
     </insert>
 
-    <select id="findById" resultMap="project">
-        SELECT
-        p.id id,p.name name,p.description description
-        FROM
-        tb_project p
-        WHERE 
-        p.id=#{id}
-    </select>
-
-    <select id="findByLikeName" resultMap="project">
-        SELECT
-        p.id id,p.name name,p.description description
-        FROM
-        project p
-        WHERE
-        p.name LIKE CONCAT('%',#{name},'%')
-    </select>
-
+    <update id="updateByPrimaryKeySelective" parameterType="com.lockbur.trackr.domain.Project">
+        update tb_project
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                company_id = #{companyId,jdbcType=INTEGER},
+            </if>
+            <if test="riskLevel != null">
+                risk_level = #{riskLevel,jdbcType=INTEGER},
+            </if>
+            <if test="economicBehavior != null">
+                economic_behavior = #{economicBehavior,jdbcType=VARCHAR},
+            </if>
+            <if test="purpose != null">
+                purpose = #{purpose,jdbcType=TINYINT},
+            </if>
+            <if test="valuateContent != null">
+                valuate_content = #{valuateContent,jdbcType=VARCHAR},
+            </if>
+            <if test="valuateType != null">
+                valuate_type = #{valuateType,jdbcType=VARCHAR},
+            </if>
+            <if test="valuateTypeOther != null">
+                valuate_type_other = #{valuateTypeOther,jdbcType=VARCHAR},
+            </if>
+            <if test="reportType != null">
+                report_type = #{reportType,jdbcType=INTEGER},
+            </if>
+            <if test="valuateTime != null">
+                valuate_time = #{valuateTime,jdbcType=VARCHAR},
+            </if>
+            <if test="delegateId != null">
+                delegate_id = #{delegateId,jdbcType=INTEGER},
+            </if>
+            <if test="reportId != null">
+                report_id = #{reportId,jdbcType=INTEGER},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="currency != null">
+                currency = #{currency,jdbcType=BIT},
+            </if>
+            <if test="payScale != null">
+                pay_scale = #{payScale,jdbcType=CHAR},
+            </if>
+            <if test="detailMoney != null">
+                detail_money = #{detailMoney,jdbcType=VARCHAR},
+            </if>
+            <if test="reportName != null">
+                report_name = #{reportName,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                note = #{note,jdbcType=VARCHAR},
+            </if>
+            <if test="creatorId != null">
+                creator_id = #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
 
     <!--分页使用 findByPage-->
-    <select id="findByPage"
-            resultType="com.lockbur.trackr.domain.Project"
-            parameterType="com.lockbur.trackr.rest.Pageable">
+    <select id="selectByPage" resultMap="BaseResultMap" parameterType="com.lockbur.trackr.rest.Pageable">
         SELECT
-        *
-        FROM tb_project u
+        <include refid="Base_Column_List"/>
+        FROM
+        tb_project
         LIMIT ${pageNow},${pageSize}
     </select>
 
     <select id="countByPage" resultType="long" parameterType="com.lockbur.trackr.rest.Pageable">
         SELECT
-        count(*)
-        FROM tb_project
-        <if test="filters!=null and filters.size>0">
-            <where>
-
-            </where>
-        </if>
+          count(id)
+        FROM
+        tb_project
     </select>
     <!--//END 分页使用 findByPage-->
-
 </mapper>

@@ -41,8 +41,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Page<Project> findByPage(Pageable pageable) {
-        List<Project> content = projectMapper.findByPage(pageable);
+    public Page<Project> selectByPage(Pageable pageable) {
+        List<Project> content = projectMapper.selectByPage(pageable);
         Long count = projectMapper.countByPage(pageable);
         return new Page(content, count, pageable);
     }

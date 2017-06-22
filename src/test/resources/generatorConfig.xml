@@ -34,11 +34,11 @@
       也可以使用“MAVEN”来自动生成，这样生成的代码会在target/generatord-source目录下
       -->
         <javaModelGenerator targetPackage="com.lockbur.trackr.test.generator.model" targetProject="src/test/java">
-            <property name="enableSubPackages" value="true"/>
-            <property name="trimStrings" value="true"/>
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="false"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="mybatis"
+        <sqlMapGenerator targetPackage="test.mybatis"
                          targetProject="src/test/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
@@ -49,9 +49,12 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="tb_project" domainObjectName="Project"
-               enableCountByExample="false" enableDeleteByExample="false"
-               enableUpdateByExample="false" enableSelectByExample="false">
+        <table tableName="tb_project"
+               domainObjectName="Project"
+               enableCountByExample="false"
+               enableDeleteByExample="false"
+               enableUpdateByExample="false"
+               enableSelectByExample="false">
         </table>
 
     </context>
