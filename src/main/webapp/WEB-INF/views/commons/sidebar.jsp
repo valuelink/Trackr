@@ -54,10 +54,10 @@
                         </li>
                         <li>
                             <a href="#" class="auto">
-                        <span class="pull-right text-muted">
-                          <i class="fa fa-angle-left text"></i>
-                          <i class="fa fa-angle-down text-active"></i>
-                        </span>
+                                <span class="pull-right text-muted">
+                                  <i class="fa fa-angle-left text"></i>
+                                  <i class="fa fa-angle-down text-active"></i>
+                                </span>
                                 <i class="icon-screen-desktop icon">
                                 </i>
                                 <span>项目管理</span>
@@ -163,9 +163,11 @@
                             </a>
                         </li>
                     </ul>
-                    <ul class="nav text-sm">
+                    <ul class="nav text-sm" data-ride="collapse">
                         <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
-                            <span class="pull-right"><a href="#"><i class="icon-plus i-lg"></i></a></span>
+                            <span class="pull-right">
+                                <a href="#"><i class="icon-plus i-lg"></i></a>
+                            </span>
                             系统
                         </li>
                         <li>
@@ -175,22 +177,34 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <i class="icon-lock icon"></i>
-                                <span>权限管理</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/code/list">
-                                <i class="fa fa-sitemap"></i>
-                                <span>数据字典</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="icon-settings"></i>
+                            <a href="#" class="auto">
+                                <span class="pull-right text-muted">
+                                  <i class="fa fa-angle-left text"></i>
+                                  <i class="fa fa-angle-down text-active"></i>
+                                </span>
+                                <i class="icon-settings icon"></i>
                                 <span>系统设置</span>
                             </a>
+                            <ul class="nav dk text-sm">
+                                <li class="active">
+                                    <a href="layout-color.html" class="auto">
+                                        <i class="fa fa-angle-right text-xs"></i>
+                                        <span>数据字典</span>
+                                    </a>
+                                </li>
+                                <li class="active">
+                                    <a href="layout-color.html" class="auto">
+                                        <i class="fa fa-angle-right text-xs"></i>
+                                        <span>权限管理</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/process/list" class="auto">
+                                        <i class="fa fa-angle-right text-xs"></i>
+                                        <span>流程定义</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </nav>

@@ -50,10 +50,7 @@
                                             <td>${process.name}</td>
                                             <td>${process.version}</td>
                                             <td>
-                                                <a href="/simple/start.do?processDefId=${process.id}">启动</a>
-                                                &nbsp;|&nbsp;
-                                                <a href="/simple/viewprocessDef.do?processDefId=${process.id}"
-                                                   target="_blank">流程定义</a>
+                                                <a href="/simple/viewprocessDef.do?processDefId=${process.id}" target="_blank">流程定义</a>
                                                 &nbsp;|&nbsp;
                                                 <a href="javascript:showModle('请假流程图','${pageContext.servletContext.contextPath}/simple/viewprocessDefImage.do?processDefId=${process.id}');">流程图</a>
                                                 &nbsp;|&nbsp;
