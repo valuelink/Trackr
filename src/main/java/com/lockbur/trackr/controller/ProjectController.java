@@ -2,8 +2,13 @@ package com.lockbur.trackr.controller;
 
 import com.lockbur.trackr.domain.Project;
 import com.lockbur.trackr.service.ProjectService;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.history.HistoricActivityInstance;
+import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.history.HistoricProcessInstanceQuery;
+import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.slf4j.Logger;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,10 +42,11 @@ public class ProjectController {
     @Resource
     private RuntimeService runtimeService;
 
+    @Resource
+    private HistoryService historyService;
+
     @RequestMapping(value = "/list")
-    public String search(String keyword, Model model) {
-        List<Project> list = projectService.search(keyword);
-        model.addAttribute("list", list);
+    public String list(Model model) {
         return "/project/list";
     }
 
@@ -49,7 +56,7 @@ public class ProjectController {
      * @return
      */
     @RequestMapping("/add")
-    public String add() {
+    public String add(Model model) {
         return "/project/add";
     }
 
@@ -70,6 +77,9 @@ public class ProjectController {
 
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String details(@PathVariable("id") Long id, Model model) {
+        String processInstanceId = "601";
+        List<HistoricTaskInstance> historicTasks  = historyService.createHistoricTaskInstanceQuery().processInstanceId(processInstanceId).list();
+        model.addAttribute("historicTasks", historicTasks );
         return "/project/details";
     }
 

@@ -26,7 +26,7 @@
                     <section class="scrollable wrapper bg-white-only">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <i class="fa fa-list"></i> 项目申请列表
+                                <i class="fa fa-list"></i> 项目申请列表 ${test123}
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">

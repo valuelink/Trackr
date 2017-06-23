@@ -1,11 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html class="app">
 <head>
-    <title>用户列表-项目管理系统</title>
+    <meta charset="utf-8"/>
+    <title>立项申请 - 项目管理系统测试</title>
     <jsp:include page="/WEB-INF/views/commons/head.jsp"/>
-    <!-- DataTables Responsive CSS -->
     <link href="/assets/css/app.css" rel="stylesheet"/>
 </head>
 <body class="">
@@ -30,7 +31,7 @@
                                         <fieldset>
                                             <legend>
                                                 <h4>
-                                                <i class="glyphicon glyphicon-plus-sign"></i>
+                                                    <i class="glyphicon glyphicon-plus-sign"></i>
                                                     王坤项目借款申请
                                                     <small>详细信息</small>
                                                 </h4>
@@ -83,7 +84,39 @@
                                 <i class="fa fa-list"></i> 审批流程
                             </div>
                             <div class="panel-body">
-                                    <img src="/workflow/diagram?executionId=601">
+                                <%--<img src="/workflow/diagram?executionId=601">--%>
+                            </div>
+                            <!-- /.panel-body -->
+                        </div>
+                        <!-- /.panel -->
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fa fa-list"></i> 审批历史记录
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>审批节点</th>
+                                        <th>开始时间</th>
+                                        <th>结束时间</th>
+                                        <th>操作人</th>
+                                        <th>意见</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${historicTasks}" var="historic">
+                                        <tr>
+                                            <td>${historic.name}</td>
+                                            <td><fmt:formatDate value="${historic.startTime}" pattern="yyyy-MM-dd HH:mm" /></td>
+                                            <td><fmt:formatDate value="${historic.endTime}" pattern="yyyy-MM-dd HH:mm" /></td>
+                                            <td>${historic.assignee}</td>
+                                            <td></td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
                             </div>
                             <!-- /.panel-body -->
                         </div>
