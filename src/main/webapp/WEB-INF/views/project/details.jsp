@@ -83,7 +83,7 @@
                                 <i class="fa fa-list"></i> 审批流程
                             </div>
                             <div class="panel-body">
-                                    <img src="/workflow/diagram?executionId=${executionId}">
+                                    <img src="/workflow/diagram?executionId=601">
                             </div>
                             <!-- /.panel-body -->
                         </div>
