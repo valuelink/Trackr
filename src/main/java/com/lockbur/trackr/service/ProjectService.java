@@ -14,7 +14,7 @@ public interface ProjectService {
 
     public void save(Project project);
 
-    public Project findById(Long id);
+    public Project selectByPrimaryKey(Integer id);
 
     public List<Project> search(String keyword);
 

@@ -76,10 +76,13 @@ public class ProjectController {
 
 
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
-    public String details(@PathVariable("id") Long id, Model model) {
+    public String details(@PathVariable("id") Integer id, Model model) {
+        Project project = projectService.selectByPrimaryKey(id);
+        model.addAttribute("project", project);
+
         String processInstanceId = "601";
-        List<HistoricTaskInstance> historicTasks  = historyService.createHistoricTaskInstanceQuery().processInstanceId(processInstanceId).list();
-        model.addAttribute("historicTasks", historicTasks );
+        List<HistoricTaskInstance> historicTasks = historyService.createHistoricTaskInstanceQuery().processInstanceId(processInstanceId).list();
+        model.addAttribute("historicTasks", historicTasks);
         return "/project/details";
     }
 

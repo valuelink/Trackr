@@ -22,7 +22,7 @@
                     <section class="scrollable wrapper bg-white-only">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <i class="fa fa-list"></i> 项目详情
+                                <i class="fa fa-list"></i> 立项审批
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -37,9 +37,9 @@
                                                 </h4>
                                             </legend>
                                             <div class="form-group clearfix">
-                                                <label class="col-sm-2 control-label">项目名称 </label>
+                                                <label class="col-sm-2 control-label">xxx项目借款申请 </label>
                                                 <div class="col-sm-3">
-                                                    <p class="form-control-static">${project.name}</p>
+                                                    <p class="form-control-static">项目名称</p>
                                                 </div>
                                             </div>
                                             <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -72,55 +72,23 @@
                                                     <p class="form-control-static">报告草稿提交客户时间</p>
                                                 </div>
                                             </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">审批备注</label>
+                                                <div class="col-sm-8">
+                                                    <textarea class="form-control parsley-validated" rows="6" cols="100" data-minwords="6"  placeholder="审批备注"></textarea>
+                                                </div>
+                                            </div>
                                         </fieldset>
                                     </div>
                                 </form>
                             </div>
                             <!-- /.panel-body -->
+                            <div class="panel-footer">
+                                <button class="col-sm-offset-1 btn btn-success">审批通过</button>
+                                <button class="btn btn-danger">审批驳回</button>
+                            </div>
                         </div>
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <i class="fa fa-list"></i> 审批流程
-                            </div>
-                            <div class="panel-body">
-                                <%--<img src="/workflow/diagram?executionId=601">--%>
-                            </div>
-                            <!-- /.panel-body -->
-                        </div>
-                        <!-- /.panel -->
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <i class="fa fa-list"></i> 审批历史记录
-                            </div>
-                            <div class="panel-body">
-                                <table class="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>审批节点</th>
-                                        <th>操作人</th>
-                                        <th>审批时间</th>
-                                        <th>任务创建时间</th>
-                                        <th>意见</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach items="${historicTasks}" var="historic">
-                                        <tr>
-                                            <td>${historic.name}</td>
-                                            <td>${historic.assignee}</td>
-                                            <td><fmt:formatDate value="${historic.endTime}" pattern="yyyy-MM-dd HH:mm" /></td>
-                                            <td><fmt:formatDate value="${historic.startTime}" pattern="yyyy-MM-dd HH:mm" /></td>
-                                            <td></td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.panel-body -->
-                        </div>
-                        <!-- /.panel -->
                     </section>
                 </section>
                 <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open"

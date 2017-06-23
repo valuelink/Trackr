@@ -1,7 +1,6 @@
 package com.lockbur.trackr.service.impl;
 
 import com.lockbur.trackr.domain.Project;
-import com.lockbur.trackr.domain.User;
 import com.lockbur.trackr.mapper.ProjectMapper;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
@@ -14,6 +13,7 @@ import java.util.List;
 
 
 /**
+ * 项目管理
  * Created by wangkun23 on 2016/6/2.
  *
  * @since 1.0
@@ -31,8 +31,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Project findById(Long id) {
-        return null;
+    public Project selectByPrimaryKey(Integer id) {
+        return projectMapper.selectByPrimaryKey(id);
     }
 
     @Override
