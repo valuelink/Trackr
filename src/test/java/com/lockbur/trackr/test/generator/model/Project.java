@@ -7,6 +7,8 @@ public class Project {
 
     private String name;
 
+    private String procInstId;
+
     private Integer companyId;
 
     private Integer riskLevel;
@@ -59,6 +61,14 @@ public class Project {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getProcInstId() {
+        return procInstId;
+    }
+
+    public void setProcInstId(String procInstId) {
+        this.procInstId = procInstId;
     }
 
     public Integer getCompanyId() {

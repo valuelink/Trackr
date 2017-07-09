@@ -5,6 +5,7 @@
     <resultMap id="BaseResultMap" type="com.lockbur.trackr.domain.Project">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="proc_inst_id" jdbcType="VARCHAR" property="processInstanceId"/>
         <result column="company_id" jdbcType="INTEGER" property="companyId"/>
         <result column="risk_level" jdbcType="INTEGER" property="riskLevel"/>
         <result column="economic_behavior" jdbcType="VARCHAR" property="economicBehavior"/>
@@ -27,7 +28,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, name, company_id, risk_level, economic_behavior, purpose, valuate_content, valuate_type,
+        id, name,proc_inst_id, company_id, risk_level, economic_behavior, purpose, valuate_content, valuate_type,
         valuate_type_other, report_type, valuate_time, delegate_id, report_id, amount, currency,
         pay_scale, report_name, note, creator_id, create_time, update_time
     </sql>
@@ -49,7 +50,8 @@
 
     <insert id="insert" parameterType="com.lockbur.trackr.domain.Project" keyProperty="id" useGeneratedKeys="true">
         insert into tb_project (
-        id, name, company_id,
+        id, name,
+        company_id,
         risk_level, economic_behavior, purpose,
         valuate_content, valuate_type, valuate_type_other,
         report_type, valuate_time, delegate_id,
@@ -75,6 +77,9 @@
         <set>
             <if test="name != null">
                 name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="processInstanceId != null">
+                proc_inst_id = #{processInstanceId},
             </if>
             <if test="companyId != null">
                 company_id = #{companyId,jdbcType=INTEGER},

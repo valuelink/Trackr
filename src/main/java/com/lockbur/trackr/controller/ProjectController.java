@@ -65,22 +65,11 @@ public class ProjectController {
         Project project = projectService.selectByPrimaryKey(id);
         model.addAttribute("project", project);
 
-
-        ProcessInstance pi= runtimeService.createProcessInstanceQuery()
-                .processDefinitionKey("projectProcess")
-                .processInstanceBusinessKey(id+"")
-                .singleResult();
-
-
         List<HistoricTaskInstance> historicTasks = historyService.createHistoricTaskInstanceQuery()
-                .processInstanceId(pi.getProcessInstanceId())
+                .processInstanceId(project.getProcessInstanceId())
                 .list();
 
-
         model.addAttribute("historicTasks", historicTasks);
-
-        Execution execution = workFlowService.findExecution(project.getId().toString());
-        model.addAttribute("execution", execution);
 
         return "/project/details";
     }
@@ -88,6 +77,8 @@ public class ProjectController {
     //项目立项审核页面
     @RequestMapping(value = "/approve/{taskId}", method = RequestMethod.GET)
     public String approve(@PathVariable("taskId") String taskId, Model model) {
+
+
         Task task = taskService.createTaskQuery()
                 .taskId(taskId)
                 .singleResult();

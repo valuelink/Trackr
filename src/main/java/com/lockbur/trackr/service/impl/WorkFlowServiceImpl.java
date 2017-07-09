@@ -87,7 +87,7 @@ public class WorkFlowServiceImpl implements WorkFlowService {
     }
 
     @Override
-    public void startProcess(String businessKey) {
+    public String startProcess(String businessKey) {
 
         Map<String, Object> variables1 = new HashMap<>();
         variables1.put("user","申请人");
@@ -100,6 +100,8 @@ public class WorkFlowServiceImpl implements WorkFlowService {
         variables2.put("partnert", "王坤");
         taskService.complete(task.getId(), variables2);
         logger.info("start success..");
+
+        return instance.getProcessInstanceId();
     }
 
     @Override

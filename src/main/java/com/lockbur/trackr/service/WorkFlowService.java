@@ -34,7 +34,7 @@ public interface WorkFlowService {
      *
      * @param businessKey
      */
-    public void startProcess(String businessKey);
+    public String startProcess(String businessKey);
 
 
     /**

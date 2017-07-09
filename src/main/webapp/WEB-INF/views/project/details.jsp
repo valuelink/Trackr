@@ -84,7 +84,7 @@
                                 <i class="fa fa-list"></i> 审批流程
                             </div>
                             <div class="panel-body">
-                                <img src="/workflow/diagram?executionId=${execution.id}">
+                                <img src="/workflow/diagram?processInstanceId=${project.processInstanceId}">
                             </div>
                             <!-- /.panel-body -->
                         </div>

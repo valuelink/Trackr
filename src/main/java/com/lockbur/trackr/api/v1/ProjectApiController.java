@@ -56,7 +56,10 @@ public class ProjectApiController {
         project.setCreatorId(1);
 
         Integer id  =projectService.save(project);
-        return ResponseData.success();
+
+
+        return ResponseData.success(id+"");
+
     }
 
     //完成任务

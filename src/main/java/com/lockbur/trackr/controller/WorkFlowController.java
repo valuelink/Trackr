@@ -2,13 +2,13 @@ package com.lockbur.trackr.controller;
 
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.Task;
-import org.activiti.engine.FormService;
-import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
+import org.activiti.engine.*;
 import org.activiti.engine.form.TaskFormData;
+import org.activiti.engine.history.HistoricProcessInstance;
+import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.impl.bpmn.diagram.ProcessDiagramGenerator;
 import org.activiti.engine.impl.context.Context;
+import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.spring.ProcessEngineFactoryBean;
 import org.slf4j.Logger;
@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,6 +48,9 @@ public class WorkFlowController {
 
     @Resource
     protected TaskService taskService;
+
+    @Resource
+    private HistoryService historyService;
 
 
     @Autowired
@@ -91,15 +95,31 @@ public class WorkFlowController {
     /**
      * 显示图片
      *
+     * @https://my.oschina.net/u/568089/blog/873816
      * @return
      */
     @RequestMapping(value = "/diagram")
-    public void diagram(HttpServletResponse response, String executionId) throws Exception {
-        // String businessKey = "CT000002";
-        // Execution execution = runtimeService.createExecutionQuery().processInstanceBusinessKey(businessKey).singleResult();
-        ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(executionId).singleResult();
+    public void diagram(HttpServletResponse response, String processInstanceId) throws Exception {
+        HistoricProcessInstance processInstance = historyService.createHistoricProcessInstanceQuery()
+                .processInstanceId(processInstanceId)
+                .singleResult();
+
+
         BpmnModel bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
-        List<String> activeActivityIds = runtimeService.getActiveActivityIds(executionId);
+
+        List<HistoricTaskInstance> historicTasks = historyService.createHistoricTaskInstanceQuery()
+                .processInstanceId(processInstanceId)
+                .list();
+
+        List<String> activeActivityIds=new ArrayList<>();
+        for(HistoricTaskInstance history:historicTasks){
+            if(history.getEndTime()!=null){
+                activeActivityIds.add(history.getTaskDefinitionKey());
+            }
+        }
+
+//        List<String> activeActivityIds = runtimeService.getActiveActivityIds(executionId);
+//        List<String> activeActivityIds = runtimeService.getActiveActivityIds(executionId);
         // 使用spring注入引擎请使用下面的这行代码
         Context.setProcessEngineConfiguration(processEngine.getProcessEngineConfiguration());
         InputStream imageStream = ProcessDiagramGenerator.generateDiagram(bpmnModel, "png", activeActivityIds);

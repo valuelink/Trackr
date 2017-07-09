@@ -34,7 +34,14 @@ public class ProjectServiceImpl implements ProjectService {
         projectMapper.insert(project);
 
         //创建流程并启动
-        workFlowService.startProcess(project.getId().toString());
+      String processInstanceId=  workFlowService.startProcess(project.getId().toString());
+
+        Project updateProject=new Project();
+        updateProject.setId(project.getId());
+        updateProject.setProcessInstanceId(processInstanceId);
+
+        projectMapper.updateByPrimaryKeySelective(updateProject);
+
         return project.getId();
     }
 
