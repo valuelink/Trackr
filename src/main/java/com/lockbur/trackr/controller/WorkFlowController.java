@@ -1,13 +1,14 @@
 package com.lockbur.trackr.controller;
 
 import org.activiti.bpmn.model.BpmnModel;
+import org.activiti.bpmn.model.Task;
 import org.activiti.engine.FormService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.impl.bpmn.diagram.ProcessDiagramGenerator;
 import org.activiti.engine.impl.context.Context;
-import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.spring.ProcessEngineFactoryBean;
 import org.slf4j.Logger;
@@ -15,8 +16,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -33,17 +35,23 @@ public class WorkFlowController {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Resource
-    protected FormService formService;
-    @Resource
-    private RuntimeService runtimeService;
 
     @Resource
     RepositoryService repositoryService;
 
+    @Resource
+    protected FormService formService;
+
+    @Resource
+    private RuntimeService runtimeService;
+
+    @Resource
+    protected TaskService taskService;
+
 
     @Autowired
     protected ProcessEngineFactoryBean processEngine;
+
     /**
      * 查看待办任务
      *
@@ -55,17 +63,29 @@ public class WorkFlowController {
         return "/workflow/tasks/my";
     }
 
+
     /**
      * 办理任务
      *
      * @param model
      * @return
+     * @DESC 　一般都要跳转到详情表单页面，然后审批
      */
-    @RequestMapping("/tasks/handle")
-    public String handle(@RequestParam("taskId") String taskId, Model model) {
+    @RequestMapping("/tasks/form/{taskId}")
+    public String form(@PathVariable("taskId") String taskId, Model model) {
         TaskFormData formData = formService.getTaskFormData(taskId);
         String formKey = formData.getFormKey();
-        return "redirect:" + formKey;
+        logger.info("formKey {}", formKey);
+        return "redirect:" + formKey + "/" + taskId;
+    }
+
+
+    //完成任务
+    @RequestMapping(value = "/complete/{id}", method = RequestMethod.GET)
+    public String complete(@PathVariable("id") Integer id) {
+
+
+        return "/project/approve";
     }
 
     /**
@@ -74,9 +94,9 @@ public class WorkFlowController {
      * @return
      */
     @RequestMapping(value = "/diagram")
-    public void diagram(HttpServletResponse response,String executionId) throws Exception {
-       // String businessKey = "CT000002";
-       // Execution execution = runtimeService.createExecutionQuery().processInstanceBusinessKey(businessKey).singleResult();
+    public void diagram(HttpServletResponse response, String executionId) throws Exception {
+        // String businessKey = "CT000002";
+        // Execution execution = runtimeService.createExecutionQuery().processInstanceBusinessKey(businessKey).singleResult();
         ProcessInstance processInstance = runtimeService.createProcessInstanceQuery().processInstanceId(executionId).singleResult();
         BpmnModel bpmnModel = repositoryService.getBpmnModel(processInstance.getProcessDefinitionId());
         List<String> activeActivityIds = runtimeService.getActiveActivityIds(executionId);

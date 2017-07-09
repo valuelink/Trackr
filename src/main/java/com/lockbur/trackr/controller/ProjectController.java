@@ -6,9 +6,6 @@ import com.lockbur.trackr.service.WorkFlowService;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.history.HistoricActivityInstance;
-import org.activiti.engine.history.HistoricProcessInstance;
-import org.activiti.engine.history.HistoricProcessInstanceQuery;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -22,10 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by wangkun23 on 2017/6/2.
@@ -71,8 +65,18 @@ public class ProjectController {
         Project project = projectService.selectByPrimaryKey(id);
         model.addAttribute("project", project);
 
-        String processInstanceId = "601";
-        List<HistoricTaskInstance> historicTasks = historyService.createHistoricTaskInstanceQuery().processInstanceId(processInstanceId).list();
+
+        ProcessInstance pi= runtimeService.createProcessInstanceQuery()
+                .processDefinitionKey("projectProcess")
+                .processInstanceBusinessKey(id+"")
+                .singleResult();
+
+
+        List<HistoricTaskInstance> historicTasks = historyService.createHistoricTaskInstanceQuery()
+                .processInstanceId(pi.getProcessInstanceId())
+                .list();
+
+
         model.addAttribute("historicTasks", historicTasks);
 
         Execution execution = workFlowService.findExecution(project.getId().toString());
@@ -82,9 +86,31 @@ public class ProjectController {
     }
 
     //项目立项审核页面
-    @RequestMapping(value = "/approve/{id}", method = RequestMethod.GET)
-    public String approve(@PathVariable("id") Long id, Model model) {
+    @RequestMapping(value = "/approve/{taskId}", method = RequestMethod.GET)
+    public String approve(@PathVariable("taskId") String taskId, Model model) {
+        Task task = taskService.createTaskQuery()
+                .taskId(taskId)
+                .singleResult();
+
+        String processInstanceId = task.getProcessInstanceId();
+
+
+        ProcessInstance pi = runtimeService.createProcessInstanceQuery()
+                .processInstanceId(processInstanceId)
+                .singleResult();
+
+
+        String businessKey = pi.getBusinessKey();
+
+
+        Project project = projectService.selectByPrimaryKey(Integer.parseInt(businessKey));
+
+        model.addAttribute("task", task);
+        model.addAttribute("project", project);
         return "/project/approve";
     }
+
+
+
 
 }

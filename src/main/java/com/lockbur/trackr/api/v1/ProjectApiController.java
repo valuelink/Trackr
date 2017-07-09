@@ -31,6 +31,9 @@ public class ProjectApiController {
     @Resource
     ProjectService projectService;
 
+    @Resource
+    WorkFlowService workFlowService;
+
 
     @RequestMapping(value = "/tables", method = RequestMethod.POST)
     public DataTable<Project> getUserDataTable(@RequestBody DataTableRequest request) {
@@ -53,6 +56,17 @@ public class ProjectApiController {
         project.setCreatorId(1);
 
         Integer id  =projectService.save(project);
+        return ResponseData.success();
+    }
+
+    //完成任务
+    @RequestMapping(value = "/complete", method = RequestMethod.POST)
+    public ResponseData complete(String taskId, String projectId, String comment) {
+        logger.info("taskId {}",taskId);
+        logger.info("projectId {}",projectId);
+        logger.info("comment {}",comment);
+
+        workFlowService.complete(taskId,projectId,comment);
         return ResponseData.success();
     }
 }

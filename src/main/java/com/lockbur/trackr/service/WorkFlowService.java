@@ -44,4 +44,12 @@ public interface WorkFlowService {
      */
     public Execution findExecution(String businessKey);
 
+    /**
+     * 完成任务 审批通过
+     * @param taskId
+     * @param businessKey
+     * @param comment
+     */
+    public void complete(String taskId, String businessKey, String comment);
+
 }

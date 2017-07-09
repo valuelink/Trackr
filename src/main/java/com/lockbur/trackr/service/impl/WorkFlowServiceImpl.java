@@ -88,12 +88,17 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 
     @Override
     public void startProcess(String businessKey) {
-        ProcessInstance instance = runtimeService.startProcessInstanceByKey("projectProcess", businessKey);
+
+        Map<String, Object> variables1 = new HashMap<>();
+        variables1.put("user","申请人");
+
+        ProcessInstance instance = runtimeService.startProcessInstanceByKey("projectProcess", businessKey,variables1);
         Task task = taskService.createTaskQuery().processInstanceId(instance.getProcessInstanceId()).singleResult();
         logger.info("start survey.. {}", task.getName());
-        Map<String, Object> variables = new HashMap<>();
-        variables.put("partnert", "王坤");
-        taskService.complete(task.getId(), variables);
+        Map<String, Object> variables2 = new HashMap<>();
+
+        variables2.put("partnert", "王坤");
+        taskService.complete(task.getId(), variables2);
         logger.info("start success..");
     }
 
@@ -106,4 +111,29 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 
         return execution;
     }
+
+    @Override
+    public void complete(String taskId, String businessKey, String comment) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+
+        //添加备注
+        taskService.addComment(taskId, task.getProcessInstanceId(), comment);
+        //完成任务
+        taskService.complete(taskId);
+
+        /**
+         * 在完成任务之后，判断流程是否结束
+         如果流程结束了，更新请假单表的状态从1变成2（审核中-->审核完成）
+         */
+//        ProcessInstance pi = runtimeService.createProcessInstanceQuery()//
+//                .processInstanceId(processInstanceId)//使用流程实例ID查询
+//                .singleResult();
+//        //流程结束了
+//        if(pi==null){
+//            //更新请假单表的状态从1变成2（审核中-->审核完成）
+//            LeaveBill bill = leaveBillDao.findLeaveBillById(id);
+//            bill.setState(2);
+//        }
+    }
+
 }

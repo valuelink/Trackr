@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html class="app">
@@ -9,8 +9,8 @@
     <jsp:include page="/WEB-INF/views/commons/head.jsp"/>
     <link href="/assets/css/app.css" rel="stylesheet"/>
 </head>
-<body class="">
-<section class="vbox">
+<body>
+<section id="app" class="vbox">
     <jsp:include page="/WEB-INF/views/commons/header.jsp"/>
     <section>
         <section class="hbox stretch">
@@ -72,11 +72,40 @@
                                                     <p class="form-control-static">报告草稿提交客户时间</p>
                                                 </div>
                                             </div>
+                                        </fieldset>
+
+                                        <%--任务信息--%>
+                                        <fieldset>
+                                            <legend>
+                                                <h4>
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                    任务信息
+                                                </h4>
+                                            </legend>
+                                            <div class="form-group clearfix">
+                                                <label class="col-sm-2 control-label">任务名称 </label>
+                                                <div class="col-sm-3">
+                                                    <p class="form-control-static">${task.name}</p>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group clearfix">
+                                                <label class="col-sm-2 control-label">创建时间 </label>
+                                                <div class="col-sm-3">
+                                                    <p class="form-control-static">
+                                                        <fmt:formatDate value="${task.createTime}"
+                                                                        pattern="yyyy-MM-dd HH:mm"/>
+                                                    </p>
+                                                </div>
+                                            </div>
                                             <div class="line line-dashed b-b line-lg pull-in"></div>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">审批备注</label>
                                                 <div class="col-sm-8">
-                                                    <textarea class="form-control parsley-validated" rows="6" cols="100" data-minwords="6"  placeholder="审批备注"></textarea>
+                                                    <textarea class="form-control"
+                                                              rows="6" cols="100"
+                                                              data-minwords="6"
+                                                              v-model="info.comment"></textarea>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -85,7 +114,7 @@
                             </div>
                             <!-- /.panel-body -->
                             <div class="panel-footer">
-                                <button class="col-sm-offset-1 btn btn-success">审批通过</button>
+                                <button class="col-sm-offset-1 btn btn-success" @click="complete">审批通过</button>
                                 <button class="btn btn-danger">审批驳回</button>
                             </div>
                         </div>
@@ -101,6 +130,7 @@
 <script src="/assets/js/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/vue/vue.min.js"></script>
 <script src="/assets/js/slimscroll/jquery.slimscroll.min.js"></script>
 <!-- App -->
 <script src="/assets/js/app.js"></script>
@@ -109,6 +139,34 @@
 <script>
     $(document).ready(function () {
 
+    });
+
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            info: {
+                projectId: "${project.id}",
+                taskId: "${task.id}",
+                comment: "审批备注"
+            }
+        },
+        methods: {
+            //审批通过
+            complete: function () {
+                $.ajax({
+                    url: "/api/v1/project/complete",
+                    type: "POST",
+                    data:vm.info,
+                    dataType: "json",
+                    success: function (result) {
+                        alert("dd ");
+                    },
+                    error: function (xhr, textStatus) {
+                        console.log('错误')
+                    }
+                });
+            }
+        }
     });
 </script>
 </body>

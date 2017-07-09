@@ -34,6 +34,7 @@
                                        id="dataTables-example">
                                     <thead>
                                     <tr>
+                                        <th>序号</th>
                                         <th>项目名称</th>
                                         <th>客户简称</th>
                                         <th>项目金额</th>
@@ -90,6 +91,7 @@
             columns: [
                 {data: 'id', 'name': 'id'},
                 {data: 'name', name: 'name'},
+                {data: 'companyId', name: 'companyId'},
                 {data: 'amount', name: 'amount'},
                 {data: 'valuateTime', name: 'valuateTime'},
                 {

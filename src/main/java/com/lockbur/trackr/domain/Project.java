@@ -19,6 +19,12 @@ public class Project implements Serializable {
     @Setter
     private Integer id;
 
+
+    @Getter
+    @Setter
+    private String processInstanceId;//流程实例的ID
+
+
     @Getter
     @Setter
     private String name;//项目名称

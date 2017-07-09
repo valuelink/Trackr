@@ -110,7 +110,7 @@
                     data: 'id',
                     name: 'id',
                     "render": function (data, type, full, meta) {
-                        return '<button type="button" class="btn btn-default">办理任务</button>';
+                        return '<a href="/workflow/tasks/form/'+data+'" class="text-info-dker">办理任务</a>';
                     }
                 }
             ],
