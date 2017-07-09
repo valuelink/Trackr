@@ -3,6 +3,7 @@ package com.lockbur.trackr.service;
 import com.lockbur.trackr.model.ActTask;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
+import org.activiti.engine.runtime.Execution;
 
 import java.util.List;
 
@@ -26,4 +27,21 @@ public interface WorkFlowService {
      * @return
      */
     public ActTask findTaskByTaskId(String taskId);
+
+
+    /**
+     * 启动流实例
+     *
+     * @param businessKey
+     */
+    public void startProcess(String businessKey);
+
+
+    /**
+     * 查询当前执行的
+     *
+     * @param businessKey
+     */
+    public Execution findExecution(String businessKey);
+
 }

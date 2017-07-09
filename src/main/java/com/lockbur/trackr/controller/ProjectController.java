@@ -2,6 +2,7 @@ package com.lockbur.trackr.controller;
 
 import com.lockbur.trackr.domain.Project;
 import com.lockbur.trackr.service.ProjectService;
+import com.lockbur.trackr.service.WorkFlowService;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
@@ -9,6 +10,7 @@ import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricProcessInstanceQuery;
 import org.activiti.engine.history.HistoricTaskInstance;
+import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.slf4j.Logger;
@@ -45,6 +47,9 @@ public class ProjectController {
     @Resource
     private HistoryService historyService;
 
+    @Resource
+    WorkFlowService workFlowService;
+
     @RequestMapping(value = "/list")
     public String list(Model model) {
         return "/project/list";
@@ -61,20 +66,6 @@ public class ProjectController {
     }
 
 
-    @RequestMapping("/save")
-    public String save() {
-        //最好是service去完成
-        ProcessInstance instance = runtimeService.startProcessInstanceByKey("projectProcess", "FL21170315659263460379");
-        Task task = taskService.createTaskQuery().processInstanceId(instance.getProcessInstanceId()).singleResult();
-        logger.info("start survey.. {}", task.getName());
-        Map<String, Object> variables = new HashMap<>();
-        variables.put("partner", "王坤");
-        taskService.complete(task.getId(), variables);
-        logger.info("start success..");
-        return "/project/add";
-    }
-
-
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public String details(@PathVariable("id") Integer id, Model model) {
         Project project = projectService.selectByPrimaryKey(id);
@@ -83,6 +74,10 @@ public class ProjectController {
         String processInstanceId = "601";
         List<HistoricTaskInstance> historicTasks = historyService.createHistoricTaskInstanceQuery().processInstanceId(processInstanceId).list();
         model.addAttribute("historicTasks", historicTasks);
+
+        Execution execution = workFlowService.findExecution(project.getId().toString());
+        model.addAttribute("execution", execution);
+
         return "/project/details";
     }
 

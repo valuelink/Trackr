@@ -5,9 +5,12 @@ import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
 import com.lockbur.trackr.service.WorkFlowService;
 import org.activiti.engine.FormService;
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.impl.persistence.entity.TaskEntity;
+import org.activiti.engine.runtime.Execution;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
 import org.slf4j.Logger;
@@ -17,7 +20,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 工作流引擎管理
@@ -26,6 +31,10 @@ import java.util.List;
 @Service
 public class WorkFlowServiceImpl implements WorkFlowService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
+
+
+    @Resource
+    private RuntimeService runtimeService;
 
     @Resource
     TaskService taskService;
@@ -75,5 +84,26 @@ public class WorkFlowServiceImpl implements WorkFlowService {
         logger.info("formKey {}", formKey);
 
         return result;
+    }
+
+    @Override
+    public void startProcess(String businessKey) {
+        ProcessInstance instance = runtimeService.startProcessInstanceByKey("projectProcess", businessKey);
+        Task task = taskService.createTaskQuery().processInstanceId(instance.getProcessInstanceId()).singleResult();
+        logger.info("start survey.. {}", task.getName());
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("partnert", "王坤");
+        taskService.complete(task.getId(), variables);
+        logger.info("start success..");
+    }
+
+    @Override
+    public Execution findExecution(String businessKey) {
+        Execution execution = runtimeService.createExecutionQuery()
+                .processDefinitionKey("projectProcess")
+                .processInstanceBusinessKey(businessKey)
+                .singleResult();
+
+        return execution;
     }
 }

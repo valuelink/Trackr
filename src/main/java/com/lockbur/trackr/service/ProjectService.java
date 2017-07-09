@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface ProjectService {
 
-    public void save(Project project);
+    public Integer save(Project project);
 
     public Project selectByPrimaryKey(Integer id);
 

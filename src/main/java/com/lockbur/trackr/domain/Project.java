@@ -18,6 +18,7 @@ public class Project implements Serializable {
     @Getter
     @Setter
     private Integer id;
+
     @Getter
     @Setter
     private String name;//项目名称
@@ -48,6 +49,7 @@ public class Project implements Serializable {
     @Getter
     @Setter
     private String valuateType; //评估内容(类型)
+
     @Getter
     @Setter
     private String valuateTypeOther; //如果选择是其他项资产，在跟选内容

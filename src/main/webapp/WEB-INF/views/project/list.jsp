@@ -103,7 +103,7 @@
                     data: 'id',
                     name: 'id',
                     "render": function (data, type, full, meta) {
-                        return '<a href="/project/details/'+data+'">详细信息</a> | <a href="#">查看项目</a>';
+                        return '<a href="/project/details/'+data+'" class="text-info">详细信息</a> | <a href="#" class="text-info">查看项目</a>';
                     }
                 }
             ],

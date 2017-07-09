@@ -5,6 +5,7 @@ import com.lockbur.trackr.mapper.ProjectMapper;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
 import com.lockbur.trackr.service.ProjectService;
+import com.lockbur.trackr.service.WorkFlowService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,9 +26,16 @@ public class ProjectServiceImpl implements ProjectService {
     @Resource
     ProjectMapper projectMapper;
 
-    @Override
-    public void save(Project project) {
+    @Resource
+    WorkFlowService workFlowService;
 
+    @Override
+    public Integer save(Project project) {
+        projectMapper.insert(project);
+
+        //创建流程并启动
+        workFlowService.startProcess(project.getId().toString());
+        return project.getId();
     }
 
     @Override

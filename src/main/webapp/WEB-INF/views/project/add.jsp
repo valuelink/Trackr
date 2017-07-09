@@ -8,8 +8,8 @@
     <jsp:include page="/WEB-INF/views/commons/head.jsp"/>
     <link href="/assets/css/app.css" rel="stylesheet"/>
 </head>
-<body class="">
-<section class="vbox">
+<body>
+<section id="app" class="vbox">
     <jsp:include page="/WEB-INF/views/commons/header.jsp"/>
     <section>
         <section class="hbox stretch">
@@ -19,34 +19,41 @@
             <section id="content">
                 <section class="vbox">
                     <section class="scrollable wrapper bg-white-only">
-                        <form class="form-horizontal" data-validate="parsley">
+                        <form class="form-horizontal" data-validate="parsley" action="/project/save" method="post">
                             <section class="panel panel-default">
                                 <header class="panel-heading">
-                                    <span class="h4"><span class="fa fa-plus"></span> 立项申请</span>
+                                    <span class="h4">
+                                        <i class="fa fa-plus"></i>
+                                        立项申请</span>
                                 </header>
                                 <div class="panel-body">
-
                                     <div class="form-group">
-                                        <label for="name" class="col-sm-2 control-label">项目名称 </label>
+                                        <label class="col-sm-2 control-label">项目名称 </label>
                                         <div class="col-sm-3">
-                                            <input class="form-control" id="name" name="user.name" placeholder="项目名称"/>
+                                            <input class="form-control" name="name" v-model="project.name" placeholder="项目名称"/>
                                         </div>
                                     </div>
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
-
                                     <div class="form-group">
-                                        <label for="email" class="col-sm-2 control-label">客户名称</label>
+                                        <label class="col-sm-2 control-label">客户名称</label>
                                         <div class="col-sm-3">
-                                            <input class="form-control" id="email" name="user.loginName"
-                                                   placeholder="客户名称"/>
+                                            <input class="form-control" v-model="project.companyId"/>
                                         </div>
                                     </div>
-                                    <div class="line line-dashed b-b line-lg pull-in"></div>
 
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">项目金额</label>
+                                        <div class="col-sm-3">
+                                            <input class="form-control" v-model="project.amount"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
                                     <div class="form-group clearfix">
-                                        <label for="riskLevel" class="col-sm-2 control-label">财务风险等级</label>
+                                        <label class="col-sm-2 control-label">财务风险等级</label>
                                         <div class="col-sm-3">
-                                            <select class="form-control" name="riskLevel" id="riskLevel">
+                                            <select class="form-control" v-model="project.riskLevel">
                                                 <option value="1">新客户未上市</option>
                                                 <option value="2">老客户未上市</option>
                                                 <option value="3">新客户已上市</option>
@@ -57,18 +64,17 @@
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
 
                                     <div class="form-group clearfix">
-                                        <label for="position" class="col-sm-2 control-label">经济行为</label>
+                                        <label class="col-sm-2 control-label">经济行为</label>
                                         <div class="col-sm-3">
-                                            <input class="form-control" id="email" name="user.loginName"
-                                                   placeholder="客户名称"/>
+                                            <input class="form-control" v-model="project.economicBehavior"/>
                                         </div>
                                     </div>
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
 
                                     <div class="form-group clearfix">
-                                        <label for="purposeType" class="col-sm-2 control-label"> 评估目的</label>
+                                        <label class="col-sm-2 control-label"> 评估目的</label>
                                         <div class="col-sm-3">
-                                            <select class="form-control" name="purposeType" id="purposeType">
+                                            <select class="form-control" v-model="project.purpose">
                                                 <option value="1">法定用途</option>
                                                 <option value="2">交易支持</option>
                                                 <option value="3">财务报告</option>
@@ -78,99 +84,11 @@
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
 
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label"> 评估内容</label>
-                                        <div class="col-sm-2">
-                                            <div class="checkbox i-checks">
-                                                <label>
-                                                    <input type="checkbox" name="department" checked value=""><i></i>
-                                                    企业价值
-                                                </label>
-                                            </div>
-                                            <div class="checkbox i-checks">
-                                                <label>
-                                                    <input type="checkbox" name="department" value=""><i></i> 单项资产-物业
-                                                </label>
-                                            </div>
-                                            <div class="checkbox i-checks">
-                                                <label>
-                                                    <input type="checkbox" name="department" value=""><i></i> 资产组合
-                                                </label>
-                                            </div>
-                                            <div class="checkbox i-checks">
-                                                <label>
-                                                    <input type="checkbox" name="department" value=""><i></i> 无形资产
-                                                </label>
-                                            </div>
-                                            <div class="checkbox i-checks">
-                                                <label>
-                                                    <input type="checkbox" name="department" value=""><i></i> 金融不良资产
-                                                </label>
-                                            </div>
-                                            <div class="checkbox i-checks">
-                                                <label>
-                                                    <input type="checkbox" name="department" value=""><i></i> 珠宝首饰艺术品
-                                                </label>
-                                            </div>
-                                            <div class="checkbox i-checks">
-                                                <label>
-                                                    <input type="checkbox" name="department" value=""><i></i> 其他（需描述)
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <div class="checkbox i-checks">
-                                                <label>
-                                                    <input type="checkbox" name="department" value=""><i></i> 固定资产
-                                                </label>
-                                            </div>
-                                            <div class="checkbox i-checks">
-                                                <label>
-                                                    <input type="checkbox" name="department" value=""><i></i> 优先股
-                                                </label>
-                                            </div>
-                                            <div class="checkbox i-checks">
-                                                <label>
-                                                    <input type="checkbox" name="department" value=""><i></i> 期权
-                                                </label>
-                                            </div>
-                                            <div class="checkbox i-checks">
-                                                <label>
-                                                    <input type="checkbox" name="department" value=""><i></i> 涡轮
-                                                </label>
-                                            </div>
-                                            <div class="checkbox i-checks">
-                                                <label>
-                                                    <input type="checkbox" name="department" value=""><i></i> 可转债
-                                                </label>
-                                            </div>
-                                            <div class="checkbox i-checks">
-                                                <label>
-                                                    <input type="checkbox" name="department" value=""><i></i> 其他金融资产
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="line line-dashed b-b line-lg pull-in"></div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">报告类型</label>
-                                        <div class="col-sm-3">
-                                            <select class="form-control" name="reportType" id="reportType">
-                                                <option value="1">评估报告</option>
-                                                <option value="2">咨询报告</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="line line-dashed b-b line-lg pull-in"></div>
-
-                                    <div class="form-group">
                                         <label class="col-sm-2 control-label"> 评估基准日</label>
                                         <div class="col-sm-3">
                                             <div class="input-group">
-                                                <input type="text" class="form-control" id="_valuateTime"
-                                                       name="_valuateTime" value="" readonly="readonly">
-                                                <span class="input-group-addon" id="clearTimeBtn"
-                                                      style="cursor:pointer;">X</span>
+                                                <input type="text" class="form-control" v-model="project.valuateTime">
+                                                <span class="input-group-addon" id="clearTimeBtn">X</span>
                                             </div>
                                         </div>
                                     </div>
@@ -179,7 +97,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">受托方</label>
                                         <div class="col-sm-3">
-                                            <select class="form-control" name="reportType" id="reportType">
+                                            <select class="form-control" v-model="project.reportType">
                                                 <option value="1">评估报告</option>
                                                 <option value="2">咨询报告</option>
                                             </select>
@@ -190,7 +108,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">报告出具公司</label>
                                         <div class="col-sm-3">
-                                            <select class="form-control" name="reportType" id="reportType">
+                                            <select class="form-control" v-model="project.reportId">
                                                 <option value="1">评估报告</option>
                                                 <option value="2">咨询报告</option>
                                             </select>
@@ -202,9 +120,9 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">项目合伙人</label>
                                         <div class="col-sm-3">
-                                            <select class="form-control" name="reportType" id="reportType">
-                                                <option value="1">评估报告</option>
-                                                <option value="2">咨询报告</option>
+                                            <select class="form-control" v-model="project.partnerId">
+                                                <option value="1">合伙人1</option>
+                                                <option value="2">合伙人2</option>
                                             </select>
                                         </div>
                                     </div>
@@ -212,7 +130,7 @@
 
                                 </div>
                                 <footer class="panel-footer bg-light lter">
-                                    <button type="submit" class="btn btn-success btn-s-xs col-lg-offset-2">保存</button>
+                                    <button type="button" class="btn btn-success btn-s-xs col-lg-offset-2" @click="save">保存</button>
                                 </footer>
                             </section>
                         </form>
@@ -229,10 +147,48 @@
 <script src="/assets/js/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/vue/vue.min.js"></script>
 <!-- App -->
 <script src="/assets/js/app.js"></script>
 <script src="/assets/js/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="/assets/js/app.plugin.js"></script>
 
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            project:{
+                id:"",
+                name:"测试项目名称",
+                amount:"0",
+                companyId:"1",
+                riskLevel:"1",
+                economicBehavior:"测试经济行为",
+                purpose:"1",
+                valuateTime:"2017,2018",
+                reportType:"1",
+                reportId:"1",
+                partnerId:"1"
+            }
+        },
+        methods: {
+           save:function () {
+               $.ajax({
+                   url:"/api/v1/project/save",
+                   type:"POST",
+                   data:vm.project,
+                   dataType:"json",
+                   success:function(result){
+
+                   },
+                   error:function(xhr,textStatus){
+                       console.log('错误')
+                   }
+               })
+           }
+        }
+    });
+
+</script>
 </body>
 </html>
