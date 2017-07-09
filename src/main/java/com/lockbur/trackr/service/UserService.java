@@ -25,4 +25,12 @@ public interface UserService {
      */
     public User findById(Integer id);
 
+    /**
+     *
+     * @param userName
+     * @return
+     */
+    public User selectByUserName(String userName);
+
+
 }

@@ -70,7 +70,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/contract/list" class="auto">
+                                    <a href="layout-boxed.html" class="auto">
                                         <i class="fa fa-angle-right text-xs"></i>
                                         <span>项目列表</span>
                                     </a>

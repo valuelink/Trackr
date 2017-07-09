@@ -7,6 +7,7 @@ import com.lockbur.trackr.rest.Pageable;
 import com.lockbur.trackr.service.ProjectService;
 import com.lockbur.trackr.service.WorkFlowService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Collections;
@@ -30,6 +31,7 @@ public class ProjectServiceImpl implements ProjectService {
     WorkFlowService workFlowService;
 
     @Override
+    @Transactional
     public Integer save(Project project) {
         projectMapper.insert(project);
 

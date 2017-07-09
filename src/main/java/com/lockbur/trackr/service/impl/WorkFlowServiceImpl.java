@@ -90,14 +90,14 @@ public class WorkFlowServiceImpl implements WorkFlowService {
     public String startProcess(String businessKey) {
 
         Map<String, Object> variables1 = new HashMap<>();
-        variables1.put("user","申请人");
+        variables1.put("requestUser","申请人测试");
 
         ProcessInstance instance = runtimeService.startProcessInstanceByKey("projectProcess", businessKey,variables1);
         Task task = taskService.createTaskQuery().processInstanceId(instance.getProcessInstanceId()).singleResult();
         logger.info("start survey.. {}", task.getName());
         Map<String, Object> variables2 = new HashMap<>();
 
-        variables2.put("partnert", "王坤");
+        variables2.put("partner", "王坤");
         taskService.complete(task.getId(), variables2);
         logger.info("start success..");
 

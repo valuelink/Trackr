@@ -2324,6 +2324,586 @@
   <resultMap id="BaseResultMap" type="com.lockbur.trackr.test.generator.model.Project">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="proc_inst_id" jdbcType="VARCHAR" property="procInstId" />
+    <result column="company_id" jdbcType="INTEGER" property="companyId" />
+    <result column="risk_level" jdbcType="INTEGER" property="riskLevel" />
+    <result column="economic_behavior" jdbcType="VARCHAR" property="economicBehavior" />
+    <result column="purpose" jdbcType="TINYINT" property="purpose" />
+    <result column="valuate_content" jdbcType="VARCHAR" property="valuateContent" />
+    <result column="valuate_type" jdbcType="VARCHAR" property="valuateType" />
+    <result column="valuate_type_other" jdbcType="VARCHAR" property="valuateTypeOther" />
+    <result column="report_type" jdbcType="INTEGER" property="reportType" />
+    <result column="valuate_time" jdbcType="VARCHAR" property="valuateTime" />
+    <result column="delegate_id" jdbcType="INTEGER" property="delegateId" />
+    <result column="report_id" jdbcType="INTEGER" property="reportId" />
+    <result column="amount" jdbcType="INTEGER" property="amount" />
+    <result column="currency" jdbcType="BIT" property="currency" />
+    <result column="pay_scale" jdbcType="CHAR" property="payScale" />
+    <result column="report_name" jdbcType="VARCHAR" property="reportName" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="creator_id" jdbcType="INTEGER" property="creatorId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, proc_inst_id, company_id, risk_level, economic_behavior, purpose, valuate_content, 
+    valuate_type, valuate_type_other, report_type, valuate_time, delegate_id, report_id, 
+    amount, currency, pay_scale, report_name, note, creator_id, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_project
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_project
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lockbur.trackr.test.generator.model.Project">
+    insert into tb_project (id, name, proc_inst_id, 
+      company_id, risk_level, economic_behavior, 
+      purpose, valuate_content, valuate_type, 
+      valuate_type_other, report_type, valuate_time, 
+      delegate_id, report_id, amount, 
+      currency, pay_scale, report_name, 
+      note, creator_id, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{procInstId,jdbcType=VARCHAR}, 
+      #{companyId,jdbcType=INTEGER}, #{riskLevel,jdbcType=INTEGER}, #{economicBehavior,jdbcType=VARCHAR}, 
+      #{purpose,jdbcType=TINYINT}, #{valuateContent,jdbcType=VARCHAR}, #{valuateType,jdbcType=VARCHAR}, 
+      #{valuateTypeOther,jdbcType=VARCHAR}, #{reportType,jdbcType=INTEGER}, #{valuateTime,jdbcType=VARCHAR}, 
+      #{delegateId,jdbcType=INTEGER}, #{reportId,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, 
+      #{currency,jdbcType=BIT}, #{payScale,jdbcType=CHAR}, #{reportName,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{creatorId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lockbur.trackr.test.generator.model.Project">
+    insert into tb_project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="procInstId != null">
+        proc_inst_id,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="riskLevel != null">
+        risk_level,
+      </if>
+      <if test="economicBehavior != null">
+        economic_behavior,
+      </if>
+      <if test="purpose != null">
+        purpose,
+      </if>
+      <if test="valuateContent != null">
+        valuate_content,
+      </if>
+      <if test="valuateType != null">
+        valuate_type,
+      </if>
+      <if test="valuateTypeOther != null">
+        valuate_type_other,
+      </if>
+      <if test="reportType != null">
+        report_type,
+      </if>
+      <if test="valuateTime != null">
+        valuate_time,
+      </if>
+      <if test="delegateId != null">
+        delegate_id,
+      </if>
+      <if test="reportId != null">
+        report_id,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="currency != null">
+        currency,
+      </if>
+      <if test="payScale != null">
+        pay_scale,
+      </if>
+      <if test="reportName != null">
+        report_name,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="creatorId != null">
+        creator_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="procInstId != null">
+        #{procInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="riskLevel != null">
+        #{riskLevel,jdbcType=INTEGER},
+      </if>
+      <if test="economicBehavior != null">
+        #{economicBehavior,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null">
+        #{purpose,jdbcType=TINYINT},
+      </if>
+      <if test="valuateContent != null">
+        #{valuateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="valuateType != null">
+        #{valuateType,jdbcType=VARCHAR},
+      </if>
+      <if test="valuateTypeOther != null">
+        #{valuateTypeOther,jdbcType=VARCHAR},
+      </if>
+      <if test="reportType != null">
+        #{reportType,jdbcType=INTEGER},
+      </if>
+      <if test="valuateTime != null">
+        #{valuateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="delegateId != null">
+        #{delegateId,jdbcType=INTEGER},
+      </if>
+      <if test="reportId != null">
+        #{reportId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="currency != null">
+        #{currency,jdbcType=BIT},
+      </if>
+      <if test="payScale != null">
+        #{payScale,jdbcType=CHAR},
+      </if>
+      <if test="reportName != null">
+        #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lockbur.trackr.test.generator.model.Project">
+    update tb_project
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="procInstId != null">
+        proc_inst_id = #{procInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="riskLevel != null">
+        risk_level = #{riskLevel,jdbcType=INTEGER},
+      </if>
+      <if test="economicBehavior != null">
+        economic_behavior = #{economicBehavior,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null">
+        purpose = #{purpose,jdbcType=TINYINT},
+      </if>
+      <if test="valuateContent != null">
+        valuate_content = #{valuateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="valuateType != null">
+        valuate_type = #{valuateType,jdbcType=VARCHAR},
+      </if>
+      <if test="valuateTypeOther != null">
+        valuate_type_other = #{valuateTypeOther,jdbcType=VARCHAR},
+      </if>
+      <if test="reportType != null">
+        report_type = #{reportType,jdbcType=INTEGER},
+      </if>
+      <if test="valuateTime != null">
+        valuate_time = #{valuateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="delegateId != null">
+        delegate_id = #{delegateId,jdbcType=INTEGER},
+      </if>
+      <if test="reportId != null">
+        report_id = #{reportId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="currency != null">
+        currency = #{currency,jdbcType=BIT},
+      </if>
+      <if test="payScale != null">
+        pay_scale = #{payScale,jdbcType=CHAR},
+      </if>
+      <if test="reportName != null">
+        report_name = #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lockbur.trackr.test.generator.model.Project">
+    update tb_project
+    set name = #{name,jdbcType=VARCHAR},
+      proc_inst_id = #{procInstId,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=INTEGER},
+      risk_level = #{riskLevel,jdbcType=INTEGER},
+      economic_behavior = #{economicBehavior,jdbcType=VARCHAR},
+      purpose = #{purpose,jdbcType=TINYINT},
+      valuate_content = #{valuateContent,jdbcType=VARCHAR},
+      valuate_type = #{valuateType,jdbcType=VARCHAR},
+      valuate_type_other = #{valuateTypeOther,jdbcType=VARCHAR},
+      report_type = #{reportType,jdbcType=INTEGER},
+      valuate_time = #{valuateTime,jdbcType=VARCHAR},
+      delegate_id = #{delegateId,jdbcType=INTEGER},
+      report_id = #{reportId,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=INTEGER},
+      currency = #{currency,jdbcType=BIT},
+      pay_scale = #{payScale,jdbcType=CHAR},
+      report_name = #{reportName,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      creator_id = #{creatorId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.lockbur.trackr.test.generator.model.Project">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="proc_inst_id" jdbcType="VARCHAR" property="procInstId" />
+    <result column="company_id" jdbcType="INTEGER" property="companyId" />
+    <result column="risk_level" jdbcType="INTEGER" property="riskLevel" />
+    <result column="economic_behavior" jdbcType="VARCHAR" property="economicBehavior" />
+    <result column="purpose" jdbcType="TINYINT" property="purpose" />
+    <result column="valuate_content" jdbcType="VARCHAR" property="valuateContent" />
+    <result column="valuate_type" jdbcType="VARCHAR" property="valuateType" />
+    <result column="valuate_type_other" jdbcType="VARCHAR" property="valuateTypeOther" />
+    <result column="report_type" jdbcType="INTEGER" property="reportType" />
+    <result column="valuate_time" jdbcType="VARCHAR" property="valuateTime" />
+    <result column="delegate_id" jdbcType="INTEGER" property="delegateId" />
+    <result column="report_id" jdbcType="INTEGER" property="reportId" />
+    <result column="amount" jdbcType="INTEGER" property="amount" />
+    <result column="currency" jdbcType="BIT" property="currency" />
+    <result column="pay_scale" jdbcType="CHAR" property="payScale" />
+    <result column="report_name" jdbcType="VARCHAR" property="reportName" />
+    <result column="note" jdbcType="VARCHAR" property="note" />
+    <result column="creator_id" jdbcType="INTEGER" property="creatorId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, proc_inst_id, company_id, risk_level, economic_behavior, purpose, valuate_content, 
+    valuate_type, valuate_type_other, report_type, valuate_time, delegate_id, report_id, 
+    amount, currency, pay_scale, report_name, note, creator_id, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_project
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_project
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lockbur.trackr.test.generator.model.Project">
+    insert into tb_project (id, name, proc_inst_id, 
+      company_id, risk_level, economic_behavior, 
+      purpose, valuate_content, valuate_type, 
+      valuate_type_other, report_type, valuate_time, 
+      delegate_id, report_id, amount, 
+      currency, pay_scale, report_name, 
+      note, creator_id, create_time, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{procInstId,jdbcType=VARCHAR}, 
+      #{companyId,jdbcType=INTEGER}, #{riskLevel,jdbcType=INTEGER}, #{economicBehavior,jdbcType=VARCHAR}, 
+      #{purpose,jdbcType=TINYINT}, #{valuateContent,jdbcType=VARCHAR}, #{valuateType,jdbcType=VARCHAR}, 
+      #{valuateTypeOther,jdbcType=VARCHAR}, #{reportType,jdbcType=INTEGER}, #{valuateTime,jdbcType=VARCHAR}, 
+      #{delegateId,jdbcType=INTEGER}, #{reportId,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, 
+      #{currency,jdbcType=BIT}, #{payScale,jdbcType=CHAR}, #{reportName,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{creatorId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lockbur.trackr.test.generator.model.Project">
+    insert into tb_project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="procInstId != null">
+        proc_inst_id,
+      </if>
+      <if test="companyId != null">
+        company_id,
+      </if>
+      <if test="riskLevel != null">
+        risk_level,
+      </if>
+      <if test="economicBehavior != null">
+        economic_behavior,
+      </if>
+      <if test="purpose != null">
+        purpose,
+      </if>
+      <if test="valuateContent != null">
+        valuate_content,
+      </if>
+      <if test="valuateType != null">
+        valuate_type,
+      </if>
+      <if test="valuateTypeOther != null">
+        valuate_type_other,
+      </if>
+      <if test="reportType != null">
+        report_type,
+      </if>
+      <if test="valuateTime != null">
+        valuate_time,
+      </if>
+      <if test="delegateId != null">
+        delegate_id,
+      </if>
+      <if test="reportId != null">
+        report_id,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="currency != null">
+        currency,
+      </if>
+      <if test="payScale != null">
+        pay_scale,
+      </if>
+      <if test="reportName != null">
+        report_name,
+      </if>
+      <if test="note != null">
+        note,
+      </if>
+      <if test="creatorId != null">
+        creator_id,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="procInstId != null">
+        #{procInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="riskLevel != null">
+        #{riskLevel,jdbcType=INTEGER},
+      </if>
+      <if test="economicBehavior != null">
+        #{economicBehavior,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null">
+        #{purpose,jdbcType=TINYINT},
+      </if>
+      <if test="valuateContent != null">
+        #{valuateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="valuateType != null">
+        #{valuateType,jdbcType=VARCHAR},
+      </if>
+      <if test="valuateTypeOther != null">
+        #{valuateTypeOther,jdbcType=VARCHAR},
+      </if>
+      <if test="reportType != null">
+        #{reportType,jdbcType=INTEGER},
+      </if>
+      <if test="valuateTime != null">
+        #{valuateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="delegateId != null">
+        #{delegateId,jdbcType=INTEGER},
+      </if>
+      <if test="reportId != null">
+        #{reportId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="currency != null">
+        #{currency,jdbcType=BIT},
+      </if>
+      <if test="payScale != null">
+        #{payScale,jdbcType=CHAR},
+      </if>
+      <if test="reportName != null">
+        #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lockbur.trackr.test.generator.model.Project">
+    update tb_project
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="procInstId != null">
+        proc_inst_id = #{procInstId,jdbcType=VARCHAR},
+      </if>
+      <if test="companyId != null">
+        company_id = #{companyId,jdbcType=INTEGER},
+      </if>
+      <if test="riskLevel != null">
+        risk_level = #{riskLevel,jdbcType=INTEGER},
+      </if>
+      <if test="economicBehavior != null">
+        economic_behavior = #{economicBehavior,jdbcType=VARCHAR},
+      </if>
+      <if test="purpose != null">
+        purpose = #{purpose,jdbcType=TINYINT},
+      </if>
+      <if test="valuateContent != null">
+        valuate_content = #{valuateContent,jdbcType=VARCHAR},
+      </if>
+      <if test="valuateType != null">
+        valuate_type = #{valuateType,jdbcType=VARCHAR},
+      </if>
+      <if test="valuateTypeOther != null">
+        valuate_type_other = #{valuateTypeOther,jdbcType=VARCHAR},
+      </if>
+      <if test="reportType != null">
+        report_type = #{reportType,jdbcType=INTEGER},
+      </if>
+      <if test="valuateTime != null">
+        valuate_time = #{valuateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="delegateId != null">
+        delegate_id = #{delegateId,jdbcType=INTEGER},
+      </if>
+      <if test="reportId != null">
+        report_id = #{reportId,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="currency != null">
+        currency = #{currency,jdbcType=BIT},
+      </if>
+      <if test="payScale != null">
+        pay_scale = #{payScale,jdbcType=CHAR},
+      </if>
+      <if test="reportName != null">
+        report_name = #{reportName,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null">
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="creatorId != null">
+        creator_id = #{creatorId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lockbur.trackr.test.generator.model.Project">
+    update tb_project
+    set name = #{name,jdbcType=VARCHAR},
+      proc_inst_id = #{procInstId,jdbcType=VARCHAR},
+      company_id = #{companyId,jdbcType=INTEGER},
+      risk_level = #{riskLevel,jdbcType=INTEGER},
+      economic_behavior = #{economicBehavior,jdbcType=VARCHAR},
+      purpose = #{purpose,jdbcType=TINYINT},
+      valuate_content = #{valuateContent,jdbcType=VARCHAR},
+      valuate_type = #{valuateType,jdbcType=VARCHAR},
+      valuate_type_other = #{valuateTypeOther,jdbcType=VARCHAR},
+      report_type = #{reportType,jdbcType=INTEGER},
+      valuate_time = #{valuateTime,jdbcType=VARCHAR},
+      delegate_id = #{delegateId,jdbcType=INTEGER},
+      report_id = #{reportId,jdbcType=INTEGER},
+      amount = #{amount,jdbcType=INTEGER},
+      currency = #{currency,jdbcType=BIT},
+      pay_scale = #{payScale,jdbcType=CHAR},
+      report_name = #{reportName,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      creator_id = #{creatorId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.lockbur.trackr.test.generator.model.Project">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="company_id" jdbcType="INTEGER" property="companyId" />
     <result column="risk_level" jdbcType="INTEGER" property="riskLevel" />
     <result column="economic_behavior" jdbcType="VARCHAR" property="economicBehavior" />

@@ -12,13 +12,11 @@ import java.util.List;
 public interface UserMapper {
 
     /**
-     *
      * @param user
      */
     public void insert(User user);
 
     /**
-     *
      * @param id
      * @return
      */
@@ -41,5 +39,13 @@ public interface UserMapper {
      * @return
      */
     public Long countByPage(Pageable pageable);
+
+
+    /**
+     *  根据用户名查找
+     * @param loginName
+     * @return
+     */
+    public User getByUserName(String loginName);
 
 }
