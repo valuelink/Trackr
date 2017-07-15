@@ -67,6 +67,7 @@ public class ProjectController {
 
         List<HistoricTaskInstance> historicTasks = historyService.createHistoricTaskInstanceQuery()
                 .processInstanceId(project.getProcessInstanceId())
+                .finished()
                 .list();
 
         model.addAttribute("historicTasks", historicTasks);

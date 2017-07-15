@@ -30,7 +30,10 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">项目名称 </label>
                                         <div class="col-sm-3">
-                                            <input class="form-control" name="name" v-model="project.name" placeholder="项目名称"/>
+                                            <input class="form-control" name="name" v-model="project.name" v-validate="'required'"/>
+                                            <span class="text-danger block" v-show="errors.has('name')">
+                                                {{errors.first('name')}}
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -147,13 +150,23 @@
 <script src="/assets/js/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="/assets/js/bootstrap.js"></script>
+
+<script src="/assets/js/bootstrap3-dialog/js/bootstrap-dialog.js"></script>
 <script src="/assets/js/vue/vue.min.js"></script>
+<script src="/assets/js/vee-validate/vee-validate.js"></script>
+<script src="/assets/js/vee-validate/locale/zh_CN.js"></script>
 <!-- App -->
 <script src="/assets/js/app.js"></script>
 <script src="/assets/js/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="/assets/js/app.plugin.js"></script>
 
 <script>
+    //vue验证
+    Vue.use(VeeValidate,{
+        errorBagTag:"errors",
+        locale:"zh_CN"
+    });
+
     var vm = new Vue({
         el: "#app",
         data: {
@@ -173,18 +186,34 @@
         },
         methods: {
            save:function () {
-               $.ajax({
-                   url:"/api/v1/project/save",
-                   type:"POST",
-                   data:vm.project,
-                   dataType:"json",
-                   success:function(result){
+                this.$validator.validateAll().then(function (result) {
+                    if(result){
+                        //提交
+                        $.ajax({
+                            url:"/api/v1/project/save",
+                            type:"POST",
+                            data:vm.project,
+                            dataType:"json",
+                            success:function(result){
 
-                   },
-                   error:function(xhr,textStatus){
-                       console.log('错误')
-                   }
-               })
+                            },
+                            error:function(xhr,textStatus){
+                                console.log('错误')
+                            }
+                        })
+                    }else{
+                        BootstrapDialog.confirm({
+                            title: '<i class="fa fa-info-circle fa-fw"></i> 系统提示',
+                            message: '请检查表单数据是否填写正确',
+                            type: "type-default",
+                            closable: true,
+                            draggable: true,
+                            btnCancelLabel: '取消',
+                            btnOKLabel: '确定',
+                            btnOKClass: 'btn-info'
+                        });
+                    }
+                });
            }
         }
     });
