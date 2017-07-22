@@ -93,7 +93,7 @@
             showUpload: true,
             showPreview:false,
             uploadUrl: '/process/deploy',
-            allowedFileExtensions: ['bpmn']
+            allowedFileExtensions: ['bpmn','xml']
         });
     });
 </script>
