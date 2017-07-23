@@ -140,10 +140,10 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 
         //添加备注
         taskService.addComment(taskId, task.getProcessInstanceId(), comment);
+
+        taskService.setAssignee(taskId, "王坤完成办理");
         //完成任务
         taskService.complete(taskId);
-
-
         /**
          * 在完成任务之后，判断流程是否结束
          如果流程结束了，更新请假单表的状态从1变成2（审核中-->审核完成）

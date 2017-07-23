@@ -64,10 +64,11 @@ public class ProjectApiController {
 
     //完成任务
     @RequestMapping(value = "/complete", method = RequestMethod.POST)
-    public ResponseData complete(String taskId, String projectId, String comment) {
+    public ResponseData complete(String taskId, String projectId, String comment,String approve) {
         logger.info("taskId {}",taskId);
         logger.info("projectId {}",projectId);
         logger.info("comment {}",comment);
+        logger.info("comment {}",approve);
 
         workFlowService.complete(taskId,projectId,comment);
         return ResponseData.success();
