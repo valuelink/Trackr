@@ -139,7 +139,7 @@
             <if test="creatorId != null">
                 creator_id = #{creatorId,jdbcType=INTEGER},
             </if>
-            <if test="status">
+            <if test="status != null">
                 status = #{status},
             </if>
             <if test="createTime != null">

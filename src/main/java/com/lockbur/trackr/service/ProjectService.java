@@ -1,6 +1,8 @@
 package com.lockbur.trackr.service;
 
 import com.lockbur.trackr.domain.Project;
+import com.lockbur.trackr.domain.ProjectStatus;
+import com.lockbur.trackr.model.ProjectModel;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
 
@@ -22,7 +24,7 @@ public interface ProjectService {
      * @param pageable
      * @return
      */
-    public Page<Project> selectByPage(Pageable pageable);
+    public Page<ProjectModel> selectByPage(Pageable pageable);
 
 
     /**
@@ -31,6 +33,6 @@ public interface ProjectService {
      * @param id
      * @return
      */
-    public void approve(String taskId, Integer projectId, String comment, String approve);
+    public void approve(String taskId, Integer projectId, String comment, ProjectStatus approve);
 
 }

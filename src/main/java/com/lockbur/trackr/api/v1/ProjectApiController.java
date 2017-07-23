@@ -2,6 +2,7 @@ package com.lockbur.trackr.api.v1;
 
 import com.lockbur.trackr.domain.Project;
 import com.lockbur.trackr.domain.ProjectStatus;
+import com.lockbur.trackr.model.ProjectModel;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
 import com.lockbur.trackr.rest.ResponseData;
@@ -40,10 +41,10 @@ public class ProjectApiController {
 
 
     @RequestMapping(value = "/tables", method = RequestMethod.POST)
-    public DataTable<Project> getUserDataTable(@RequestBody DataTableRequest request) {
+    public DataTable<ProjectModel> getUserDataTable(@RequestBody DataTableRequest request) {
         Pageable pageable = new Pageable(request.getStart() / request.getLength() + 1, request.getLength());
-        Page<Project> page = projectService.selectByPage(pageable);
-        DataTable<Project> dataTable = new DataTable<>(page, request.getDraw());
+        Page<ProjectModel> page = projectService.selectByPage(pageable);
+        DataTable<ProjectModel> dataTable = new DataTable<>(page, request.getDraw());
         return dataTable;
     }
 
@@ -89,12 +90,12 @@ public class ProjectApiController {
 
     //完成任务
     @RequestMapping(value = "/complete", method = RequestMethod.POST)
-    public ResponseData complete(String taskId, Integer projectId, String comment, String approve) {
+    public ResponseData complete(String taskId, Integer projectId, String comment, ProjectStatus status) {
         logger.info("taskId {}", taskId);
         logger.info("projectId {}", projectId);
         logger.info("comment {}", comment);
-        logger.info("comment {}", approve);
-        projectService.approve(taskId, projectId, comment, approve);
+        logger.info("comment {}", status);
+        projectService.approve(taskId, projectId, comment, status);
         return ResponseData.success();
     }
 }

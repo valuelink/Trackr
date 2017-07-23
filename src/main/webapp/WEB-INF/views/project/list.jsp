@@ -100,7 +100,7 @@
                 {data: 'name', name: 'name'},
                 {data: 'companyId', name: 'companyId'},
                 {data: 'amount', name: 'amount'},
-                {data: 'status', name: 'status'},
+                {data: 'statusName', name: 'statusName'},
                 {data: 'valuateTime', name: 'valuateTime'},
                 {
                     data: 'createTime',
@@ -113,7 +113,11 @@
                     data: 'id',
                     name: 'id',
                     "render": function (data, type, full, meta) {
-                        return '<a href="/project/details/'+data+'" class="text-info">详细信息</a> | <a href="#" class="text-info">查看项目</a>';
+                        if(full['status']=="APPROVED"){
+                            return '<a href="/project/details/'+data+'" class="text-info">详细信息</a> | <a href="#" class="text-info">查看项目</a>';
+                        }else {
+                            return '<a href="/project/details/'+data+'" class="text-info">详细信息</a>';
+                        }
                     }
                 }
             ],

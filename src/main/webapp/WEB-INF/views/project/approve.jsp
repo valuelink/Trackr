@@ -93,7 +93,8 @@
                                                 <label class="col-sm-2 control-label">创建时间 </label>
                                                 <div class="col-sm-3">
                                                     <p class="form-control-static">
-                                                        <fmt:formatDate value="${task.createTime}" pattern="yyyy-MM-dd HH:mm"/>
+                                                        <fmt:formatDate value="${task.createTime}"
+                                                                        pattern="yyyy-MM-dd HH:mm"/>
                                                     </p>
                                                 </div>
                                             </div>
@@ -103,10 +104,12 @@
                                                 <label class="col-sm-2 control-label">审批结果</label>
                                                 <div class="col-sm-10">
                                                     <label class="radio-inline i-radios text-success">
-                                                        <input type="radio" name="approve" v-model="info.approve" value="approve"/>同意
+                                                        <input type="radio" name="approve" v-model="info.status"
+                                                               value="APPROVED"/>同意
                                                     </label>
                                                     <label class="radio-inline i-radios text-danger">
-                                                        <input type="radio" name="approve" value="reject"/>驳回
+                                                        <input type="radio" name="approve" v-model="info.status"
+                                                               value="REJECTED"/>驳回
                                                     </label>
                                                 </div>
                                             </div>
@@ -143,6 +146,8 @@
 <script src="/assets/js/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/bootstrap3-dialog/js/bootstrap-dialog.js"></script>
+
 <script src="/assets/js/vue/vue.min.js"></script>
 <script src="/assets/js/slimscroll/jquery.slimscroll.min.js"></script>
 <!-- App -->
@@ -161,7 +166,7 @@
                 projectId: "${project.id}",
                 taskId: "${task.id}",
                 comment: "审批备注",
-                approve:""
+                status: ""
             }
         },
         methods: {
@@ -173,7 +178,19 @@
                     data: vm.info,
                     dataType: "json",
                     success: function (result) {
-                        alert("dd ");
+                        BootstrapDialog.confirm({
+                            title: '<i class="fa fa-info-circle fa-fw"></i> 系统提示',
+                            message: '任务提交成功',
+                            type: "type-default",
+                            closable: true,
+                            draggable: true,
+                            btnCancelLabel: '取消',
+                            btnOKLabel: '确定',
+                            btnOKClass: 'btn-info',
+                            callback: function () {
+                                location.href = "/workflow/tasks/todo";
+                            }
+                        });
                     },
                     error: function (xhr, textStatus) {
                         console.log('错误')

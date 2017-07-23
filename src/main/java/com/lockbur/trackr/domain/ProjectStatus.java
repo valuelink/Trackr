@@ -22,6 +22,6 @@ public enum ProjectStatus implements BaseEnum {
 
     @Override
     public String getKey() {
-        return null;
+        return this.key;
     }
 }

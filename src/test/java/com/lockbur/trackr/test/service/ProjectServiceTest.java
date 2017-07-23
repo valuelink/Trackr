@@ -1,6 +1,7 @@
 package com.lockbur.trackr.test.service;
 
 import com.lockbur.trackr.domain.Project;
+import com.lockbur.trackr.model.ProjectModel;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
 import com.lockbur.trackr.service.ProjectService;
@@ -22,7 +23,7 @@ public class ProjectServiceTest extends TestBase {
     @Test
     public void start() {
         Pageable pageable = new Pageable(1, 100);
-        Page<Project> page = projectService.selectByPage(pageable);
+        Page<ProjectModel> page = projectService.selectByPage(pageable);
         LOGGER.info("page {}", page);
     }
 }

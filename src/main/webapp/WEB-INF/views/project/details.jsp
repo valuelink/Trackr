@@ -104,7 +104,7 @@
                                 <i class="fa fa-list"></i> 审批流程
                             </div>
                             <div class="panel-body">
-                                <img v-vind:src="'/workflow/diagram?processInstanceId='+project.processInstanceId">
+                                <img :src="'/workflow/diagram?processInstanceId='+project.processInstanceId">
                             </div>
                             <!-- /.panel-body -->
                         </div>
