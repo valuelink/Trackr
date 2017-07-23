@@ -19,9 +19,18 @@ public interface ProjectService {
     public List<Project> search(String keyword);
 
     /**
-     *
      * @param pageable
      * @return
      */
     public Page<Project> selectByPage(Pageable pageable);
+
+
+    /**
+     * 立项任务审批
+     *
+     * @param id
+     * @return
+     */
+    public void approve(String taskId, Integer projectId, String comment, String approve);
+
 }

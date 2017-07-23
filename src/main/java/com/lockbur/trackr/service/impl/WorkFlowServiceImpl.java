@@ -140,7 +140,6 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 
         //添加备注
         taskService.addComment(taskId, task.getProcessInstanceId(), comment);
-
         taskService.setAssignee(taskId, "王坤完成办理");
         //完成任务
         taskService.complete(taskId);

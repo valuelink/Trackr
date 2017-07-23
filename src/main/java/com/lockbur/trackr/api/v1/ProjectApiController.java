@@ -9,14 +9,14 @@ import com.lockbur.trackr.rest.datatables.DataTable;
 import com.lockbur.trackr.rest.datatables.DataTableRequest;
 import com.lockbur.trackr.service.ProjectService;
 import com.lockbur.trackr.service.WorkFlowService;
+import org.activiti.engine.HistoryService;
+import org.activiti.engine.history.HistoricTaskInstance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 立项管理
@@ -34,6 +34,9 @@ public class ProjectApiController {
 
     @Resource
     WorkFlowService workFlowService;
+
+    @Resource
+    private HistoryService historyService;
 
 
     @RequestMapping(value = "/tables", method = RequestMethod.POST)
@@ -63,15 +66,35 @@ public class ProjectApiController {
 
     }
 
+    /**
+     * 查询项目详细信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
+    public ResponseData details(@PathVariable("id") Integer id) {
+        Project project = projectService.selectByPrimaryKey(id);
+
+        List<HistoricTaskInstance> historicTasks = historyService.createHistoricTaskInstanceQuery()
+                .processInstanceId(project.getProcessInstanceId())
+                .finished()
+                .list();
+
+        ResponseData result = ResponseData.success("200");
+        result.addData("project", project);
+        result.addData("historicTasks", historicTasks);
+        return result;
+
+    }
+
     //完成任务
     @RequestMapping(value = "/complete", method = RequestMethod.POST)
-    public ResponseData complete(String taskId, String projectId, String comment, String approve) {
+    public ResponseData complete(String taskId, Integer projectId, String comment, String approve) {
         logger.info("taskId {}", taskId);
         logger.info("projectId {}", projectId);
         logger.info("comment {}", comment);
         logger.info("comment {}", approve);
-
-        workFlowService.complete(taskId, projectId, comment);
+        projectService.approve(taskId, projectId, comment, approve);
         return ResponseData.success();
     }
 }

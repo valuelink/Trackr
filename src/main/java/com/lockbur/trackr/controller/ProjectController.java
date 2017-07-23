@@ -6,6 +6,7 @@ import com.lockbur.trackr.service.WorkFlowService;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.history.HistoricDetail;
 import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -61,17 +63,7 @@ public class ProjectController {
 
 
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
-    public String details(@PathVariable("id") Integer id, Model model) {
-        Project project = projectService.selectByPrimaryKey(id);
-        model.addAttribute("project", project);
-
-        List<HistoricTaskInstance> historicTasks = historyService.createHistoricTaskInstanceQuery()
-                .processInstanceId(project.getProcessInstanceId())
-                .finished()
-                .list();
-
-        model.addAttribute("historicTasks", historicTasks);
-
+    public String details(@ModelAttribute @PathVariable("id") Integer id, Model model) {
         return "/project/details";
     }
 
@@ -101,8 +93,6 @@ public class ProjectController {
         model.addAttribute("project", project);
         return "/project/approve";
     }
-
-
 
 
 }
