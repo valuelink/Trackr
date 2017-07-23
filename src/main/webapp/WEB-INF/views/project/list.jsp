@@ -44,6 +44,7 @@
                                         <th>项目名称</th>
                                         <th>客户简称</th>
                                         <th>项目金额</th>
+                                        <th>状态</th>
                                         <th>评估时间</th>
                                         <th>创建时间</th>
                                         <th>操作</th>
@@ -99,6 +100,7 @@
                 {data: 'name', name: 'name'},
                 {data: 'companyId', name: 'companyId'},
                 {data: 'amount', name: 'amount'},
+                {data: 'status', name: 'status'},
                 {data: 'valuateTime', name: 'valuateTime'},
                 {
                     data: 'createTime',

@@ -23,6 +23,7 @@
         <result column="report_name" jdbcType="VARCHAR" property="reportName"/>
         <result column="note" jdbcType="VARCHAR" property="note"/>
         <result column="creator_id" jdbcType="INTEGER" property="creatorId"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
@@ -30,7 +31,10 @@
     <sql id="Base_Column_List">
         id, name,proc_inst_id, company_id, risk_level, economic_behavior, purpose, valuate_content, valuate_type,
         valuate_type_other, report_type, valuate_time, delegate_id, report_id, amount, currency,
-        pay_scale, report_name, note, creator_id, create_time, update_time
+        pay_scale, report_name, note,
+        creator_id,
+        status,
+        create_time, update_time
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -58,6 +62,7 @@
         report_id, amount, currency,
         pay_scale, report_name,
         note, creator_id,
+        status,
         create_time,update_time
         )
         values (
@@ -67,7 +72,9 @@
         #{reportType,jdbcType=INTEGER}, #{valuateTime,jdbcType=VARCHAR}, #{delegateId,jdbcType=INTEGER},
         #{reportId,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, #{currency,jdbcType=BIT},
         #{payScale,jdbcType=CHAR}, #{reportName,jdbcType=VARCHAR},
-        #{note,jdbcType=VARCHAR}, #{creatorId,jdbcType=INTEGER},
+        #{note,jdbcType=VARCHAR},
+        #{creatorId,jdbcType=INTEGER},
+        #{status},
         now(),now()
         )
     </insert>
@@ -131,6 +138,9 @@
             </if>
             <if test="creatorId != null">
                 creator_id = #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="status">
+                status = #{status},
             </if>
             <if test="createTime != null">
                 create_time = #{createTime,jdbcType=TIMESTAMP},

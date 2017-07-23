@@ -1,6 +1,7 @@
 package com.lockbur.trackr.api.v1;
 
 import com.lockbur.trackr.domain.Project;
+import com.lockbur.trackr.domain.ProjectStatus;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
 import com.lockbur.trackr.rest.ResponseData;
@@ -26,7 +27,7 @@ import javax.annotation.Resource;
 public class ProjectApiController {
 
 
-    final Logger logger= LoggerFactory.getLogger(getClass());
+    final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Resource
     ProjectService projectService;
@@ -46,7 +47,7 @@ public class ProjectApiController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public ResponseData save(Project project) {
-        logger.info("project {}",project);
+        logger.info("project {}", project);
         project.setValuateType("1");
         project.setDelegateId(1);
         project.setCurrency(1);
@@ -54,23 +55,23 @@ public class ProjectApiController {
 
         project.setNote("备注");
         project.setCreatorId(1);
+        //新建立项 处理中
+        project.setStatus(ProjectStatus.ASSIGNED);
+        Integer id = projectService.save(project);
 
-        Integer id  =projectService.save(project);
-
-
-        return ResponseData.success(id+"");
+        return ResponseData.success(id + "");
 
     }
 
     //完成任务
     @RequestMapping(value = "/complete", method = RequestMethod.POST)
-    public ResponseData complete(String taskId, String projectId, String comment,String approve) {
-        logger.info("taskId {}",taskId);
-        logger.info("projectId {}",projectId);
-        logger.info("comment {}",comment);
-        logger.info("comment {}",approve);
+    public ResponseData complete(String taskId, String projectId, String comment, String approve) {
+        logger.info("taskId {}", taskId);
+        logger.info("projectId {}", projectId);
+        logger.info("comment {}", comment);
+        logger.info("comment {}", approve);
 
-        workFlowService.complete(taskId,projectId,comment);
+        workFlowService.complete(taskId, projectId, comment);
         return ResponseData.success();
     }
 }

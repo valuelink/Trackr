@@ -104,6 +104,11 @@ public class Project implements Serializable {
     @Setter
     private Integer creatorId;//项目创建人
 
+
+    @Getter
+    @Setter
+    private ProjectStatus status;//项目状态
+
     @Getter
     @Setter
     private Date createTime;// 创建日期
