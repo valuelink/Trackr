@@ -44,32 +44,52 @@
                                             </div>
                                             <div class="line line-dashed b-b line-lg pull-in"></div>
                                             <div class="form-group clearfix">
-                                                <label class="col-sm-2 control-label">项目邮件组 </label>
+                                                <label class="col-sm-2 control-label">客户名称 </label>
                                                 <div class="col-sm-3">
-                                                    <p class="form-control-static">项目邮件组</p>
+                                                    <p class="form-control-static">{{project.companyId}}</p>
                                                 </div>
                                             </div>
                                             <div class="line line-dashed b-b line-lg pull-in"></div>
 
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">底稿提交客户时间</label>
+                                                <label class="col-sm-2 control-label">项目金额</label>
                                                 <div class="col-sm-3">
-                                                    <p class="form-control-static">底稿提交客户时间</p>
+                                                    <p class="form-control-static">{{project.amount}}</p>
                                                 </div>
-                                                <label class="col-sm-2 control-label">底稿提交审核时间</label>
+                                                <label class="col-sm-2 control-label">财务风险等级</label>
                                                 <div class="col-sm-3">
-                                                    <p class="form-control-static">底稿提交审核时间</p>
+                                                    <p class="form-control-static">财务风险等级</p>
                                                 </div>
                                             </div>
                                             <div class="line line-dashed b-b line-lg pull-in"></div>
                                             <div class="form-group">
-                                                <label class="col-sm-2 control-label">报告草稿提交客户时间</label>
+                                                <label class="col-sm-2 control-label">经济行为</label>
                                                 <div class="col-sm-3">
-                                                    <p class="form-control-static">报告草稿提交客户时间</p>
+                                                    <p class="form-control-static">{{project.economicBehavior}}</p>
                                                 </div>
-                                                <label class="col-sm-2 control-label">报告草稿提交审核时间</label>
+                                                <label class="col-sm-2 control-label">评估目的</label>
                                                 <div class="col-sm-3">
-                                                    <p class="form-control-static">报告草稿提交客户时间</p>
+                                                    <p class="form-control-static">评估目的</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">评估基准日</label>
+                                                <div class="col-sm-3">
+                                                    <p class="form-control-static">{{project.valuateTime}}</p>
+                                                </div>
+                                                <label class="col-sm-2 control-label">受托方</label>
+                                                <div class="col-sm-3">
+                                                    <p class="form-control-static">评估目的</p>
+                                                </div>
+                                            </div>
+
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">项目合伙人</label>
+                                                <div class="col-sm-3">
+                                                    <p class="form-control-static">{{project.partnerId}}</p>
                                                 </div>
                                             </div>
                                         </fieldset>
