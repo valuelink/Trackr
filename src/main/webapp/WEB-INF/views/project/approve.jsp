@@ -98,6 +98,21 @@
                                                     </p>
                                                 </div>
                                             </div>
+
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label">审批结果</label>
+                                                <div class="col-sm-10">
+                                                    <label class="radio-inline i-radios text-success">
+                                                        <input type="radio" name="optionsRadios" value="option1"/>同意
+                                                    </label>
+                                                    <label class="radio-inline i-radios text-danger">
+                                                        <input type="radio" name="optionsRadios" value="option1"/>驳回
+                                                    </label>
+                                                </div>
+                                            </div>
+
+
                                             <div class="line line-dashed b-b line-lg pull-in"></div>
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">审批备注</label>
@@ -114,8 +129,7 @@
                             </div>
                             <!-- /.panel-body -->
                             <div class="panel-footer">
-                                <button class="col-sm-offset-1 btn btn-success" @click="complete">审批通过</button>
-                                <button class="btn btn-danger">审批驳回</button>
+                                <button class="col-sm-offset-2 btn btn-primary" @click="complete">任务提交</button>
                             </div>
                         </div>
                     </section>
@@ -156,7 +170,7 @@
                 $.ajax({
                     url: "/api/v1/project/complete",
                     type: "POST",
-                    data:vm.info,
+                    data: vm.info,
                     dataType: "json",
                     success: function (result) {
                         alert("dd ");

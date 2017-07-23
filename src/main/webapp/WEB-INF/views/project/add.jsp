@@ -195,7 +195,7 @@
                             data:vm.project,
                             dataType:"json",
                             success:function(result){
-
+                                location.href="/project/list";
                             },
                             error:function(xhr,textStatus){
                                 console.log('错误')

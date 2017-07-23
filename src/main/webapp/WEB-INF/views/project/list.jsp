@@ -30,6 +30,12 @@
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
+                                <div class="well">
+                                    <a href="/project/add" class="btn btn-primary">
+                                        <i class="glyphicon glyphicon-plus-sign"></i>
+                                        项目申请
+                                    </a>
+                                </div>
                                 <table width="100%" class="table table-bordered"
                                        id="dataTables-example">
                                     <thead>
