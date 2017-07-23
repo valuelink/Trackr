@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * Created by wangkun23 on 2017/6/22.
  */
 @Component
-public class UserAuthorizinRealm extends AuthorizingRealm {
+public class UserAuthorizingRealm extends AuthorizingRealm {
 
 
     @Autowired

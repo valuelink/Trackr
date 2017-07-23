@@ -3,6 +3,7 @@ package com.lockbur.trackr.service;
 import com.lockbur.trackr.model.ActTask;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
+import org.activiti.engine.history.HistoricTaskInstance;
 import org.activiti.engine.runtime.Execution;
 
 import java.util.List;
@@ -17,7 +18,15 @@ public interface WorkFlowService {
      *
      * @return
      */
-    public Page<ActTask> todoList(Pageable pageable);
+    public Page<ActTask> getTodoTasks(Pageable pageable);
+
+
+    /**
+     * 已办理任务列表
+     *
+     * @return
+     */
+    public Page<HistoricTaskInstance> getCompleteTasks(Pageable pageable);
 
 
     /**

@@ -62,9 +62,21 @@ public class WorkFlowController {
      * @param model
      * @return
      */
-    @RequestMapping("/tasks/my")
-    public String list(Model model) {
-        return "/workflow/tasks/my";
+    @RequestMapping("/tasks/todo")
+    public String todoTasks(Model model) {
+        return "/workflow/tasks/todo";
+    }
+
+
+    /**
+     * 已完成任务
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping("/tasks/complete")
+    public String completeTasks(Model model) {
+        return "/workflow/tasks/complete";
     }
 
 
@@ -95,8 +107,8 @@ public class WorkFlowController {
     /**
      * 显示图片
      *
-     * @https://my.oschina.net/u/568089/blog/873816
      * @return
+     * @https://my.oschina.net/u/568089/blog/873816
      */
     @RequestMapping(value = "/diagram")
     public void diagram(HttpServletResponse response, String processInstanceId) throws Exception {
@@ -111,9 +123,9 @@ public class WorkFlowController {
                 .processInstanceId(processInstanceId)
                 .list();
 
-        List<String> activeActivityIds=new ArrayList<>();
-        for(HistoricTaskInstance history:historicTasks){
-            if(history.getEndTime()!=null){
+        List<String> activeActivityIds = new ArrayList<>();
+        for (HistoricTaskInstance history : historicTasks) {
+            if (history.getEndTime() != null) {
                 activeActivityIds.add(history.getTaskDefinitionKey());
             }
         }

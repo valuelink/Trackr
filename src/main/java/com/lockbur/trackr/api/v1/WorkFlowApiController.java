@@ -6,8 +6,7 @@ import com.lockbur.trackr.rest.Pageable;
 import com.lockbur.trackr.rest.datatables.DataTable;
 import com.lockbur.trackr.rest.datatables.DataTableRequest;
 import com.lockbur.trackr.service.WorkFlowService;
-import org.activiti.engine.impl.persistence.entity.TaskEntity;
-import org.activiti.engine.task.Task;
+import org.activiti.engine.history.HistoricTaskInstance;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,10 +26,31 @@ public class WorkFlowApiController {
     @Resource
     WorkFlowService workFlowService;
 
-    @RequestMapping(value = "/todo", method = RequestMethod.POST)
-    public DataTable<ActTask> getTodoDataTable(@RequestBody DataTableRequest request) {
+    /**
+     * 个人代办任务列表
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/tasks/todo", method = RequestMethod.POST)
+    public DataTable<ActTask> getTodoTasksDataTable(@RequestBody DataTableRequest request) {
         Pageable pageable = new Pageable(request.getStart() / request.getLength() + 1, request.getLength());
-        Page<ActTask> page = workFlowService.todoList(pageable);
+        Page<ActTask> page = workFlowService.getTodoTasks(pageable);
+        DataTable<ActTask> dataTable = new DataTable<>(page, request.getDraw());
+        return dataTable;
+    }
+
+
+    /**
+     * 已经办理任务查询
+     *
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/tasks/complete", method = RequestMethod.POST)
+    public DataTable<ActTask> getCompleteTasksDataTable(@RequestBody DataTableRequest request) {
+        Pageable pageable = new Pageable(request.getStart() / request.getLength() + 1, request.getLength());
+        Page<HistoricTaskInstance> page = workFlowService.getCompleteTasks(pageable);
         DataTable<ActTask> dataTable = new DataTable<>(page, request.getDraw());
         return dataTable;
     }

@@ -5,9 +5,12 @@ import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
 import com.lockbur.trackr.service.WorkFlowService;
 import org.activiti.engine.FormService;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.form.TaskFormData;
+import org.activiti.engine.history.HistoricTaskInstance;
+import org.activiti.engine.history.HistoricTaskInstanceQuery;
 import org.activiti.engine.impl.persistence.entity.TaskEntity;
 import org.activiti.engine.runtime.Execution;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -34,16 +37,21 @@ public class WorkFlowServiceImpl implements WorkFlowService {
 
 
     @Resource
-    private RuntimeService runtimeService;
-
-    @Resource
     TaskService taskService;
+
 
     @Resource
     protected FormService formService;
 
+    @Resource
+    private RuntimeService runtimeService;
+
+    @Resource
+    HistoryService historyService;
+
+
     @Override
-    public Page<ActTask> todoList(Pageable pageable) {
+    public Page<ActTask> getTodoTasks(Pageable pageable) {
         TaskQuery todoTaskQuery = taskService.createTaskQuery().active().orderByTaskCreateTime().desc();
         // 查询列表
         List<Task> result = todoTaskQuery.listPage(pageable.getPageNow(), pageable.getPageSize());
@@ -62,6 +70,18 @@ public class WorkFlowServiceImpl implements WorkFlowService {
             todoList.add(entity);
         }
         Page<ActTask> page = new Page<>(todoList, count, pageable);
+
+        return page;
+    }
+
+    @Override
+    public Page<HistoricTaskInstance> getCompleteTasks(Pageable pageable) {
+        HistoricTaskInstanceQuery historicTaskInstanceQuery = historyService.createHistoricTaskInstanceQuery().finished(); // 创建历史任务实例查询
+        List<HistoricTaskInstance> list = historicTaskInstanceQuery.listPage(pageable.getPageNow(), pageable.getPageSize());
+
+        Long count = historicTaskInstanceQuery.count();
+
+        Page<HistoricTaskInstance> page = new Page<>(list, count, pageable);
 
         return page;
     }
@@ -90,9 +110,9 @@ public class WorkFlowServiceImpl implements WorkFlowService {
     public String startProcess(String businessKey) {
 
         Map<String, Object> variables1 = new HashMap<>();
-        variables1.put("requestUser","申请人测试");
+        variables1.put("requestUser", "申请人测试");
 
-        ProcessInstance instance = runtimeService.startProcessInstanceByKey("projectProcess", businessKey,variables1);
+        ProcessInstance instance = runtimeService.startProcessInstanceByKey("projectProcess", businessKey, variables1);
         Task task = taskService.createTaskQuery().processInstanceId(instance.getProcessInstanceId()).singleResult();
         logger.info("start survey.. {}", task.getName());
         Map<String, Object> variables2 = new HashMap<>();

@@ -114,13 +114,13 @@
                             </a>
                             <ul class="nav dk text-sm">
                                 <li>
-                                    <a href="/workflow/tasks/my" class="auto">
+                                    <a href="/workflow/tasks/todo" class="auto">
                                         <i class="fa fa-angle-right text-xs"></i>
                                         <span>待办任务</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="blog.html" class="auto">
+                                    <a href="/workflow/tasks/complete" class="auto">
                                         <i class="fa fa-angle-right text-xs"></i>
                                         <span>已办任务</span>
                                     </a>

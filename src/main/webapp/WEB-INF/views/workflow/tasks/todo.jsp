@@ -80,7 +80,7 @@
             "serverSide": true,
             "searching": false,
             ajax: {
-                url: '/api/v1/workflow/todo',
+                url: '/api/v1/workflow/tasks/todo',
                 method: 'POST',
                 contentType: 'application/json',
                 dataType: 'json',
