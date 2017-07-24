@@ -158,6 +158,7 @@
         <include refid="Base_Column_List"/>
         FROM
         tb_project
+        ORDER BY create_time DESC
         LIMIT ${pageNow},${pageSize}
     </select>
 

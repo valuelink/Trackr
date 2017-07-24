@@ -30,7 +30,7 @@ public class UserApiController {
     private UserService userService;
 
     @RequestMapping(value = "/list/dataTables", method = RequestMethod.POST)
-    public DataTable<User> getUserDataTable(@RequestBody DataTableRequest request) {
+    public DataTable<User> getDataTables(@RequestBody DataTableRequest request) {
         List<Filter> filters = new ArrayList<>();
 
         for (DataTableColumn column : request.getColumns()) {

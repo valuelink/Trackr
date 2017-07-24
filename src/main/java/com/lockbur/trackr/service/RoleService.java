@@ -1,6 +1,9 @@
 package com.lockbur.trackr.service;
 
 import com.lockbur.trackr.domain.Role;
+import com.lockbur.trackr.rest.Page;
+import com.lockbur.trackr.rest.Pageable;
+
 import java.util.List;
 /**
  * 角色管理
@@ -28,7 +31,7 @@ public interface RoleService {
      *
      * @return
      */
-    public List<Role> findAll();
+    public Page<Role> findByPage(Pageable pageable);
 
 
     /**

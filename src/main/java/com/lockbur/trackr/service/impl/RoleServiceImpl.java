@@ -5,6 +5,8 @@ import com.lockbur.trackr.domain.Role;
 import com.lockbur.trackr.enums.AuthorityType;
 import com.lockbur.trackr.mapper.AuthorityMapper;
 import com.lockbur.trackr.mapper.RoleMapper;
+import com.lockbur.trackr.rest.Page;
+import com.lockbur.trackr.rest.Pageable;
 import com.lockbur.trackr.service.RoleService;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -49,8 +51,10 @@ public class RoleServiceImpl implements RoleService {
 
 
     @Override
-    public List<Role> findAll() {
-        return roleMapper.findAll();
+    public Page<Role> findByPage(Pageable pageable) {
+        List<Role> content = roleMapper.findByPage(pageable);
+        Long count = roleMapper.countByPage(pageable);
+        return new Page(content, count, pageable);
     }
 
     @Override

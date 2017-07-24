@@ -175,6 +175,31 @@
                                 <span>受托方</span>
                             </a>
                         </li>
+
+                        <li>
+                            <a href="#" class="auto">
+                                <span class="pull-right text-muted">
+                                  <i class="fa fa-angle-left text"></i>
+                                  <i class="fa fa-angle-down text-active"></i>
+                                </span>
+                                <i class="icon-lock-open icon"></i>
+                                <span>权限管理</span>
+                            </a>
+                            <ul class="nav dk text-sm">
+                                <li class="active">
+                                    <a href="/user/list" class="auto">
+                                        <i class="fa fa-angle-right text-xs"></i>
+                                        <span>员工管理</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/role/list" class="auto">
+                                        <i class="fa fa-angle-right text-xs"></i>
+                                        <span>角色管理</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         <li>
                             <a href="#" class="auto">
                                 <span class="pull-right text-muted">
@@ -189,12 +214,6 @@
                                     <a href="layout-color.html" class="auto">
                                         <i class="fa fa-angle-right text-xs"></i>
                                         <span>数据字典</span>
-                                    </a>
-                                </li>
-                                <li class="active">
-                                    <a href="layout-color.html" class="auto">
-                                        <i class="fa fa-angle-right text-xs"></i>
-                                        <span>权限管理</span>
                                     </a>
                                 </li>
                                 <li>

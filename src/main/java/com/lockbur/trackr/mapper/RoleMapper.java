@@ -1,6 +1,8 @@
 package com.lockbur.trackr.mapper;
 
 import com.lockbur.trackr.domain.Role;
+import com.lockbur.trackr.domain.User;
+import com.lockbur.trackr.rest.Pageable;
 
 import java.util.List;
 
@@ -22,11 +24,21 @@ public interface RoleMapper {
     public List<Role> findRolesByUid(Integer uid);
 
     /**
-     * 查询所有
+     * 分页查询角色列表
      *
+     * @param pageable
      * @return
      */
-    public List<Role> findAll();
+    public List<Role> findByPage(Pageable pageable);
+
+    /**
+     * *
+     * 分页查询 count
+     *
+     * @param pageable
+     * @return
+     */
+    public Long countByPage(Pageable pageable);
 
 
     /**

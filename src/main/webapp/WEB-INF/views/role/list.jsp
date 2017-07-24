@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html class="app">
 <head>
-    <title>用户列表-项目管理系统</title>
+    <title>角色列表-项目管理系统</title>
     <jsp:include page="/WEB-INF/views/commons/head.jsp"/>
     <!-- DataTables CSS -->
     <link href="/assets/js/datatables-plugins/dataTables.bootstrap.css"
@@ -41,11 +41,8 @@
                                     <thead>
                                     <tr>
                                         <th>序号</th>
-                                        <th>项目名称</th>
-                                        <th>客户简称</th>
-                                        <th>项目金额</th>
-                                        <th>状态</th>
-                                        <th>评估时间</th>
+                                        <th>名称</th>
+                                        <th>描述</th>
                                         <th>创建时间</th>
                                         <th>操作</th>
                                     </tr>
@@ -87,7 +84,7 @@
             "serverSide": true,
             "searching": false,
             ajax: {
-                url: '/api/v1/project/tables',
+                url: '/api/v1/role/list/tables',
                 method: 'POST',
                 contentType: 'application/json',
                 dataType: 'json',
@@ -98,10 +95,7 @@
             columns: [
                 {data: 'id', 'name': 'id'},
                 {data: 'name', name: 'name'},
-                {data: 'companyId', name: 'companyId'},
-                {data: 'amount', name: 'amount'},
-                {data: 'statusName', name: 'statusName'},
-                {data: 'valuateTime', name: 'valuateTime'},
+                {data: 'description', name: 'description'},
                 {
                     data: 'createTime',
                     name: 'createTime',
@@ -113,11 +107,7 @@
                     data: 'id',
                     name: 'id',
                     "render": function (data, type, full, meta) {
-                        if(full['status']=="APPROVED"){
-                            return '<a href="/project/details/'+data+'" class="text-info">详细信息</a> | <a href="#" class="text-info">查看项目</a>';
-                        }else {
-                            return '<a href="/project/details/'+data+'" class="text-info">详细信息</a>';
-                        }
+                        return '<a href="/role/'+data+'" class="text-info">详细信息</a> | <a href="#" class="text-info">查看项目</a>';
                     }
                 }
             ],

@@ -52,7 +52,7 @@ public class ProjectApiController {
 
 
     @RequestMapping(value = "/tables", method = RequestMethod.POST)
-    public DataTable<ProjectModel> getUserDataTable(@RequestBody DataTableRequest request) {
+    public DataTable<ProjectModel> getDataTables(@RequestBody DataTableRequest request) {
         Pageable pageable = new Pageable(request.getStart() / request.getLength() + 1, request.getLength());
         Page<ProjectModel> page = projectService.selectByPage(pageable);
         DataTable<ProjectModel> dataTable = new DataTable<>(page, request.getDraw());

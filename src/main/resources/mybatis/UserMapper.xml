@@ -202,7 +202,6 @@
                 ${sort.property} ${sort.direction}
             </foreach>
         </if>
-        ORDER BY convert(u.real_name using gbk) asc
         LIMIT ${pageNow},${pageSize}
     </select>
 
