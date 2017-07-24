@@ -1,4 +1,4 @@
-package com.lockbur.trackr.domain;
+package com.lockbur.trackr.enums;
 
 import com.lockbur.trackr.enums.BaseEnum;
 

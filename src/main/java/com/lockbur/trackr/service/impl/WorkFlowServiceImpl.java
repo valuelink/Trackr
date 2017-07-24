@@ -1,5 +1,6 @@
 package com.lockbur.trackr.service.impl;
 
+import com.lockbur.trackr.enums.ApprovalType;
 import com.lockbur.trackr.model.ActTask;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
@@ -135,8 +136,14 @@ public class WorkFlowServiceImpl implements WorkFlowService {
     }
 
     @Override
-    public void complete(String taskId, String businessKey, String comment) {
+    public void complete(String taskId, String businessKey, ApprovalType approvalType, String comment) {
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+
+        //设置流程审批结果变量
+        taskService.setVariableLocal(taskId, ApprovalType.class.getSimpleName(), approvalType.name());
+
+//        Map<String, Object> variables = new HashMap();
+//        variables.put(ApprovalType.class.getSimpleName(), approvalType.name());
 
         //添加备注
         taskService.addComment(taskId, task.getProcessInstanceId(), comment);

@@ -1,5 +1,6 @@
 package com.lockbur.trackr.service;
 
+import com.lockbur.trackr.enums.ApprovalType;
 import com.lockbur.trackr.model.ActTask;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
@@ -59,6 +60,6 @@ public interface WorkFlowService {
      * @param businessKey
      * @param comment
      */
-    public void complete(String taskId, String businessKey, String comment);
+    public void complete(String taskId, String businessKey, ApprovalType approvalType, String comment);
 
 }

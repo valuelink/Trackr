@@ -1,14 +1,14 @@
 package com.lockbur.trackr.service.impl;
 
 import com.lockbur.trackr.domain.Project;
-import com.lockbur.trackr.domain.ProjectStatus;
+import com.lockbur.trackr.enums.ApprovalType;
+import com.lockbur.trackr.enums.ProjectStatus;
 import com.lockbur.trackr.mapper.ProjectMapper;
 import com.lockbur.trackr.model.ProjectModel;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
 import com.lockbur.trackr.service.ProjectService;
 import com.lockbur.trackr.service.WorkFlowService;
-import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -94,8 +94,12 @@ public class ProjectServiceImpl implements ProjectService {
 
         if (status.equals(ProjectStatus.APPROVED)) {
             //创建合同项目
-
+            workFlowService.complete(taskId, projectId.toString(), ApprovalType.APPROVE, comment);
         }
-        workFlowService.complete(taskId, projectId.toString(), comment);
+
+        if (status.equals(ProjectStatus.REJECTED)) {
+            workFlowService.complete(taskId, projectId.toString(), ApprovalType.REJECT, comment);
+        }
+
     }
 }

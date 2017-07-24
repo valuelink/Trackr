@@ -1,7 +1,7 @@
 package com.lockbur.trackr.service;
 
 import com.lockbur.trackr.domain.Project;
-import com.lockbur.trackr.domain.ProjectStatus;
+import com.lockbur.trackr.enums.ProjectStatus;
 import com.lockbur.trackr.model.ProjectModel;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;

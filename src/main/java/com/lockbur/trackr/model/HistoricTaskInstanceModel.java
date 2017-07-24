@@ -1,5 +1,6 @@
 package com.lockbur.trackr.model;
 
+import com.lockbur.trackr.enums.ApprovalType;
 import lombok.Getter;
 import lombok.Setter;
 import org.activiti.engine.history.HistoricTaskInstance;
@@ -11,8 +12,13 @@ import org.activiti.engine.impl.persistence.entity.HistoricTaskInstanceEntity;
  */
 public class HistoricTaskInstanceModel extends HistoricTaskInstanceEntity {
 
+
     @Setter
     @Getter
-    private String comment;
+    private ApprovalType approvalType;//任务审批结果
+
+    @Setter
+    @Getter
+    private String comment;//任务审批备注
 
 }

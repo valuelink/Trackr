@@ -1,7 +1,8 @@
 package com.lockbur.trackr.api.v1;
 
 import com.lockbur.trackr.domain.Project;
-import com.lockbur.trackr.domain.ProjectStatus;
+import com.lockbur.trackr.enums.ApprovalType;
+import com.lockbur.trackr.enums.ProjectStatus;
 import com.lockbur.trackr.model.HistoricTaskInstanceModel;
 import com.lockbur.trackr.model.ProjectModel;
 import com.lockbur.trackr.rest.Page;
@@ -14,6 +15,7 @@ import com.lockbur.trackr.service.WorkFlowService;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricTaskInstance;
+import org.activiti.engine.history.HistoricVariableInstance;
 import org.activiti.engine.task.Comment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,6 +97,14 @@ public class ProjectApiController {
             HistoricTaskInstanceModel model = new HistoricTaskInstanceModel();
 
             BeanUtils.copyProperties(hti, model);
+
+            //查询流程变量中存储的审批结果
+            HistoricVariableInstance historicVariableInstance = historyService.createHistoricVariableInstanceQuery().taskId(hti.getId()).variableName(ApprovalType.class.getSimpleName()).singleResult();
+            if(historicVariableInstance!=null){
+                ApprovalType approvalType = ApprovalType.valueOf(historicVariableInstance.getValue().toString());
+                model.setApprovalType(approvalType);
+            }
+
             List<Comment> comments = taskService.getTaskComments(hti.getId());
             for (Comment comment : comments) {
                 //一般情况只会有一个

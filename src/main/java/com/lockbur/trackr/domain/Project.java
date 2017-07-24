@@ -1,5 +1,6 @@
 package com.lockbur.trackr.domain;
 
+import com.lockbur.trackr.enums.ProjectStatus;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;

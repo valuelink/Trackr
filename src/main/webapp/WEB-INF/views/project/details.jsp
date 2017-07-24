@@ -104,7 +104,7 @@
                                 <i class="fa fa-list"></i> 审批流程
                             </div>
                             <div class="panel-body">
-                                <img :src="'/workflow/diagram?processInstanceId='+project.processInstanceId">
+                                <img :src="'/workflow/diagram?processInstanceId='+project.processInstanceId" v-if="project.processInstanceId!=null">
                             </div>
                             <!-- /.panel-body -->
                         </div>
@@ -122,6 +122,7 @@
                                         <th>操作人</th>
                                         <th>审批时间</th>
                                         <th>任务创建时间</th>
+                                        <th>审批结果</th>
                                         <th>意见</th>
                                     </tr>
                                     </thead>
@@ -131,6 +132,10 @@
                                         <td>{{historic.assignee}}</td>
                                         <td>{{historic.endTime}}</td>
                                         <td>{{historic.startTime}}</td>
+                                        <td>
+                                            <span class="label label-success" v-show="historic.approvalType=='APPROVE'">审批通过</span>
+                                            <span class="label label-danger" v-show="historic.approvalType=='REJECT'">审批驳回</span>
+                                        </td>
                                         <td>{{historic.comment}}</td>
                                     </tr>
                                     </tbody>
@@ -158,14 +163,10 @@
 <script src="/assets/js/app.plugin.js"></script>
 
 <script>
-    $(document).ready(function () {
-
-    });
-
     var vm = new Vue({
         el: "#app",
         data: {
-            id:"${id}",
+            id: "${id}",
             project: {},
             historicTasks: []
         },
@@ -174,9 +175,10 @@
         },
         methods: {
             queryDetail: function () {
-                //console.log(vm.id)
+                var _self = this;
+                //console.log(_self.id)
                 $.ajax({
-                    url: "/api/v1/project/details/${id}",
+                    url: "/api/v1/project/details/" + _self.id,
                     type: "GET",
                     dataType: "json",
                     success: function (result) {
