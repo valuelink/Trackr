@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lockbur.trackr.mapper.ContractMapper">
+
+    <sql id="Base_Column_List">
+		id, company_id, contract_number, contract_name, contract_type_ids, amount, currency,
+		pay_scale, detail_money, pay_count, is_pay_off, note, progress_master, progress_branch,
+		parent_id, sign_back, delegate_id, send_payment_notice, contract_year, number, prefix,
+		purpose_type, valuate_category, valuate_time, purpose, valuate_type, valuate_type_other,
+		risk_level, report_type, send_payment_notice_val, economic_behavior, report_id, report_name,
+		job_code_id, job_code_number, express_info, review_note, review_project_note, review_contract_note,
+		review_model_note, review_scheme_note,
+		status, creator_id, create_time, update_time
+	</sql>
+
+    <insert id="insert" parameterType="com.lockbur.trackr.domain.Contract">
+        insert into tb_contract (id, company_id, contract_number,
+        contract_name, contract_type_ids, amount,
+        currency, pay_scale, detail_money,
+        pay_count, is_pay_off, note,
+        progress_master, progress_branch, parent_id,
+        sign_back, delegate_id, send_payment_notice,
+        contract_year, number, prefix,
+        purpose_type, valuate_category, valuate_time,
+        purpose, valuate_type, valuate_type_other,
+        risk_level, report_type, send_payment_notice_val,
+        economic_behavior, report_id, report_name,
+        job_code_id, job_code_number, express_info,
+        review_note, review_project_note, review_contract_note,
+        review_model_note, review_scheme_note, status,
+        creator_id, create_time, update_time
+        )
+        values (#{id,jdbcType=INTEGER}, #{companyId,jdbcType=INTEGER}, #{contractNumber,jdbcType=VARCHAR},
+        #{contractName,jdbcType=VARCHAR}, #{contractTypeIds,jdbcType=VARCHAR}, #{amount,jdbcType=INTEGER},
+        #{currency,jdbcType=BIT}, #{payScale,jdbcType=CHAR}, #{detailMoney,jdbcType=VARCHAR},
+        #{payCount,jdbcType=TINYINT}, #{isPayOff,jdbcType=BIT}, #{note,jdbcType=VARCHAR},
+        #{progressMaster,jdbcType=DOUBLE}, #{progressBranch,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER},
+        #{signBack,jdbcType=BIT}, #{delegateId,jdbcType=INTEGER}, #{sendPaymentNotice,jdbcType=INTEGER},
+        #{contractYear,jdbcType=DATE}, #{number,jdbcType=INTEGER}, #{prefix,jdbcType=VARCHAR},
+        #{purposeType,jdbcType=TINYINT}, #{valuateCategory,jdbcType=VARCHAR}, #{valuateTime,jdbcType=VARCHAR},
+        #{purpose,jdbcType=VARCHAR}, #{valuateType,jdbcType=VARCHAR}, #{valuateTypeOther,jdbcType=VARCHAR},
+        #{riskLevel,jdbcType=INTEGER}, #{reportType,jdbcType=INTEGER}, #{sendPaymentNoticeVal,jdbcType=VARCHAR},
+        #{economicBehavior,jdbcType=VARCHAR}, #{reportId,jdbcType=INTEGER}, #{reportName,jdbcType=VARCHAR},
+        #{jobCodeId,jdbcType=INTEGER}, #{jobCodeNumber,jdbcType=VARCHAR}, #{expressInfo,jdbcType=VARCHAR},
+        #{reviewNote,jdbcType=VARCHAR}, #{reviewProjectNote,jdbcType=VARCHAR}, #{reviewContractNote,jdbcType=VARCHAR},
+        #{reviewModelNote,jdbcType=VARCHAR}, #{reviewSchemeNote,jdbcType=VARCHAR}, #{status,jdbcType=BIT},
+        #{creatorId,jdbcType=INTEGER}, now(), now()
+        )
+    </insert>
+
+    <update id="update" parameterType="com.lockbur.trackr.domain.Contract">
+        update tb_contract
+        <set>
+            <if test="companyId != null">
+                company_id = #{companyId,jdbcType=INTEGER},
+            </if>
+            <if test="contractNumber != null">
+                contract_number = #{contractNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="contractName != null">
+                contract_name = #{contractName,jdbcType=VARCHAR},
+            </if>
+            <if test="contractTypeIds != null">
+                contract_type_ids = #{contractTypeIds,jdbcType=VARCHAR},
+            </if>
+            <if test="amount != null">
+                amount = #{amount,jdbcType=INTEGER},
+            </if>
+            <if test="currency != null">
+                currency = #{currency,jdbcType=BIT},
+            </if>
+            <if test="payScale != null">
+                pay_scale = #{payScale,jdbcType=CHAR},
+            </if>
+            <if test="detailMoney != null">
+                detail_money = #{detailMoney,jdbcType=VARCHAR},
+            </if>
+            <if test="payCount != null">
+                pay_count = #{payCount,jdbcType=TINYINT},
+            </if>
+            <if test="isPayOff != null">
+                is_pay_off = #{isPayOff,jdbcType=BIT},
+            </if>
+            <if test="note != null">
+                note = #{note,jdbcType=VARCHAR},
+            </if>
+            <if test="progressMaster != null">
+                progress_master = #{progressMaster,jdbcType=DOUBLE},
+            </if>
+            <if test="progressBranch != null">
+                progress_branch = #{progressBranch,jdbcType=INTEGER},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="signBack != null">
+                sign_back = #{signBack,jdbcType=BIT},
+            </if>
+            <if test="delegateId != null">
+                delegate_id = #{delegateId,jdbcType=INTEGER},
+            </if>
+            <if test="sendPaymentNotice != null">
+                send_payment_notice = #{sendPaymentNotice,jdbcType=INTEGER},
+            </if>
+            <if test="contractYear != null">
+                contract_year = #{contractYear,jdbcType=DATE},
+            </if>
+            <if test="number != null">
+                number = #{number,jdbcType=INTEGER},
+            </if>
+            <if test="prefix != null">
+                prefix = #{prefix,jdbcType=VARCHAR},
+            </if>
+            <if test="purposeType != null">
+                purpose_type = #{purposeType,jdbcType=TINYINT},
+            </if>
+            <if test="valuateCategory != null">
+                valuate_category = #{valuateCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="valuateTime != null">
+                valuate_time = #{valuateTime,jdbcType=VARCHAR},
+            </if>
+            <if test="purpose != null">
+                purpose = #{purpose,jdbcType=VARCHAR},
+            </if>
+            <if test="valuateType != null">
+                valuate_type = #{valuateType,jdbcType=VARCHAR},
+            </if>
+            <if test="valuateTypeOther != null">
+                valuate_type_other = #{valuateTypeOther,jdbcType=VARCHAR},
+            </if>
+            <if test="riskLevel != null">
+                risk_level = #{riskLevel,jdbcType=INTEGER},
+            </if>
+            <if test="reportType != null">
+                report_type = #{reportType,jdbcType=INTEGER},
+            </if>
+            <if test="sendPaymentNoticeVal != null">
+                send_payment_notice_val = #{sendPaymentNoticeVal,jdbcType=VARCHAR},
+            </if>
+            <if test="economicBehavior != null">
+                economic_behavior = #{economicBehavior,jdbcType=VARCHAR},
+            </if>
+            <if test="reportId != null">
+                report_id = #{reportId,jdbcType=INTEGER},
+            </if>
+            <if test="reportName != null">
+                report_name = #{reportName,jdbcType=VARCHAR},
+            </if>
+            <if test="jobCodeId != null">
+                job_code_id = #{jobCodeId,jdbcType=INTEGER},
+            </if>
+            <if test="jobCodeNumber != null">
+                job_code_number = #{jobCodeNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="expressInfo != null">
+                express_info = #{expressInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="reviewNote != null">
+                review_note = #{reviewNote,jdbcType=VARCHAR},
+            </if>
+            <if test="reviewProjectNote != null">
+                review_project_note = #{reviewProjectNote,jdbcType=VARCHAR},
+            </if>
+            <if test="reviewContractNote != null">
+                review_contract_note = #{reviewContractNote,jdbcType=VARCHAR},
+            </if>
+            <if test="reviewModelNote != null">
+                review_model_note = #{reviewModelNote,jdbcType=VARCHAR},
+            </if>
+            <if test="reviewSchemeNote != null">
+                review_scheme_note = #{reviewSchemeNote,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=BIT},
+            </if>
+            <if test="creatorId != null">
+                creator_id = #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            update_time = now(),
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+
+
+    <!--分页使用 findByPage-->
+    <select id="findByPage" resultType="com.lockbur.trackr.model.ContractModel" parameterType="com.lockbur.trackr.rest.Pageable">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_contract
+        <if test="filters!=null and filters.size>0">
+            <where>
+                <foreach collection="filters" index="index" item="filter" separator=" ">
+                    <choose>
+                        <when test="filter.operator.key=='in'">
+                            ${filter.property} ${filter.operator.key}
+                            <foreach collection="filter.value" index="valueIndex" item="value" open="(" separator="," close=")">
+                                ${value}
+                            </foreach>
+                        </when>
+                        <otherwise>
+                            <foreach collection="filters" index="index" item="filter" open="" separator="and" close="">
+                                ${filter.property} ${filter.operator.key} #{filter.value}
+                            </foreach>
+                        </otherwise>
+                    </choose>
+                </foreach>
+            </where>
+        </if>
+        <if test="sorts!=null and sorts.size>0">
+            <foreach collection="sorts" item="sort" open="order by " separator="," close=" ">
+                ${sort.property} ${sort.direction}
+            </foreach>
+        </if>
+        LIMIT ${pageNow},${pageSize}
+    </select>
+
+    <select id="countByPage" resultType="long" parameterType="com.lockbur.trackr.rest.Pageable">
+        SELECT
+        count(id)
+        FROM tb_contract
+        <if test="filters!=null and filters.size>0">
+            <where>
+                <foreach collection="filters" index="index" item="filter" separator=" ">
+                    <choose>
+                        <when test="filter.operator.key=='in'">
+                            ${filter.property} ${filter.operator.key}
+                            <foreach collection="filter.value" index="valueIndex" item="value" open="(" separator=","
+                                     close=")">
+                                ${value}
+                            </foreach>
+                        </when>
+                        <otherwise>
+                            <foreach collection="filters" index="index" item="filter" open="" separator="and" close="">
+                                ${filter.property} ${filter.operator.key} #{filter.value}
+                            </foreach>
+                        </otherwise>
+                    </choose>
+                </foreach>
+            </where>
+        </if>
+    </select>
+    <!--//END 分页使用 findByPage-->
+
+
+    <select id="findNextId" resultType="Integer">
+		select ifnull(max(id), 0) + 1 from t_contract
+	</select>
+
+    <select id="findNextNumber" resultType="Integer">
+		select ifnull(max(number), 999) + 1 from t_contract where contract_year = #{year}
+	</select>
+
+</mapper>

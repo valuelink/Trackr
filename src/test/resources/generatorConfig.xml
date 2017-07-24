@@ -49,8 +49,8 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="tb_project"
-               domainObjectName="Project"
+        <table tableName="tb_contract"
+               domainObjectName="Contract"
                enableCountByExample="false"
                enableDeleteByExample="false"
                enableUpdateByExample="false"
