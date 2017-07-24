@@ -6,10 +6,10 @@
     <meta charset="utf-8"/>
     <title>项目管理系统测试</title>
     <jsp:include page="/WEB-INF/views/commons/head.jsp"/>
-    <link href="${pageContext.servletContext.contextPath}/assets/css/app.css" rel="stylesheet"/>
+    <link href="/assets/css/app.css" rel="stylesheet"/>
 </head>
-<body class="">
-<section class="vbox">
+<body>
+<section id="app" class="vbox">
     <jsp:include page="/WEB-INF/views/commons/header.jsp"/>
     <section>
         <section class="hbox stretch">
@@ -92,7 +92,8 @@
                                         <div class="col-sm-3">
                                             <div class="checkbox i-checks">
                                                 <label>
-                                                    <input type="checkbox" name="department" checked value=""><i></i> 法定部门
+                                                    <input type="checkbox" name="department" checked value=""><i></i>
+                                                    法定部门
                                                 </label>
                                             </div>
                                             <div class="checkbox i-checks">
@@ -137,10 +138,8 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">角色</label>
                                         <div class="col-sm-3">
-                                            <select data-required="true" class="form-control m-t parsley-validated">
-                                                <option value="">合伙人</option>
-                                                <option value="foo">财务</option>
-                                                <option value="bar">同学</option>
+                                            <select class="form-control">
+                                                <option :value="role.id" v-for="role in roles">{{role.name}}</option>
                                             </select>
                                             <label class="checkbox i-checks">
                                                 <input type="checkbox" name="inlineCheckbox1" value="option1"><i></i>
@@ -170,13 +169,96 @@
 </section>
 
 <!-- footer -->
-<script src="${pageContext.servletContext.contextPath}/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.min.js"></script>
 <!-- Bootstrap -->
-<script src="${pageContext.servletContext.contextPath}/assets/js/bootstrap.js"></script>
-<!-- App -->
-<script src="${pageContext.servletContext.contextPath}/assets/js/app.js"></script>
-<script src="${pageContext.servletContext.contextPath}/assets/js/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="${pageContext.servletContext.contextPath}/assets/js/app.plugin.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
 
+<script src="/assets/js/bootstrap3-dialog/js/bootstrap-dialog.js"></script>
+<script src="/assets/js/vue/vue.min.js"></script>
+<script src="/assets/js/vee-validate/vee-validate.js"></script>
+<script src="/assets/js/vee-validate/locale/zh_CN.js"></script>
+<!-- App -->
+<script src="/assets/js/app.js"></script>
+<script src="/assets/js/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/assets/js/app.plugin.js"></script>
+<script>
+    //vue验证
+    Vue.use(VeeValidate, {
+        errorBagTag: "errors",
+        locale: "zh_CN"
+    });
+
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            user: {
+                id: "",
+                name: "测试项目名称",
+                amount: "0",
+                companyId: "1",
+                riskLevel: "1",
+                economicBehavior: "测试经济行为",
+                purpose: "1",
+                valuateTime: "2017,2018",
+                reportType: "1",
+                reportId: "1",
+                partnerId: "1"
+            },
+            roles: []
+        },
+        created: function () {
+            this.queryRoles();
+        },
+        mounted: function () {
+
+        },
+        methods: {
+            queryRoles: function () {
+                var _self = this;
+                $.ajax({
+                    url: "/api/v1/role/all",
+                    type: "GET",
+                    dataType: "json",
+                    success: function (result) {
+                        _self.roles = result.data.roles;
+                    },
+                    error: function (xhr, textStatus) {
+                        console.log('错误')
+                    }
+                })
+            },
+            save: function () {
+                this.$validator.validateAll().then(function (result) {
+                    if (result) {
+                        //提交
+                        $.ajax({
+                            url: "/api/v1/project/save",
+                            type: "POST",
+                            data: vm.project,
+                            dataType: "json",
+                            success: function (result) {
+                                location.href = "/project/list";
+                            },
+                            error: function (xhr, textStatus) {
+                                console.log('错误')
+                            }
+                        })
+                    } else {
+                        BootstrapDialog.confirm({
+                            title: '<i class="fa fa-info-circle fa-fw"></i> 系统提示',
+                            message: '请检查表单数据是否填写正确',
+                            type: "type-default",
+                            closable: true,
+                            draggable: true,
+                            btnCancelLabel: '取消',
+                            btnOKLabel: '确定',
+                            btnOKClass: 'btn-info'
+                        });
+                    }
+                });
+            }
+        }
+    });
+</script>
 </body>
 </html>

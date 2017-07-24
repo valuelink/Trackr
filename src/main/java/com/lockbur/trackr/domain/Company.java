@@ -13,7 +13,7 @@ public class Company implements Serializable {
 
     private Integer id;
     private String companyNumber;
-    private Integer isMaster;
+    private Integer master;//是否是主公司
     private Integer associatedCount;
     private String companyName;
     private String abbrName;

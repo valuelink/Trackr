@@ -33,7 +33,7 @@
                             </a>
                             <ul class="nav dk text-sm">
                                 <li class="active">
-                                    <a href="layout-color.html" class="auto">
+                                    <a href="/company/list" class="auto">
                                         <i class="fa fa-angle-right text-xs"></i>
                                         <span>客户管理</span>
                                     </a>

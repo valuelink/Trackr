@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html class="app">
 <head>
-    <title>角色列表-项目管理系统</title>
+    <title>客户列表-项目管理系统</title>
     <jsp:include page="/WEB-INF/views/commons/head.jsp"/>
     <!-- DataTables CSS -->
     <link href="/assets/js/datatables-plugins/dataTables.bootstrap.css"
@@ -26,18 +26,27 @@
                     <section class="scrollable wrapper bg-white-only">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <i class="fa fa-list"></i> 项目申请列表
+                                <i class="fa fa-list"></i> 客户列表
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
-                                <table width="100%" class="table table-bordered"
-                                       id="dataTables-example">
+                                <div class="well">
+                                    <a href="/project/add" class="btn btn-primary">
+                                        <i class="glyphicon glyphicon-plus-sign"></i>
+                                        新建客户
+                                    </a>
+                                </div>
+                                <table width="100%" class="table table-bordered" id="dataTables">
                                     <thead>
                                     <tr>
                                         <th>序号</th>
-                                        <th>名称</th>
-                                        <th>描述</th>
-                                        <th>创建时间</th>
+                                        <th>客户编号</th>
+                                        <th>客户简称</th>
+                                        <th>客户名称</th>
+                                        <th>签约代号</th>
+                                        <th>创建人</th>
+                                        <th>关联公司数</th>
+                                        <th>最后修改时间</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -72,13 +81,13 @@
 
 <script>
     $(document).ready(function () {
-        var dataTable = $('#dataTables-example').DataTable({
+        var dataTable = $('#dataTables').DataTable({
             "bProcessing": true,
             "processing": true,
             "serverSide": true,
             "searching": false,
             ajax: {
-                url: '/api/v1/role/list/tables',
+                url: '/api/v1/company/list/tables',
                 method: 'POST',
                 contentType: 'application/json',
                 dataType: 'json',
@@ -87,12 +96,16 @@
                 }
             },
             columns: [
-                {data: 'id', 'name': 'id'},
-                {data: 'name', name: 'name'},
-                {data: 'description', name: 'description'},
+                {data: 'id', name: 'id'},
+                {data: 'companyNumber', name: 'companyNumber'},
+                {data: 'abbrName', name: 'abbrName'},
+                {data: 'companyName', name: 'companyName'},
+                {data: 'signCode', name: 'signCode'},
+                {data: 'creator.realName', name: 'creator.realName'},
+                {data: 'associatedCount', name: 'associatedCount'},
                 {
-                    data: 'createTime',
-                    name: 'createTime',
+                    data: 'updateTime',
+                    name: 'updateTime',
                     render: function (data, type, row, meta) {
                         return new Date(data).Format("yyyy-MM-dd hh:mm:ss");
                     }
@@ -101,7 +114,7 @@
                     data: 'id',
                     name: 'id',
                     "render": function (data, type, full, meta) {
-                        return '<a href="/role/'+data+'" class="text-info">详细信息</a> | <a href="#" class="text-info">查看项目</a>';
+                        return '<a href="/company/details/' + data + '" class="text-info">详细信息</a>';
                     }
                 }
             ],

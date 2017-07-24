@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lockbur.trackr.mapper.CompanyMapper">
+
+    <sql id="Base_Column_List">
+        company.id,
+        company.company_number ,
+        company.master ,
+        company.associated_count ,
+        company.company_name ,
+        company.abbr_name ,company.industry_id ,company.province_id ,company.city_id ,company.address ,
+        company.location_en_name,company.sign_code,
+        company.email,company.web_site ,company.telephone ,company.fax ,
+        company.creator_id ,company.create_time ,company.update_time ,
+        company.master_id,
+        <!--注意如果是关联对象已定要写AS 别名,并使用双引号包含-->
+        creator.id AS "creator.id",
+        creator.login_name AS "creator.login_name",
+        creator.real_name AS "creator.real_name"
+    </sql>
+
+    <insert id="insert" parameterType="Company" useGeneratedKeys="true" keyProperty="id">
+		insert into tb_company (
+ 			company_number ,
+			master ,
+			associated_count ,
+			company_name ,
+			abbr_name ,
+			industry_id ,
+			province_id ,
+			city_id ,
+			address ,
+			location_en_name,
+			sign_code,
+			email,
+			web_site ,
+			telephone ,
+			fax ,
+			creator_id ,
+			create_time ,
+			update_time ,
+            master_id
+		) values (
+			#{companyNumber} ,
+			#{master} ,
+			#{associatedCount} ,
+			#{companyName} ,
+			#{abbrName} ,
+			#{industryId} ,
+			#{provinceId} ,
+			#{cityId} ,
+			#{address} ,
+			#{locationEnName} ,
+			#{signCode} ,
+			#{email} ,
+			#{webSite} ,
+			#{telephone} ,
+			#{fax} ,
+			#{creatorId} ,
+			now() ,
+			now() ,
+            #{masterId} )
+	</insert>
+
+    <update id="update" parameterType="Company">
+        UPDATE
+        tb_company
+        <set>
+            <if test="companyNumber != null">
+                company_number = #{companyNumber},
+            </if>
+            <if test="associatedCount != null">
+                associated_count = #{associatedCount},
+            </if>
+            <if test="companyName != null">
+                company_name = #{companyName},
+            </if>
+            <if test="abbrName != null">
+                abbr_name = #{abbrName},
+            </if>
+            <if test="industryId != null">
+                industry_id = #{industryId},
+            </if>
+            <if test="provinceId != null">
+                province_id = #{provinceId},
+            </if>
+            <if test="cityId != null">
+                city_id = #{cityId},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="locationEnName != null">
+                location_en_name = #{locationEnName},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="webSite != null">
+                web_site = #{webSite},
+            </if>
+            <if test="telephone != null">
+                telephone = #{telephone},
+            </if>
+            <if test="fax != null">
+                fax = #{fax},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="creatorId != null">
+                creator_id = #{creatorId},
+            </if>
+            update_time = now()
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+
+    <update id="delete" parameterType="int">
+        UPDATE
+        tb_company
+        <set>
+            status = 0,
+            update_time = now()
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <!--分页使用 findByPage-->
+    <select id="findByPage" resultType="com.lockbur.trackr.model.CompanyModel" parameterType="com.lockbur.trackr.rest.Pageable">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        tb_company company
+        LEFT JOIN
+        (SELECT id,login_name,real_name FROM tb_user) creator ON company.creator_id=creator.id
+        <where>
+            <if test="searchValue != null and searchValue != ''">
+                AND company.abbr_name like CONCAT(#{searchValue},'%' )
+            </if>
+            AND company.status = 1 AND company.master = 1
+        </where>
+        ORDER BY company.update_time DESC
+        LIMIT
+        ${pageNow},${pageSize}
+    </select>
+
+    <select id="countByPage" resultType="long" parameterType="com.lockbur.trackr.rest.Pageable">
+        SELECT
+        count(*)
+        FROM tb_company company
+        <where>
+            <if test="searchValue != null and searchValue != ''">
+                AND company.abbr_name like CONCAT(#{searchValue},'%' )
+            </if>
+            AND company.status = 1 AND company.master = 1
+        </where>
+    </select>
+    <!--//END 分页使用 findByPage-->
+
+    <!-- 关联查询出创建人信息 -->
+    <select id="findById" resultType="com.lockbur.trackr.model.CompanyModel">
+            SELECT
+            company.*,
+            u.id,u.login_name,u.real_name
+            FROM
+            tb_company  company
+            LEFT JOIN
+            (SELECT id,login_name,real_name FROM tb_user) u
+            ON 
+            company.creator_id=u.id
+            WHERE 
+            company.id = #{id} AND status = 1;
+    </select>
+
+    <select id="findNextId" resultType="Integer">
+            SELECT
+            count(id)+1
+            FROM tb_company company
+            WHERE
+            company.master = 1
+    </select>
+
+</mapper>

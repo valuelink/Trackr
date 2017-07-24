@@ -28,15 +28,15 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <i class="fa fa-list"></i> 用户数据列表
-                                <div class="pull-right">
-                                    <a href="/user/add" class="btn btn-success btn-xs">
-                                        <i class="fa fa-plus"></i> 增加用户
-                                    </a>
-                                </div>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
                                 <div class="well form-inline">
+                                    <a href="/user/add" class="btn btn-primary">
+                                        <i class="glyphicon glyphicon-plus-sign"></i>
+                                        增加用户
+                                    </a>
+
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">手机号码</span>
@@ -62,6 +62,7 @@
                                             </select>
                                         </div>
                                     </div>
+
                                     <button id="search-btn" class="btn btn-info">查询</button>
                                 </div>
                                 <table width="100%" class="table table-striped table-bordered table-hover"
@@ -168,10 +169,10 @@
                     name: 'id',
                     "render": function (data, type, full, meta) {
                         return '<div class="btn-group" role="group" aria-label="...">' +
-                                '<button type="button" class="btn btn-default">冻结</button>' +
-                                '<button type="button" class="btn btn-danger">删除</button>' +
-                                '<button type="button" class="btn btn-success">编辑</button>' +
-                                '</div>';
+                            '<button type="button" class="btn btn-default">冻结</button>' +
+                            '<button type="button" class="btn btn-danger">删除</button>' +
+                            '<button type="button" class="btn btn-success">编辑</button>' +
+                            '</div>';
                     }
                 }
             ],

@@ -53,4 +53,16 @@ public class UserApiController {
         DataTable<User> dataTable = new DataTable<User>(page, request.getDraw());
         return dataTable;
     }
+
+    /**
+     * 保存员工信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String save(User user) {
+
+        
+        return "/user/add";
+    }
 }

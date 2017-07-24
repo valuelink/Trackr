@@ -1,10 +1,9 @@
 package com.lockbur.trackr.api.v1;
 
 import com.lockbur.trackr.domain.Role;
-import com.lockbur.trackr.domain.User;
-import com.lockbur.trackr.rest.Filter;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
+import com.lockbur.trackr.rest.ResponseData;
 import com.lockbur.trackr.rest.datatables.DataTable;
 import com.lockbur.trackr.rest.datatables.DataTableRequest;
 import com.lockbur.trackr.service.RoleService;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 角色管理
@@ -34,5 +31,21 @@ public class RoleApiController {
         Page<Role> page = roleService.findByPage(pageable);
         DataTable<Role> dataTable = new DataTable<>(page, request.getDraw());
         return dataTable;
+    }
+
+
+    /**
+     * 全部角色
+     *
+     * @return
+     */
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public ResponseData findAll() {
+        Pageable pageable = new Pageable(1, Integer.MAX_VALUE);
+        Page<Role> page = roleService.findByPage(pageable);
+
+        ResponseData result = ResponseData.success("200");
+        result.addData("roles", page.getContent());
+        return result;
     }
 }
