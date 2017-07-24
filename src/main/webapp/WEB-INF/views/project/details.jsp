@@ -115,10 +115,10 @@
                                 <i class="fa fa-list"></i> 审批历史记录
                             </div>
                             <div class="panel-body">
-                                <table class="table table-hover">
+                                <table class="table table-bordered table-condensed table-responsive">
                                     <thead>
                                     <tr>
-                                        <th>审批节点</th>
+                                        <th style="width:150px;">审批节点</th>
                                         <th>操作人</th>
                                         <th>审批时间</th>
                                         <th>任务创建时间</th>
@@ -131,7 +131,7 @@
                                         <td>{{historic.assignee}}</td>
                                         <td>{{historic.endTime}}</td>
                                         <td>{{historic.startTime}}</td>
-                                        <td></td>
+                                        <td>{{historic.comment}}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -176,7 +176,7 @@
             queryDetail: function () {
                 //console.log(vm.id)
                 $.ajax({
-                    url: "/api/v1/project/details/6",
+                    url: "/api/v1/project/details/${id}",
                     type: "GET",
                     dataType: "json",
                     success: function (result) {

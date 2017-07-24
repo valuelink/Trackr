@@ -2,6 +2,7 @@ package com.lockbur.trackr.api.v1;
 
 import com.lockbur.trackr.domain.Project;
 import com.lockbur.trackr.domain.ProjectStatus;
+import com.lockbur.trackr.model.HistoricTaskInstanceModel;
 import com.lockbur.trackr.model.ProjectModel;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
@@ -11,12 +12,16 @@ import com.lockbur.trackr.rest.datatables.DataTableRequest;
 import com.lockbur.trackr.service.ProjectService;
 import com.lockbur.trackr.service.WorkFlowService;
 import org.activiti.engine.HistoryService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricTaskInstance;
+import org.activiti.engine.task.Comment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +40,10 @@ public class ProjectApiController {
 
     @Resource
     WorkFlowService workFlowService;
+
+
+    @Resource
+    TaskService taskService;
 
     @Resource
     private HistoryService historyService;
@@ -81,9 +90,22 @@ public class ProjectApiController {
                 .finished()
                 .list();
 
+        List<HistoricTaskInstanceModel> models = new ArrayList<>(historicTasks.size());
+        for (HistoricTaskInstance hti : historicTasks) {
+            HistoricTaskInstanceModel model = new HistoricTaskInstanceModel();
+
+            BeanUtils.copyProperties(hti, model);
+            List<Comment> comments = taskService.getTaskComments(hti.getId());
+            for (Comment comment : comments) {
+                //一般情况只会有一个
+                model.setComment(comment.getFullMessage());
+            }
+            models.add(model);
+        }
+
         ResponseData result = ResponseData.success("200");
         result.addData("project", project);
-        result.addData("historicTasks", historicTasks);
+        result.addData("historicTasks", models);
         return result;
 
     }
