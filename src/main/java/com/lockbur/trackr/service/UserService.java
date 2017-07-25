@@ -1,6 +1,7 @@
 package com.lockbur.trackr.service;
 
 import com.lockbur.trackr.domain.User;
+import com.lockbur.trackr.model.UserModel;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
 
@@ -19,18 +20,25 @@ public interface UserService {
 
 
     /**
-     *
      * @param id
      * @return
      */
-    public User findById(Integer id);
+    public UserModel findById(Integer id);
 
     /**
-     *
      * @param userName
      * @return
      */
     public User selectByUserName(String userName);
+
+
+    /**
+     * 修改保存
+     *
+     * @param model
+     * @return
+     */
+    public void update(UserModel model);
 
 
 }

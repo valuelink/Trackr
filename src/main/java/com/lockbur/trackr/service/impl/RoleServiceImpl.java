@@ -5,6 +5,7 @@ import com.lockbur.trackr.domain.Role;
 import com.lockbur.trackr.enums.AuthorityType;
 import com.lockbur.trackr.mapper.AuthorityMapper;
 import com.lockbur.trackr.mapper.RoleMapper;
+import com.lockbur.trackr.mapper.UserRoleMapper;
 import com.lockbur.trackr.model.RoleModel;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
@@ -26,8 +27,13 @@ public class RoleServiceImpl implements RoleService {
     @Resource
     private RoleMapper roleMapper;
 
+
+    @Resource
+    private UserRoleMapper userRoleMapper;
+
     @Resource
     private AuthorityMapper authorityMapper;
+
 
     @Override
     public void save(RoleModel role) {
@@ -88,5 +94,10 @@ public class RoleServiceImpl implements RoleService {
             entity.setAuthority(authority);
             authorityMapper.insert(entity);
         }
+    }
+
+    @Override
+    public Role findRoleByUserId(Integer userId) {
+        return userRoleMapper.findRoleByUserId(userId);
     }
 }

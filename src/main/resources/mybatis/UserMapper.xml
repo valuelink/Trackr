@@ -10,7 +10,6 @@
         <result property="companyEmail" column="company_email"/>
         <result property="departmentId" column="department_id"/>
         <result property="gender" column="gender"/>
-        <result property="roleId" column="role_id"/>
         <result property="mobile" column="mobile"/>
         <result property="mobilePassword" column="mobile_password"/>
         <result property="mobileCreateTime" column="mobile_create_time"/>
@@ -39,7 +38,6 @@
 			company_email ,
 			department_id ,
 			gender ,
-			role_id ,
 			mobile ,
 			mobile_password ,
 			mobile_create_time ,
@@ -65,7 +63,6 @@
 			#{companyEmail} ,
 			#{departmentId} ,
 			#{gender} ,
-			#{roleId} ,
 			#{mobile} ,
 			#{mobilePassword} ,
 			#{mobileCreateTime},
@@ -108,9 +105,6 @@
             </if>
             <if test="gender != null">
                 gender = #{gender},
-            </if>
-            <if test="roleId != null">
-                role_id = #{roleId},
             </if>
             <if test="mobile != null">
                 mobile = #{mobile},
@@ -292,47 +286,11 @@
 		FROM tb_user
 	</select>
 
-    <!-- 通过roleId获得记录 -->
-    <select id="getByRoleId" resultMap="user" parameterType="java.lang.Integer">
-		SELECT
-		*
-		FROM tb_user
-		WHERE role_id = #{id,jdbcType=INTEGER}
-	</select>
-
-    <!-- 获得所有合伙人 -->
-    <select id="getAllChecker" resultMap="user">
-		SELECT *
-		FROM tb_user
-		WHERE role_id = 99 AND status > 0
-	</select>
-
-    <!-- 获得所有合伙人 -->
-    <select id="getAllPartner" resultMap="user">
-		SELECT *
-		FROM tb_user
-		WHERE role_id = 2 AND status > 0
-	</select>
-
-    <!-- 获得所有普通员工 -->
-    <select id="getAllEmployee" resultMap="user">
-		SELECT *
-		FROM tb_user
-		WHERE role_id = 4 AND status > 0
-	</select>
-
-    <!-- 获得负责人(合伙人+普通员工) -->
-    <select id="getResponsiblePerson" resultMap="user">
-		SELECT *
-		FROM tb_user
-		WHERE role_id in (2,4) AND status > 0
-	</select>
 
     <!-- 通过手机号获得用户的数量 -->
     <select id="findUserCountByMobile" resultType="int" parameterType="java.lang.String">
 		SELECT count(*) FROM tb_user WHERE mobile=#{mobile,jdbcType=CHAR} AND status > 0
 	</select>
-
 
     <!-- 通过员工号查找用户 -->
     <select id="findByEmpNo" resultMap="user" parameterType="java.lang.String">

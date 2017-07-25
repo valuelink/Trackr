@@ -1,18 +1,19 @@
 package com.lockbur.trackr.api.v1;
 
 import com.lockbur.trackr.domain.User;
+import com.lockbur.trackr.model.UserModel;
 import com.lockbur.trackr.rest.Filter;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
+import com.lockbur.trackr.rest.ResponseData;
 import com.lockbur.trackr.rest.datatables.DataTable;
 import com.lockbur.trackr.rest.datatables.DataTableColumn;
 import com.lockbur.trackr.rest.datatables.DataTableRequest;
 import com.lockbur.trackr.service.UserService;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/v1/user")
 public class UserApiController {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Resource
     private UserService userService;
@@ -54,15 +57,42 @@ public class UserApiController {
         return dataTable;
     }
 
+
+    /**
+     * 查询详情信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
+    public ResponseData details(@PathVariable("id") Integer id) {
+        UserModel model = userService.findById(id);
+
+        ResponseData result = ResponseData.success("200");
+        result.addData("user", model);
+        return result;
+    }
+
     /**
      * 保存员工信息
      *
      * @return
      */
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(User user) {
+    public ResponseData save(User user) {
 
-        
-        return "/user/add";
+        return ResponseData.success();
+    }
+
+
+    /**
+     * 保存员工信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ResponseData update(@RequestBody UserModel user) {
+        userService.update(user);
+        logger.info("## {}", user);
+        return ResponseData.success();
     }
 }

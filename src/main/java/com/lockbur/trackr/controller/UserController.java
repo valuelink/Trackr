@@ -1,9 +1,11 @@
 package com.lockbur.trackr.controller;
 
 import com.lockbur.trackr.domain.User;
+import com.lockbur.trackr.model.UserModel;
 import com.lockbur.trackr.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,10 +36,7 @@ public class UserController {
 
 
     @RequestMapping("/details/{id}")
-    public String details(@PathVariable("id") Integer id, Model model) {
-        User user = userService.findById(id);
-        model.addAttribute("user", user);
-
+    public String details(@ModelAttribute @PathVariable("id") Integer id) {
         return "/user/details";
     }
 }

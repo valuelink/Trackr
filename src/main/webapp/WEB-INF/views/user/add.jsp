@@ -138,15 +138,15 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">角色</label>
                                         <div class="col-sm-3">
-                                            <select class="form-control">
+                                            <select class="form-control" v-model="">
                                                 <option :value="role.id" v-for="role in roles">{{role.name}}</option>
                                             </select>
                                             <label class="checkbox i-checks">
-                                                <input type="checkbox" name="inlineCheckbox1" value="option1"><i></i>
+                                                <input type="checkbox" name="authority" value="competitor:grant"><i></i>
                                                 可分配潜在客户记录权限
                                             </label>
                                             <label class="checkbox i-checks">
-                                                <input type="checkbox" name="inlineCheckbox1" value="option1"><i></i>
+                                                <input type="checkbox" name="authority" value="competitor:view"><i></i>
                                                 拥有潜在客户记录权限
                                             </label>
                                         </div>

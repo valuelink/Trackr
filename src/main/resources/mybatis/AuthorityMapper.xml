@@ -28,18 +28,36 @@
     </select>
 
     <select id="findAuthorityByRoleId" resultType="String">
-        SELECT authority FROM tb_authority
+        SELECT
+          authority
+        FROM
+          tb_authority
         WHERE
-        type = 'ROLE' AND
-        type_id =#{typeId}
+        type = 'ROLE' AND type_id =#{roleId}
     </select>
 
-    <select id="deleteByRoleId">
+    <delete id="deleteByRoleId">
+        DELETE
+        FROM
+          tb_authority
+        WHERE
+       type = 'ROLE' AND type_id =#{roleId}
+    </delete>
+
+    <delete id="deleteByUserId">
         DELETE
         FROM
         tb_authority
         WHERE
-       type = 'ROLE' AND type_id =#{roleId}
-    </select>
+        type = 'USER' AND type_id =#{userId}
+    </delete>
 
+    <select id="findAuthorityByUserId" resultType="String">
+        SELECT
+        authority
+        FROM
+        tb_authority
+        WHERE
+        type = 'USER' AND type_id =#{userId}
+    </select>
 </mapper>

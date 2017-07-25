@@ -41,4 +41,12 @@ public interface AuthorityMapper {
      * @param userId
      */
     public void deleteByUserId(Integer userId);
+
+
+    /**
+     * 查询用户的附加权限信息
+     *
+     * @param userId
+     */
+    public List<String> findAuthorityByUserId(Integer userId);
 }

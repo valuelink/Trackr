@@ -51,4 +51,13 @@ public interface RoleService {
      */
     public void update(RoleModel role);
 
+
+    /**
+     * 根据用户ID查询角色
+     *
+     * @return
+     */
+    public Role findRoleByUserId(Integer userId);
+
+
 }

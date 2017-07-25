@@ -19,7 +19,6 @@ public class User implements Serializable {
     private String companyEmail;
     private Integer departmentId;
     private Integer gender;
-    private Integer roleId;
     private String mobile;
     private String mobilePassword;
     private Date mobileCreateTime;

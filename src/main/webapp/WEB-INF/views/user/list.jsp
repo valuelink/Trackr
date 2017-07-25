@@ -74,7 +74,7 @@
                                         <th>用户名</th>
                                         <th>分公司</th>
                                         <th>手机号</th>
-                                        <th>角色</th>
+                                        <%--<th>角色</th>--%>
                                         <th>部门</th>
                                         <th>创建时间</th>
                                         <th>用户状态</th>
@@ -144,7 +144,7 @@
                     }
                 },
                 {data: 'mobile', name: 'mobile'},
-                {data: 'roleId', name: 'roleId'},
+//                {data: 'roleId', name: 'roleId'},
                 {data: 'departmentId', name: 'departmentId'},
                 {
                     data: 'createTime',
@@ -171,7 +171,7 @@
                         return '<div class="btn-group" role="group" aria-label="...">' +
                             '<button type="button" class="btn btn-default">冻结</button>' +
                             '<button type="button" class="btn btn-danger">删除</button>' +
-                            '<button type="button" class="btn btn-success">编辑</button>' +
+                            '<a href="/user/details/' + data + '" type="button" class="btn btn-success">编辑</a>' +
                             '</div>';
                     }
                 }
