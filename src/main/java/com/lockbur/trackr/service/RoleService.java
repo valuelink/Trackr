@@ -1,10 +1,12 @@
 package com.lockbur.trackr.service;
 
 import com.lockbur.trackr.domain.Role;
+import com.lockbur.trackr.model.RoleModel;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
 
 import java.util.List;
+
 /**
  * 角色管理
  * Created by wangkun23 on 2016/12/2.
@@ -17,7 +19,7 @@ public interface RoleService {
      *
      * @param role
      */
-    public void save(Role role);
+    public void save(RoleModel role);
 
     /**
      * @param roleIds
@@ -39,7 +41,7 @@ public interface RoleService {
      *
      * @return
      */
-    public Role findById(Integer id);
+    public RoleModel findById(Integer id);
 
 
     /**
@@ -47,6 +49,6 @@ public interface RoleService {
      *
      * @param role
      */
-    public void update(Role role);
+    public void update(RoleModel role);
 
 }

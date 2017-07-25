@@ -1,6 +1,7 @@
 package com.lockbur.trackr.api.v1;
 
 import com.lockbur.trackr.domain.Role;
+import com.lockbur.trackr.model.RoleModel;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
 import com.lockbur.trackr.rest.ResponseData;
@@ -54,12 +55,24 @@ public class RoleApiController {
      */
     @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
     public ResponseData details(@PathVariable("id") Integer id) {
-        Role role = roleService.findById(id);
-
+        RoleModel role = roleService.findById(id);
         //角色对应的权限
-
         ResponseData result = ResponseData.success("200");
         result.addData("role", role);
+        return result;
+    }
+
+
+    /**
+     * 角色权限信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ResponseData update(@RequestBody RoleModel role) {
+        roleService.update(role);
+        //角色对应的权限
+        ResponseData result = ResponseData.success("200");
         return result;
     }
 }

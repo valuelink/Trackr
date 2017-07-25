@@ -63,7 +63,8 @@
                                         <label class="col-sm-2 control-label text-black dker">立项管理</label>
                                         <div class="col-sm-10">
                                             <label class="checkbox-inline i-checks">
-                                                <input type="checkbox" name="authority" value="project:create"><i></i>申请立项
+                                                <input type="checkbox" name="authority" v-model="role.authorities"
+                                                       value="project:create"><i></i>申请立项
                                             </label>
                                         </div>
                                     </div>
@@ -73,18 +74,28 @@
                                         <label class="col-sm-2 control-label text-black dker">员工管理</label>
                                         <div class="col-sm-10">
                                             <label class="checkbox-inline i-checks">
-                                                <input type="checkbox" name="authority" value="option1"><i></i> 添加新员工
+                                                <input type="checkbox" name="authority" v-model="role.authorities"
+                                                       value="employee:add"><i></i>
+                                                添加新员工
                                             </label>
                                             <label class="checkbox-inline i-checks">
-                                                <input type="checkbox" name="authority" value="option2"><i></i> 修改员工数据
+                                                <input type="checkbox" name="authority" v-model="role.authorities"
+                                                       value="employee:edit"><i></i>
+                                                修改员工数据
                                             </label>
                                             <label class="checkbox-inline i-checks">
-                                                <input type="checkbox" name="authority" value="option3"><i></i> 重置员工密码
+                                                <input type="checkbox" name="authority" v-model="role.authorities"
+                                                       value="employee:resetpwd"><i></i> 重置员工密码
                                             </label>
                                         </div>
                                     </div>
                                     <div class="line line-dashed b-b line-lg pull-in"></div>
                                 </form>
+                            </div>
+                            <div class="panel-footer">
+                                <button type="button" class="btn btn-success btn-s-xs col-lg-offset-2" @click="save">
+                                    保存
+                                </button>
                             </div>
                             <!-- /.panel-body -->
                         </div>
@@ -101,6 +112,8 @@
 <script src="/assets/js/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="/assets/js/bootstrap.js"></script>
+<script src="/assets/js/bootstrap3-dialog/js/bootstrap-dialog.js"></script>
+
 <script src="/assets/js/vue/vue.min.js"></script>
 <script src="/assets/js/slimscroll/jquery.slimscroll.min.js"></script>
 <!-- App -->
@@ -111,9 +124,12 @@
     var vm = new Vue({
         el: "#app",
         data: {
-            id: "${id}",
-            role: {},
-            authority: []
+            role: {
+                id: ${id},
+                name: "",
+                description: "",
+                authorities: []
+            }
         },
         created: function () {
             this.queryDetail();
@@ -123,12 +139,40 @@
                 var _self = this;
                 //console.log(_self.id)
                 $.ajax({
-                    url: "/api/v1/role/details/" + _self.id,
+                    url: "/api/v1/role/details/" + _self.role.id,
                     type: "GET",
                     dataType: "json",
                     success: function (result) {
-                        vm.role = result.data.role;
-                        vm.authority = result.data.authority;
+                        vm.role.name = result.data.role.name;
+                        vm.role.description = result.data.role.description;
+                        vm.role.authorities = result.data.role.authorities;
+                    },
+                    error: function (xhr, textStatus) {
+                        console.log('错误')
+                    }
+                })
+            },
+            save: function () {
+                $.ajax({
+                    url: "/api/v1/role/update",
+                    type: "POST",
+                    data: JSON.stringify(vm.role),
+                    contentType: 'application/json',
+                    success: function (result) {
+                        BootstrapDialog.confirm({
+                            title: '<i class="fa fa-info-circle fa-fw"></i> 系统提示',
+                            message: '修改成功',
+                            size: "size-small",
+                            type: "type-default",
+                            closable: true,
+                            draggable: true,
+                            btnCancelLabel: '取消',
+                            btnOKLabel: '确定',
+                            btnOKClass: 'btn-info',
+                            callback: function () {
+                                location.href = "/role/list";
+                            }
+                        });
                     },
                     error: function (xhr, textStatus) {
                         console.log('错误')

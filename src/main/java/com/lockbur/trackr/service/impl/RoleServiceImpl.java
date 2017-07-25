@@ -5,9 +5,11 @@ import com.lockbur.trackr.domain.Role;
 import com.lockbur.trackr.enums.AuthorityType;
 import com.lockbur.trackr.mapper.AuthorityMapper;
 import com.lockbur.trackr.mapper.RoleMapper;
+import com.lockbur.trackr.model.RoleModel;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
 import com.lockbur.trackr.service.RoleService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -28,7 +30,7 @@ public class RoleServiceImpl implements RoleService {
     private AuthorityMapper authorityMapper;
 
     @Override
-    public void save(Role role) {
+    public void save(RoleModel role) {
         Assert.notNull(role);
         roleMapper.insert(role);
         //保存角色对应的权限
@@ -58,8 +60,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public Role findById(Integer id) {
-        Role role = roleMapper.findById(id);
+    public RoleModel findById(Integer id) {
+        RoleModel role = new RoleModel();
+
+        Role entity = roleMapper.findById(id);
+        BeanUtils.copyProperties(entity, role);
         //查询角色对应的权限
         List<String> authorities = authorityMapper.findAuthorityByRoleId(id);
         role.setAuthorities(authorities);
@@ -67,9 +72,12 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void update(Role role) {
+    public void update(RoleModel role) {
         Assert.notNull(role);
-        roleMapper.update(role);
+        Role updaterRole = new Role();
+
+        BeanUtils.copyProperties(role, updaterRole);
+        roleMapper.update(updaterRole);
         //先删除之前的权限信息
         authorityMapper.deleteByRoleId(role.getId());
         //保存角色对应的权限

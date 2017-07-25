@@ -48,7 +48,7 @@
             <if test="description != null">
                 description = #{description},
             </if>
-            modified_time = now()
+            update_time = now()
         </set>
         WHERE
         id = #{id}
