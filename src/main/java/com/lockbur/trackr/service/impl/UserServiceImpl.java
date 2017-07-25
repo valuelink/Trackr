@@ -57,6 +57,9 @@ public class UserServiceImpl implements UserService {
         }
         //用户角色
         Role role = roleService.findRoleByUserId(id);
+        if (role == null) {
+            role = new Role();
+        }
         model.setRole(role);
 
         /*附加权限*/
@@ -75,7 +78,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public void update(UserModel model) {
         //1 更新用户基本信息
-
 
 
         //2 修改对应的角色关系

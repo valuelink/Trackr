@@ -11,6 +11,8 @@ import com.lockbur.trackr.rest.datatables.DataTableColumn;
 import com.lockbur.trackr.rest.datatables.DataTableRequest;
 import com.lockbur.trackr.service.UserService;
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +33,33 @@ public class UserApiController {
 
     @Resource
     private UserService userService;
+
+
+    /**
+     * 保存员工信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResponseData login(String username, String password) {
+        try {
+            UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+            SecurityUtils.getSubject().login(token);
+
+        } catch (AuthenticationException ex) {
+            if (ex instanceof UnknownAccountException) {
+                return ResponseData.error("账户不存在");
+            }
+            if (ex instanceof DisabledAccountException) {
+                return ResponseData.error("账户已被禁用，请与管理员联系");
+            }
+            if (ex instanceof IncorrectCredentialsException) {
+                return ResponseData.error("账户验证失败");
+            }
+        }
+        return ResponseData.success("登录成功");
+    }
+
 
     @RequestMapping(value = "/list/dataTables", method = RequestMethod.POST)
     public DataTable<User> getDataTables(@RequestBody DataTableRequest request) {
