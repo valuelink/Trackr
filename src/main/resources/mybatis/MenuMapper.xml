@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lockbur.trackr.mapper.MenuMapper">
+
+    <sql id="Base_Column_List">
+		id, pid, name, url, perms, type, icon, tree_path, order_num, create_time, update_time
+	</sql>
+
+    <insert id="insert" parameterType="com.lockbur.trackr.domain.Menu" keyProperty="id" useGeneratedKeys="true">
+		insert into tb_menu
+		(
+			pid,name,url,perms,
+			type,icon,tree_path,order_num,
+			create_time,
+			update_time
+		)
+		values
+		(
+			#{pid},#{name},
+			#{url}, #{perms},
+			#{type}, #{icon},#{treePath},#{orderNum},
+			now(),now()
+		)
+	</insert>
+
+    <select id="findByParentId" resultType="com.lockbur.trackr.domain.Menu">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        tb_menu
+        where
+        pid = #{parentId}
+        order by order_num asc
+    </select>
+
+    <select id="queryNotButtonList" resultType="com.lockbur.trackr.domain.Menu">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        tb_menu
+        where
+        type != 2
+        order by order_num asc
+    </select>
+
+
+    <update id="update" parameterType="com.lockbur.trackr.domain.Menu">
+        update tb_menu
+        <set>
+            <if test="pid != null">
+                pid = #{pid},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="url != null">
+                url = #{url},
+            </if>
+            <if test="perms != null">
+                perms = #{perms},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="icon != null">
+                icon = #{icon},
+            </if>
+            <if test="treePath != null">
+                tree_path = #{treePath},
+            </if>
+            <if test="orderNum != null">
+                order_num= #{orderNum},
+            </if>
+            update_time=now()
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--分页使用 findByPage-->
+    <select id="findByPage" resultType="com.lockbur.trackr.domain.Menu" parameterType="com.lockbur.trackr.rest.Pageable">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_menu
+        <if test="filters!=null and filters.size>0">
+            <where>
+                <foreach collection="filters" index="index" item="filter" separator=" ">
+                    <choose>
+                        <when test="filter.operator.key=='in'">
+                            ${filter.property} ${filter.operator.key}
+                            <foreach collection="filter.value" index="valueIndex" item="value" open="(" separator="," close=")">
+                                ${value}
+                            </foreach>
+                        </when>
+                        <otherwise>
+                            <foreach collection="filters" index="index" item="filter" open="" separator="and" close="">
+                                ${filter.property} ${filter.operator.key} #{filter.value}
+                            </foreach>
+                        </otherwise>
+                    </choose>
+                </foreach>
+            </where>
+        </if>
+        <if test="sorts!=null and sorts.size>0">
+            <foreach collection="sorts" item="sort" open="order by " separator="," close=" ">
+                ${sort.property} ${sort.direction}
+            </foreach>
+        </if>
+        LIMIT ${pageNow},${pageSize}
+    </select>
+
+    <select id="countByPage" resultType="long" parameterType="com.lockbur.trackr.rest.Pageable">
+        SELECT
+        count(id)
+        FROM tb_menu
+        <if test="filters!=null and filters.size>0">
+            <where>
+                <foreach collection="filters" index="index" item="filter" separator=" ">
+                    <choose>
+                        <when test="filter.operator.key=='in'">
+                            ${filter.property} ${filter.operator.key}
+                            <foreach collection="filter.value" index="valueIndex" item="value" open="(" separator="," close=")">
+                                ${value}
+                            </foreach>
+                        </when>
+                        <otherwise>
+                            <foreach collection="filters" index="index" item="filter" open="" separator="and" close="">
+                                ${filter.property} ${filter.operator.key} #{filter.value}
+                            </foreach>
+                        </otherwise>
+                    </choose>
+                </foreach>
+            </where>
+        </if>
+    </select>
+    <!--//END 分页使用 findByPage-->
+
+</mapper>

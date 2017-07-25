@@ -2,6 +2,8 @@ package com.lockbur.trackr.controller;
 
 import com.lockbur.trackr.service.RoleService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
@@ -26,5 +28,12 @@ public class RoleController {
     public String add() {
         return "/role/add";
     }
+
+
+    @RequestMapping("/details/{id}")
+    public String details(@ModelAttribute @PathVariable("id") Integer id) {
+        return "/role/details";
+    }
+
 
 }

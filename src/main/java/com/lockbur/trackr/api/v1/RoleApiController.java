@@ -7,10 +7,7 @@ import com.lockbur.trackr.rest.ResponseData;
 import com.lockbur.trackr.rest.datatables.DataTable;
 import com.lockbur.trackr.rest.datatables.DataTableRequest;
 import com.lockbur.trackr.service.RoleService;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -46,6 +43,23 @@ public class RoleApiController {
 
         ResponseData result = ResponseData.success("200");
         result.addData("roles", page.getContent());
+        return result;
+    }
+
+
+    /**
+     * 角色权限信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
+    public ResponseData details(@PathVariable("id") Integer id) {
+        Role role = roleService.findById(id);
+
+        //角色对应的权限
+
+        ResponseData result = ResponseData.success("200");
+        result.addData("role", role);
         return result;
     }
 }

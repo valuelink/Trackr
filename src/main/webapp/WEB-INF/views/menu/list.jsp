@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html class="app">
 <head>
-    <title>角色列表-项目管理系统</title>
+    <title>菜单列表-项目管理系统</title>
     <jsp:include page="/WEB-INF/views/commons/head.jsp"/>
     <!-- DataTables CSS -->
     <link href="/assets/js/datatables-plugins/dataTables.bootstrap.css"
@@ -13,7 +13,7 @@
           rel="stylesheet">
     <link href="/assets/css/app.css" rel="stylesheet"/>
 </head>
-<body class="">
+<body>
 <section class="vbox">
     <jsp:include page="/WEB-INF/views/commons/header.jsp"/>
     <section>
@@ -28,25 +28,10 @@
                             <div class="panel-heading">
                                 <i class="fa fa-list"></i> 项目申请列表
                             </div>
-                            <!-- /.panel-heading -->
                             <div class="panel-body">
-                                <table width="100%" class="table table-bordered"
-                                       id="dataTables-example">
-                                    <thead>
-                                    <tr>
-                                        <th>序号</th>
-                                        <th>名称</th>
-                                        <th>描述</th>
-                                        <th>创建时间</th>
-                                        <th>操作</th>
-                                    </tr>
-                                    </thead>
-                                </table>
-                                <!-- /.table-responsive -->
+                                <table class="table table-bordered" id="dataTables"></table>
                             </div>
-                            <!-- /.panel-body -->
                         </div>
-                        <!-- /.panel -->
                     </section>
                 </section>
                 <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open"
@@ -72,13 +57,13 @@
 
 <script>
     $(document).ready(function () {
-        var dataTable = $('#dataTables-example').DataTable({
+        var dataTable = $('#dataTables').DataTable({
             "bProcessing": true,
             "processing": true,
             "serverSide": true,
             "searching": false,
             ajax: {
-                url: '/api/v1/role/list/tables',
+                url: '/api/v1/menu/list/tables',
                 method: 'POST',
                 contentType: 'application/json',
                 dataType: 'json',
@@ -87,10 +72,42 @@
                 }
             },
             columns: [
-                {data: 'id', 'name': 'id'},
-                {data: 'name', name: 'name'},
-                {data: 'description', name: 'description'},
+                {title: "ID", data: 'id', name: 'id'},
+                {title: "菜单名称", data: 'name', name: 'name'},
                 {
+                    title: "菜单图标",
+                    data: 'icon',
+                    name: 'icon',
+                    render: function (data, type, row, meta) {
+                        console.log(data);
+                        if (data !=null) {
+                            return '<i class="'+data+'"></i>&nbsp;'+data;
+                        }else{
+                            return "";
+                        }
+                    }
+                },
+                {title: "菜单URL", data: 'url', name: 'url'},
+                {title: "授权标识", data: 'perms', name: 'perms'},
+                {
+                    title: "类型",
+                    data: 'type',
+                    name: 'type',
+                    render: function (data, type, row, meta) {
+                        if (data === 0) {
+                            return '<span class="label label-primary">目录</span>';
+                        }
+                        if (data === 1) {
+                            return '<span class="label label-success">菜单</span>';
+                        }
+                        if (data === 2) {
+                            return '<span class="label label-warning">按钮</span>';
+                        }
+                    }
+                },
+                {title: "排序号", data: 'orderNum', name: 'orderNum'},
+                {
+                    title: "创建时间",
                     data: 'createTime',
                     name: 'createTime',
                     render: function (data, type, row, meta) {
@@ -98,10 +115,11 @@
                     }
                 },
                 {
+                    title: "操作",
                     data: 'id',
                     name: 'id',
                     "render": function (data, type, full, meta) {
-                        return '<a href="/role/details/'+data+'" class="text-dark">权限管理</a>';
+                        return '<a href="/role/details/' + data + '" class="text-dark">权限管理</a>';
                     }
                 }
             ],

@@ -11,7 +11,7 @@
         </a>
         <a href="index.html" class="navbar-brand text-lt">
             <i class="fa-vimeo-square fa"></i>
-            <span class="hidden-nav-xs m-l-sm">蓝策</span>
+            <span class="hidden-nav-xs m-l-sm">BBT</span>
         </a>
         <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
             <i class="icon-settings"></i>
