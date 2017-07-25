@@ -15,4 +15,10 @@ public class MenuController {
     public String list() {
         return "/menu/list";
     }
+
+
+    @RequestMapping("/add")
+    public String add() {
+        return "/menu/add";
+    }
 }

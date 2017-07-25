@@ -25,10 +25,17 @@
                 <section class="vbox">
                     <section class="scrollable wrapper bg-white-only">
                         <div class="panel panel-default">
+
                             <div class="panel-heading">
                                 <i class="fa fa-list"></i> 项目申请列表
                             </div>
                             <div class="panel-body">
+                                <div class="well">
+                                    <a href="/menu/add" class="btn btn-primary">
+                                        <i class="glyphicon glyphicon-plus-sign"></i>
+                                        新增菜单
+                                    </a>
+                                </div>
                                 <table class="table table-bordered" id="dataTables"></table>
                             </div>
                         </div>
@@ -51,6 +58,8 @@
 <script src="/assets/js/datatables/js/jquery.dataTables.min.js"></script>
 <script src="/assets/js/datatables-plugins/dataTables.bootstrap.min.js"></script>
 <script src="/assets/js/datatables-responsive/dataTables.responsive.js"></script>
+
+
 <!-- App -->
 <script src="/assets/js/app.js"></script>
 <script src="/assets/js/app.plugin.js"></script>
