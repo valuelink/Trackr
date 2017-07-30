@@ -22,6 +22,31 @@ public class UserAuthorizingRealm extends AuthorizingRealm {
     @Autowired
     private UserService userService;
 
+    /**
+     * 认证(登录时调用)
+     */
+    @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
+        UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
+        String username = usernamePasswordToken.getUsername();
+        String password = new String(usernamePasswordToken.getPassword());
+        //查询用户信息
+        User user = userService.selectByUserName(username);
+        //账号不存在
+        if (user == null) {
+            throw new UnknownAccountException("账号不存在");
+        }
+        //密码错误
+        if (!SecurityPasswordUtils.matchPassphrase(user.getPassword(), user.getSalt(), password)) {
+            throw new IncorrectCredentialsException("账号或密码不正确");
+        }
+        //账号锁定
+        if (user.getStatus() == 0) {
+            throw new LockedAccountException("账号已被锁定,请联系管理员");
+        }
+        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
+        return info;
+    }
 
     /**
      * 授权(验证权限时调用)
@@ -38,36 +63,4 @@ public class UserAuthorizingRealm extends AuthorizingRealm {
 //		info.setStringPermissions(permsSet);
         return info;
     }
-
-    /**
-     * 认证(登录时调用)
-     */
-    @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(
-            AuthenticationToken token) throws AuthenticationException {
-        String username = (String) token.getPrincipal();
-        String password = (String) token.getCredentials();
-
-        //查询用户信息
-        User user = userService.selectByUserName(username);
-
-        //账号不存在
-        if (user == null) {
-            throw new UnknownAccountException("账号不存在");
-        }
-
-        //密码错误
-        if (!SecurityPasswordUtils.matchPassphrase(user.getPassword(), user.getSalt(), password)) {
-            throw new IncorrectCredentialsException("账号或密码不正确");
-        }
-
-        //账号锁定
-        if (user.getStatus() == 0) {
-            throw new LockedAccountException("账号已被锁定,请联系管理员");
-        }
-
-        SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(user, password, getName());
-        return info;
-    }
-
 }

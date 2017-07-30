@@ -48,16 +48,16 @@ public class UserApiController {
 
         } catch (AuthenticationException ex) {
             if (ex instanceof UnknownAccountException) {
-                return ResponseData.error("账户不存在");
+                return ResponseData.error("100001","账户不存在");
             }
             if (ex instanceof DisabledAccountException) {
-                return ResponseData.error("账户已被禁用，请与管理员联系");
+                return ResponseData.error("100002","账户已被禁用，请与管理员联系");
             }
             if (ex instanceof IncorrectCredentialsException) {
-                return ResponseData.error("账户验证失败");
+                return ResponseData.error("100002","账户验证失败");
             }
         }
-        return ResponseData.success("登录成功");
+        return ResponseData.success("0");
     }
 
 

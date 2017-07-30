@@ -15,7 +15,7 @@
             <span class="h1 font-bold">BBT</span>
         </a>
         <section class="m-b-lg">
-            <section class="panel panel-default">
+            <section class="panel panel-primary">
                 <header class="panel-heading">欢迎使用测试系统</header>
                 <div class="panel-body">
                     <form class="bs-example form-horizontal">
@@ -89,7 +89,6 @@
         errorBagTag: "errors",
         locale: "zh_CN"
     });
-
     var vm = new Vue({
         el: "#app",
         data: {
@@ -110,7 +109,21 @@
                             data: {username: vm.username, password: vm.password},
                             dataType: "json",
                             success: function (result) {
-                                location.href = "/dashboard/list";
+                                if(result.status==="SUCCESS"){
+                                    location.href = "/dashboard";
+                                }else{
+                                    BootstrapDialog.confirm({
+                                        title: '<i class="fa fa-info-circle fa-fw"></i> 系统提示',
+                                        message: result.error,
+                                        type: "type-default",
+                                        size: "size-small",
+                                        closable: true,
+                                        draggable: true,
+                                        btnCancelLabel: '取消',
+                                        btnOKLabel: '确定',
+                                        btnOKClass: 'btn-info'
+                                    });
+                                }
                             },
                             error: function (xhr, textStatus) {
                                 console.log('错误')
