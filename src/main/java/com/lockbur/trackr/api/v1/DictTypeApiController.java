@@ -11,6 +11,9 @@ import com.lockbur.trackr.rest.datatables.DataTable;
 import com.lockbur.trackr.rest.datatables.DataTableRequest;
 import com.lockbur.trackr.service.DictService;
 import com.lockbur.trackr.service.DictTypeService;
+import com.lockbur.trackr.service.EmployeeService;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -23,6 +26,9 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/v1/dict/type")
 public class DictTypeApiController {
+
+    @Resource
+    EmployeeService employeeService;
 
     @Resource
     private DictTypeService dictTypeService;
@@ -49,6 +55,21 @@ public class DictTypeApiController {
     }
 
     /**
+     * 保存字典分类
+     *
+     * @param type
+     * @return
+     */
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ResponseData saveDictType(DictType type) {
+        Integer creator = employeeService.getCurrentUserId();
+        type.setCreatorId(creator);
+        dictTypeService.save(type);
+
+        return ResponseData.success();
+    }
+
+    /**
      * 查询字典分类下的具体子项目
      *
      * @param id
@@ -62,4 +83,6 @@ public class DictTypeApiController {
 
         return result;
     }
+
+
 }

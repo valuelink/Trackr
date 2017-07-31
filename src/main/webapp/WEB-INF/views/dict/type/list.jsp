@@ -27,7 +27,7 @@
                             <div class="panel-heading">
                                 <i class="fa fa-list"></i> 字典数据列表
                                 <div class="pull-right">
-                                    <a href="/dict/add" class="btn btn-success btn-xs">
+                                    <a href="/dict/type/add" class="btn btn-success btn-xs">
                                         <i class="fa fa-plus"></i> 增加字典
                                     </a>
                                 </div>

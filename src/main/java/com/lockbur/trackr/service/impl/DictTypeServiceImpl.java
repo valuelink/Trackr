@@ -22,8 +22,8 @@ public class DictTypeServiceImpl implements DictTypeService {
 
     @Transactional
     @Override
-    public void save(DictType code) {
-        dictTypeMapper.insert(code);
+    public void save(DictType type) {
+        dictTypeMapper.insert(type);
     }
 
     @Override

@@ -48,16 +48,7 @@ public class DictController {
         return "/dict/type/add";
     }
 
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveDictType(String name, Model model) {
-        Integer creator = employeeService.getCurrentUserId();
-        if (StringUtils.isNotEmpty(name)) {
-            DictType code = new DictType(name);
-            code.setCreatorId(creator);
-            codeService.save(code);
-        }
-        return "redirect:/dict/list";
-    }
+
 
     @RequestMapping("/type/details/{id}")
     public String details(@ModelAttribute @PathVariable("id") Integer id) {
