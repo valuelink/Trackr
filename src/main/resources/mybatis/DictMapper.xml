@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lockbur.trackr.mapper.DictMapper">
+
+    <insert id="insert" parameterType="com.lockbur.trackr.domain.Dict" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tb_dict
+        (
+          type_id,code,name,description,position,active,creator_id,create_time,update_time
+        )
+        VALUES
+        (
+         #{typeId},#{code}, #{name},#{description},#{position},#{active},#{creatorId},now(),now()
+        )
+    </insert>
+
+    <select id="findByTypeId" parameterType="int" resultType="com.lockbur.trackr.domain.Dict">
+         SELECT
+            td.id AS "id",
+            td.type_id AS "typeId",
+            td.code AS "code",
+            td.name AS "name",
+            td.description AS "description",
+            td.position AS "position",
+            td.active AS "active",
+            td.creator_id AS "creatorId",
+            td.create_time AS "createTime",
+            td.update_time AS "updateTime"
+        FROM
+            tb_dict td
+         WHERE td.type_id = #{typeId} AND td.active=0
+    </select>
+
+    <select id="findById" parameterType="int" resultType="com.lockbur.trackr.domain.Dict">
+        SELECT
+        td.id,
+        td.type_id,
+        td.code,
+        td.name,
+        td.description,
+        td.position,
+        td.active,
+        td.creator_id,
+        td.create_time,
+        td.update_time
+        FROM
+        tb_dict td
+        WHERE
+        td.id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.lockbur.trackr.domain.Dict">
+        UPDATE
+        tb_dict
+        <set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            <if test="active != null">
+                active = #{active},
+            </if>
+            update_time = now()
+        </set>
+        WHERE
+        id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM
+        tb_dict
+        WHERE id=#{id}
+    </delete>
+
+</mapper>

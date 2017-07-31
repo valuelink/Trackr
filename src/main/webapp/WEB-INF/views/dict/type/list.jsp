@@ -1,14 +1,15 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html class="app">
 <head>
     <title>用户列表-项目管理系统</title>
     <jsp:include page="/WEB-INF/views/commons/head.jsp"/>
-    <!-- DataTables CSS -->
     <link href="/assets/js/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
     <!-- DataTables Responsive CSS -->
     <link href="/assets/js/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
+
     <link href="/assets/css/app.css" rel="stylesheet"/>
 </head>
 <body class="">
@@ -24,32 +25,18 @@
                     <section class="scrollable wrapper bg-white-only">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <i class="fa fa-list"></i> 项目申请列表
+                                <i class="fa fa-list"></i> 字典数据列表
+                                <div class="pull-right">
+                                    <a href="/dict/add" class="btn btn-success btn-xs">
+                                        <i class="fa fa-plus"></i> 增加字典
+                                    </a>
+                                </div>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
-                                <div class="well">
-                                    <a href="/project/add" class="btn btn-primary">
-                                        <i class="glyphicon glyphicon-plus-sign"></i>
-                                        项目申请
-                                    </a>
-                                </div>
-                                <table width="100%" class="table table-bordered"
-                                       id="dataTables-example">
-                                    <thead>
-                                    <tr>
-                                        <th>序号</th>
-                                        <th>项目名称</th>
-                                        <th>客户简称</th>
-                                        <th>项目金额</th>
-                                        <th>状态</th>
-                                        <th>评估时间</th>
-                                        <th>创建时间</th>
-                                        <th>操作</th>
-                                    </tr>
-                                    </thead>
+                                <table width="100%" id="dataTables"
+                                       class="table table-striped table-bordered table-hover">
                                 </table>
-                                <!-- /.table-responsive -->
                             </div>
                             <!-- /.panel-body -->
                         </div>
@@ -68,7 +55,6 @@
 <script src="/assets/js/bootstrap.js"></script>
 <script src="/assets/js/slimscroll/jquery.slimscroll.min.js"></script>
 
-<script src="/assets/js/format.js"></script>
 <!-- DataTables JavaScript -->
 <script src="/assets/js/datatables/js/jquery.dataTables.min.js"></script>
 <script src="/assets/js/datatables-plugins/dataTables.bootstrap.min.js"></script>
@@ -79,13 +65,13 @@
 
 <script>
     $(document).ready(function () {
-        var dataTable = $('#dataTables-example').DataTable({
+        var dataTable = $('#dataTables').DataTable({
             "bProcessing": true,
             "processing": true,
             "serverSide": true,
             "searching": false,
             ajax: {
-                url: '/api/v1/project/tables',
+                url: '/api/v1/dict/type/tables',
                 method: 'POST',
                 contentType: 'application/json',
                 dataType: 'json',
@@ -94,38 +80,38 @@
                 }
             },
             columns: [
-                {data: 'id', 'name': 'id'},
-                {data: 'name', name: 'name'},
-                {data: 'companyId', name: 'companyId'},
-                {data: 'amount', name: 'amount'},
-                {data: 'statusName', name: 'statusName'},
-                {data: 'valuateTime', name: 'valuateTime'},
+                {title: "ID", data: 'id', 'name': 'id'},
+                {title: "CODE", data: 'code', 'name': 'code'},
+                {title: "字典名称", data: 'name', name: 'name'},
                 {
-                    data: 'createTime',
-                    name: 'createTime',
+                    title: "系统内置",
+                    data: 'system',
+                    name: 'system',
                     render: function (data, type, row, meta) {
-                        return new Date(data).Format("yyyy-MM-dd hh:mm:ss");
+                        if (data) {
+                            return '<span class="label label-success ml5">是</span>';
+                        } else {
+                            return '<span class="label label-success ml5">否</span>';
+                        }
                     }
                 },
+                {title: "创建时间", data: 'createTime', name: 'createTime'},
                 {
+                    title: "操作",
                     data: 'id',
                     name: 'id',
                     "render": function (data, type, full, meta) {
-                        if (full['status'] == "APPROVED") {
-                            return '<a href="/project/details/' + data + '" class="text-info">详细信息</a> | <a href="#" class="text-info">查看项目</a>';
-                        } else {
-                            return '<a href="/project/details/' + data + '" class="text-info">详细信息</a>';
-                        }
+                        return '<a href="/dict/type/details/' + data + '" class="text-info">查看字典信息</a>';
                     }
                 }
             ],
             //"sDom": '<"dt-panelmenu clearfix"lfr>t<"dt-panelfooter clearfix"ip>',
-            "fnDrawCallback": function () {
+            fnDrawCallback: function () {
                 this.api().column(0).nodes().each(function (cell, i) {
                     cell.innerHTML = i + 1;
                 });
             },
-            "language": {
+            language: {
                 "processing": "正在努力加载中...",
                 "lengthMenu": "显示 _MENU_ 项结果 ",
                 "zeroRecords": "没有匹配结果",

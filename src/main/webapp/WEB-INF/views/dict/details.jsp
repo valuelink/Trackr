@@ -9,7 +9,7 @@
     <link href="/assets/css/app.css" rel="stylesheet"/>
 </head>
 <body class="">
-<section class="vbox">
+<section id="app" class="vbox">
     <jsp:include page="/WEB-INF/views/commons/header.jsp"/>
     <section>
         <section class="hbox stretch">
@@ -30,38 +30,32 @@
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
-                                <table width="100%" class="table table-striped table-bordered table-hover">
+                                <table id="dataTables" class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>字典名称</th>
-                                        <th>系统内置</th>
+                                        <th>名称</th>
+                                        <th>描述</th>
+                                        <th>启用</th>
                                         <th>创建时间</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <c:forEach items="${list}" var="code">
-                                        <tr>
-                                            <td>${ code.id }</td>
-                                            <td>${ code.name }</td>
-                                            <td>
-                                                <c:if test="${ code.system }">
-                                                    <span class="label label-success ml5">是</span>
-                                                </c:if>
-                                                <c:if test="${not code.system }">
-                                                    <span class="label label-success ml5">否</span>
-                                                </c:if>
-                                            </td>
-                                            <td>
-                                                <fmt:formatDate value="${ code.createTime }"
-                                                                pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-sm btn-primary"
-                                                   href="/code/details/${code.id}">详情</a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
+                                    <tr v-for="dict in dicts">
+                                        <td>{{ dict.id }}</td>
+                                        <td>{{ dict.name }}</td>
+                                        <td>{{dict.description}}</td>
+                                        <td>
+                                            <span class="label label-success ml5" v-show="!dict.active">否</span>
+                                            <span class="label label-success ml5" v-show="dict.active">是</span>
+                                        </td>
+                                        <td>{{dict.createTime}}</td>
+                                        <td>
+                                            <a class="btn btn-primary" v-bind:href="'/dict/edit/'+dict.id">修改</a>
+                                            <a class="btn btn-warning" v-show="dict.active">停用</a>
+                                            <a class="btn btn-primary" v-show="!dict.active">启用</a>
+                                        </td>
+                                    </tr>
                                 </table>
                             </div>
                             <!-- /.panel-body -->
@@ -74,17 +68,52 @@
             </section>
         </section>
     </section>
+
 </section>
 <!-- footer -->
+
+
 <script src="/assets/js/jquery.min.js"></script>
 <!-- Bootstrap -->
 <script src="/assets/js/bootstrap.js"></script>
+
+<script src="/assets/js/vue/vue.min.js"></script>
 <script src="/assets/js/slimscroll/jquery.slimscroll.min.js"></script>
+
+<script src="/assets/js/format.js"></script>
 <!-- App -->
 <script src="/assets/js/app.js"></script>
 <script src="/assets/js/app.plugin.js"></script>
-
 <script>
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            id: "${id}",
+            dictType: {},
+            dicts: []
+        },
+        created: function () {
+            this.queryDetails();
+        },
+        methods: {
+            queryDetails: function () {
+                var _self = this;
+                $.ajax({
+                    url: "/api/v1/dict/type/details/" + _self.id,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (result) {
+                        vm.dictType = result.data.details;
+                        vm.dicts = result.data.details.dicts;
+                    },
+                    error: function (xhr, textStatus) {
+                        console.log('错误')
+                    }
+                })
+            }
+        }
+    });
+
     $(document).ready(function () {
 
     });

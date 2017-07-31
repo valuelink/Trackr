@@ -211,7 +211,7 @@
                             </a>
                             <ul class="nav dk text-sm">
                                 <li class="active">
-                                    <a href="layout-color.html" class="auto">
+                                    <a href="/dict/type/list" class="auto">
                                         <i class="fa fa-angle-right text-xs"></i>
                                         <span>数据字典</span>
                                     </a>

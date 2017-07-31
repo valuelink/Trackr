@@ -10,9 +10,9 @@ import java.util.Set;
  * Created by wangkun23 on 2017/4/25.
  */
 @ToString
-public class CodeDetails extends Code {
+public class DictDetails extends DictType {
 
     @Getter
     @Setter
-    private Set<CodeValue> values;
+    private Set<Dict> dicts;
 }

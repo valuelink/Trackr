@@ -3,6 +3,7 @@ package com.lockbur.trackr.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -10,7 +11,7 @@ import java.util.Date;
  * 字典类容
  */
 @ToString
-public class CodeValue implements Serializable {
+public class Dict implements Serializable {
     /**
      * 自增ID
      */
@@ -21,7 +22,13 @@ public class CodeValue implements Serializable {
 
     @Getter
     @Setter
-    private Integer codeId;
+    private Integer typeId;
+
+
+    @Getter
+    @Setter
+    /*字典code，一般是需要使用枚举的字段名*/
+    private String code;
 
     @Getter
     @Setter
@@ -51,7 +58,7 @@ public class CodeValue implements Serializable {
     @Setter
     private Date updateTime;
 
-    public CodeValue() {
+    public Dict() {
 
     }
 }

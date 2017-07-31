@@ -1,10 +1,10 @@
 package com.lockbur.trackr.test.mapper;
 
-import com.lockbur.trackr.domain.Code;
-import com.lockbur.trackr.domain.CodeDetails;
-import com.lockbur.trackr.domain.CodeValue;
-import com.lockbur.trackr.mapper.CodeMapper;
-import com.lockbur.trackr.mapper.CodeValueMapper;
+import com.lockbur.trackr.domain.DictType;
+import com.lockbur.trackr.domain.DictDetails;
+import com.lockbur.trackr.domain.Dict;
+import com.lockbur.trackr.mapper.DictTypeMapper;
+import com.lockbur.trackr.mapper.DictMapper;
 import com.lockbur.trackr.test.TestBase;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -22,15 +22,15 @@ public class CodeMapperTest extends TestBase {
 
 
     @Resource
-    private CodeMapper codeMapper;
+    private DictTypeMapper codeMapper;
 
 
     @Resource
-    private CodeValueMapper codeValueMapper;
+    private DictMapper codeValueMapper;
 
     @Test
     public void insert() {
-        Code code = new Code("行业信息");
+        DictType code = new DictType("行业信息");
         code.setCreatorId(1);
         codeMapper.insert(code);
     }
@@ -38,25 +38,25 @@ public class CodeMapperTest extends TestBase {
 
     @Test
     public void insertCodeValue() {
-        CodeValue codeValue = new CodeValue();
-        codeValue.setCodeId(1);
-        codeValue.setName("互联网");
-        codeValue.setDescription("互联网");
-        codeValue.setCreatorId(1);
+        Dict dictValue = new Dict();
+        dictValue.setTypeId(1);
+        dictValue.setName("互联网");
+        dictValue.setDescription("互联网");
+        dictValue.setCreatorId(1);
 
 
-        codeValueMapper.insert(codeValue);
+        codeValueMapper.insert(dictValue);
     }
 
     @Test
     public void findAll() {
-        List<Code> codes = codeMapper.findAll();
+        List<DictType> codes = codeMapper.findAll();
         logger.info("size {}", codes.size());
     }
 
     @Test
     public void findDetailsById() {
-        CodeDetails details = codeMapper.findDetailsById(1);
+        DictDetails details = codeMapper.findDetailsById(1);
         logger.info("size {}", details);
     }
 }

@@ -12,13 +12,18 @@ import java.util.Set;
  * 系统用户相关数据字典类别
  */
 @ToString
-public class Code implements Serializable {
+public class DictType implements Serializable {
     /**
      * 自增ID
      */
     @Getter
     @Setter
     private Integer id;
+
+    @Getter
+    @Setter
+    /*字典code，一般是需要使用枚举的字段名*/
+    private String code;
 
     @Getter
     @Setter
@@ -40,11 +45,17 @@ public class Code implements Serializable {
     @Setter
     private Date updateTime;
 
-    public Code() {
+    public DictType() {
+        
+    }
+
+    public DictType(final String name) {
+        this.name = name;
         this.system = false;
     }
 
-    public Code(final String name) {
+    public DictType(final String code, final String name) {
+        this.code = code;
         this.name = name;
         this.system = false;
     }

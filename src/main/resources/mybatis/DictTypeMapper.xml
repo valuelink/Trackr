@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lockbur.trackr.mapper.DictTypeMapper">
+
+    <insert id="insert" parameterType="com.lockbur.trackr.domain.DictType" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO tb_dict_type
+        (
+          code,name,system,creator_id,create_time,update_time
+        )
+        VALUES
+        (
+         #{code}, #{name}, #{system},#{creatorId},now(),now()
+        )
+    </insert>
+
+    <select id="findAll" resultType="com.lockbur.trackr.domain.DictType">
+        SELECT
+            tc.id,
+            tc.code,
+            tc.name,
+            tc.system,
+            tc.creator_id,
+            tc.create_time,
+            tc.update_time
+        FROM
+            tb_dict_type tc
+    </select>
+
+    <resultMap id="codeDetailsResultMap" type="com.lockbur.trackr.domain.DictDetails">
+        <id column="id" property="id"/>
+        <result column="code" property="code"/>
+        <result column="name" property="name"/>
+        <result column="system" property="system"/>
+        <result column="creatorId" property="creatorId"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+        <collection property="dicts" ofType="com.lockbur.trackr.domain.Dict">
+            <id column="dict.id" property="id"/>
+            <result column="dict.typeId" property="typeId"/>
+            <result column="dict.code" property="code"/>
+            <result column="dict.name" property="name"/>
+            <result column="dict.description" property="description"/>
+            <result column="dict.position" property="position"/>
+            <result column="dict.active" property="active"/>
+            <result column="dict.creatorId" property="creatorId"/>
+            <result column="dict.createTime" property="createTime"/>
+            <result column="dict.updateTime" property="updateTime"/>
+        </collection>
+    </resultMap>
+
+    <select id="findDetailsById" resultMap="codeDetailsResultMap">
+        SELECT
+            tc.id AS "id",
+            tc.name AS "name",
+            tc.system AS "system",
+            tc.creator_id AS "creatorId",
+            tc.create_time AS "createTime",
+            tc.update_time AS "updateTime",
+
+            td.id AS "dict.id",
+            td.type_id AS "dict.typeId",
+            td.code AS "dict.code",
+            td.name AS "dict.name",
+            td.description AS "dict.description",
+            td.position AS "dict.position",
+            td.active AS "dict.active",
+            td.creator_id AS "dict.creatorId",
+            td.create_time AS "dict.createTime",
+            td.update_time AS "dict.updateTime"
+        FROM
+            tb_dict_type tc
+            LEFT JOIN tb_dict td ON tc.id = td.type_id
+        WHERE
+        tc.id=#{id}
+        order BY td.id DESC
+    </select>
+</mapper>
