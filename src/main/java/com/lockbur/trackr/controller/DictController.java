@@ -57,35 +57,6 @@ public class DictController {
     }
     /*字典分类管理*/
 
-    @RequestMapping("/add/{typeId}")
-    public String addDict(@PathVariable("typeId") Integer typeId, Model model) {
-        model.addAttribute("typeId", typeId);
-        return "/dict/addValue";
-    }
-
-    @RequestMapping(value = "/addValue", method = RequestMethod.POST)
-    public String addValue(Dict dictValue, Model model) {
-        Integer creator = employeeService.getCurrentUserId();
-        if (StringUtils.isNotEmpty(dictValue.getName())) {
-            dictValue.setCreatorId(creator);
-            codeValueService.save(dictValue);
-        }
-        return "redirect:/dict/details/" + dictValue.getTypeId();
-    }
-
-    @RequestMapping("/edit/{id}")
-    public String edit(@PathVariable("id") Integer id, Model model) {
-        Dict dictValue = codeValueService.findById(id);
-        model.addAttribute("dictValue", dictValue);
-        return "/dict/edit";
-    }
-
-    @RequestMapping(value = "/editValue", method = RequestMethod.POST)
-    public String update(Dict dictValue) {
-        codeValueService.update(dictValue);
-        return "redirect:/dict/details/" + dictValue.getTypeId();
-    }
-
     @RequestMapping("/delete/{id}")
     public String delete(@PathVariable("id") Integer id) {
         Dict dictValue = codeValueService.findById(id);
@@ -94,11 +65,5 @@ public class DictController {
         return "redirect:/dict/details/" + typeId;
     }
 
-    @ResponseBody
-    @RequestMapping("/toggleActive/{id}")
-    public ResponseData toggleActive(@PathVariable("id") Integer id) {
-        codeValueService.markActive(id);
-        ResponseData result = ResponseData.success();
-        return result;
-    }
+
 }

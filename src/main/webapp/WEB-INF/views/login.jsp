@@ -93,7 +93,7 @@
         el: "#app",
         data: {
             username: "admin@valuelink.cn",
-            password: ""
+            password: "123456"
         },
         mounted: function () {
 

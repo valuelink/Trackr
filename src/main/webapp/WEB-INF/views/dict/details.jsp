@@ -23,7 +23,7 @@
                             <div class="panel-heading">
                                 <i class="fa fa-list"></i> 字典数据列表
                                 <div class="pull-right">
-                                    <a href="/code/add" class="btn btn-success btn-xs">
+                                    <a href="javascript:void(0);" class="btn btn-success btn-xs" @click="add">
                                         <i class="fa fa-plus"></i> 增加字典
                                     </a>
                                 </div>
@@ -35,6 +35,7 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>名称</th>
+                                        <th>code</th>
                                         <th>描述</th>
                                         <th>启用</th>
                                         <th>创建时间</th>
@@ -44,16 +45,23 @@
                                     <tr v-for="dict in dicts">
                                         <td>{{ dict.id }}</td>
                                         <td>{{ dict.name }}</td>
+                                        <td>{{ dict.code }}</td>
                                         <td>{{dict.description}}</td>
                                         <td>
-                                            <span class="label label-success ml5" v-show="!dict.active">否</span>
+                                            <span class="label label-warning ml5" v-show="!dict.active">否</span>
                                             <span class="label label-success ml5" v-show="dict.active">是</span>
                                         </td>
                                         <td>{{dict.createTime}}</td>
                                         <td>
-                                            <a class="btn btn-primary" v-bind:href="'/dict/edit/'+dict.id">修改</a>
-                                            <a class="btn btn-warning" v-show="dict.active">停用</a>
-                                            <a class="btn btn-primary" v-show="!dict.active">启用</a>
+                                            <a class="btn btn-info" @click="edit(dict)">修改</a>
+                                            <a class="btn btn-danger"
+                                               v-show="dict.active"
+                                               @click="toggleActive(dict.id)"
+                                               :disabled="toggleActiveId==dict.id">停用</a>
+                                            <a class="btn btn-warning"
+                                               v-show="!dict.active"
+                                               @click="toggleActive(dict.id)"
+                                               :disabled="toggleActiveId==dict.id">启用</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -69,6 +77,41 @@
         </section>
     </section>
 
+    <%--增加字典 MODAL--%>
+    <div id="formModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">添加字典</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label">字典名称</label>
+                            <input type="text" class="form-control" name="dict.name" v-model="dict.name"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">code</label>
+                            <input type="text" class="form-control" name="code" v-model="dict.code"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">描述</label>
+                            <textarea class="form-control" name="description" v-model="dict.description"></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" @click="saveOrUpdate" :disabled="submitDisabled">提交
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.modal -->
 </section>
 <!-- footer -->
 
@@ -90,7 +133,10 @@
         data: {
             id: "${id}",
             dictType: {},
-            dicts: []
+            dict: {},
+            dicts: [],
+            submitDisabled: false,
+            toggleActiveId: ""
         },
         created: function () {
             this.queryDetails();
@@ -110,6 +156,47 @@
                         console.log('错误')
                     }
                 })
+            },
+            add: function () {
+                this.dict = {};//如果是新增把对象设置空
+                $("#formModal").modal("show");
+            },
+            edit: function (dict) {
+                this.dict = dict;
+                $("#formModal").modal("show");
+            },
+            saveOrUpdate: function () {
+                vm.submitDisabled = true;
+                vm.dict.typeId = this.id;//设置typeID
+                $.ajax({
+                    url: "/api/v1/dict/saveOrUpdate",
+                    type: "POST",
+                    data: vm.dict,
+                    dataType: "json",
+                    success: function (result) {
+                        vm.queryDetails();
+                        vm.submitDisabled = false;
+                        $("#formModal").modal("hide");
+                    },
+                    error: function (xhr, textStatus) {
+                        console.log('错误')
+                    }
+                });
+            },
+            toggleActive: function (dictId) {
+                vm.toggleActiveId = dictId;
+                $.ajax({
+                    url: "/api/v1/dict/toggleActive/" + dictId,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (result) {
+                        vm.queryDetails();
+                        vm.toggleActiveId = "0";
+                    },
+                    error: function (xhr, textStatus) {
+                        console.log('错误')
+                    }
+                });
             }
         }
     });

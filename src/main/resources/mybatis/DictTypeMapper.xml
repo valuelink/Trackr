@@ -79,7 +79,6 @@
             LEFT JOIN tb_dict td ON tc.id = td.type_id
         WHERE
         tc.id=#{id}
-        order BY td.id DESC
     </select>
 
 
@@ -94,6 +93,5 @@
         <foreach collection="list" item="item" open="(" separator="," close=")">
             #{item}
         </foreach>
-        order BY td.id DESC
     </select>
 </mapper>

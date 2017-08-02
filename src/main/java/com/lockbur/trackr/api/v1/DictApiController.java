@@ -2,14 +2,13 @@ package com.lockbur.trackr.api.v1;
 
 import com.lockbur.trackr.domain.Dict;
 import com.lockbur.trackr.domain.DictDetails;
-import com.lockbur.trackr.domain.DictType;
 import com.lockbur.trackr.rest.ResponseData;
 import com.lockbur.trackr.service.DictService;
 import com.lockbur.trackr.service.DictTypeService;
 import com.lockbur.trackr.service.EmployeeService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -21,7 +20,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/v1/dict")
 public class DictApiController {
-
 
     @Resource
     EmployeeService employeeService;
@@ -45,6 +43,39 @@ public class DictApiController {
         List<DictDetails> dicts = dictService.findByTypeCodes(codes);
         result.addData("dicts", dicts);
         return result;
+    }
+
+    /**
+     * 保存或者修改字典数据
+     *
+     * @return
+     */
+    @RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
+    public ResponseData saveOrUpdate(Dict dict) {
+        Integer creator = employeeService.getCurrentUserId();
+        if (StringUtils.isNotEmpty(dict.getName())) {
+            if (dict.getId() != null) {
+                dictService.update(dict);
+            } else {
+                dict.setCreatorId(creator);
+                dict.setActive(true);
+                dictService.save(dict);
+            }
+        }
+        return ResponseData.success("0");
+    }
+
+
+    /**
+     * 启用和禁用 该字典数据
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/toggleActive/{id}", method = RequestMethod.GET)
+    public ResponseData toggleActive(@PathVariable("id") Integer id) {
+        dictService.markActive(id);
+        return ResponseData.success();
     }
 
 }

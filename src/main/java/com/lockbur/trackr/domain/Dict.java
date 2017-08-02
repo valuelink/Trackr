@@ -3,6 +3,7 @@ package com.lockbur.trackr.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -52,10 +53,12 @@ public class Dict implements Serializable {
 
     @Getter
     @Setter
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     @Getter
     @Setter
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     public Dict() {
