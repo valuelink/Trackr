@@ -7,9 +7,9 @@
     <properties resource="jdbc.properties"/>
 
     <context id="MysqlTables" targetRuntime="MyBatis3">
-        <commentGenerator>
+        <commentGenerator type="org.mybatis.generator.internal.HairyCommentGenerator">
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
-            <property name="suppressAllComments" value="true"/>
+            <property name="suppressAllComments" value="false"/>
             <property name="suppressDate" value="true"/>
         </commentGenerator>
 
@@ -49,13 +49,30 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="tb_menu"
-               domainObjectName="Menu"
+        <!--<table tableName="tb_clue"-->
+               <!--domainObjectName="Clue"-->
+               <!--enableCountByExample="false"-->
+               <!--enableDeleteByExample="false"-->
+               <!--enableUpdateByExample="false"-->
+               <!--enableSelectByExample="false">-->
+        <!--</table>-->
+
+
+        <!--<table tableName="tb_clue_contacts"-->
+               <!--domainObjectName="ClueContacts"-->
+               <!--enableCountByExample="false"-->
+               <!--enableDeleteByExample="false"-->
+               <!--enableUpdateByExample="false"-->
+               <!--enableSelectByExample="false">-->
+        <!--</table>-->
+
+
+        <table tableName="tb_competitor"
+               domainObjectName="Competitor"
                enableCountByExample="false"
                enableDeleteByExample="false"
                enableUpdateByExample="false"
                enableSelectByExample="false">
         </table>
-
     </context>
 </generatorConfiguration>
