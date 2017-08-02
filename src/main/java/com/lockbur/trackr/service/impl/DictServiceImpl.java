@@ -1,7 +1,9 @@
 package com.lockbur.trackr.service.impl;
 
 import com.lockbur.trackr.domain.Dict;
+import com.lockbur.trackr.domain.DictDetails;
 import com.lockbur.trackr.mapper.DictMapper;
+import com.lockbur.trackr.mapper.DictTypeMapper;
 import com.lockbur.trackr.service.DictService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +21,9 @@ public class DictServiceImpl implements DictService {
     @Resource
     DictMapper dictMapper;
 
+    @Resource
+    DictTypeMapper dictTypeMapper;
+
     @Override
     @Transactional
     public void save(Dict dictValue) {
@@ -26,7 +31,7 @@ public class DictServiceImpl implements DictService {
     }
 
     @Override
-    public List<Dict> findByCodeId(Integer typeId) {
+    public List<Dict> findByTypeId(Integer typeId) {
         return dictMapper.findByTypeId(typeId);
     }
 
@@ -57,5 +62,10 @@ public class DictServiceImpl implements DictService {
             codeEntity.setActive(true);
         }
         dictMapper.update(codeEntity);
+    }
+
+    @Override
+    public List<DictDetails> findByTypeCodes(List<String> typeCodes){
+        return dictTypeMapper.findDetailsByCodes(typeCodes);
     }
 }

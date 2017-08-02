@@ -1,6 +1,7 @@
 package com.lockbur.trackr.service;
 
 import com.lockbur.trackr.domain.Dict;
+import com.lockbur.trackr.domain.DictDetails;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface DictService {
 
     public void save(Dict dictValue);
 
-    public List<Dict> findByCodeId(Integer codeId);
+    public List<Dict> findByTypeId(Integer typeId);
 
     public Dict findById(Integer id);
 
@@ -26,4 +27,13 @@ public interface DictService {
      * @param id
      */
     public void markActive(Integer id);
+
+
+
+    /**
+     * 根据字典分类的code 查询字典列表，这是给接口用的，所以可以查询多个。
+     */
+    public List<DictDetails> findByTypeCodes(List<String> typeCodes);
+
+
 }

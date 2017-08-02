@@ -11,28 +11,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by wangkun23 on 2017/4/25.
  */
-public class CodeMapperTest extends TestBase {
+public class DictMapperTest extends TestBase {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
 
     @Resource
-    private DictTypeMapper codeMapper;
+    private DictTypeMapper dictTypeMapper;
 
 
     @Resource
-    private DictMapper codeValueMapper;
+    private DictMapper dictMapper;
 
     @Test
     public void insert() {
         DictType code = new DictType("行业信息");
         code.setCreatorId(1);
-        codeMapper.insert(code);
+        dictTypeMapper.insert(code);
     }
 
 
@@ -45,18 +46,33 @@ public class CodeMapperTest extends TestBase {
         dictValue.setCreatorId(1);
 
 
-        codeValueMapper.insert(dictValue);
+        dictMapper.insert(dictValue);
     }
 
     @Test
     public void findAll() {
-        List<DictType> codes = codeMapper.findAll();
+        List<DictType> codes = dictTypeMapper.findAll();
         logger.info("size {}", codes.size());
     }
 
     @Test
     public void findDetailsById() {
-        DictDetails details = codeMapper.findDetailsById(1);
+        DictDetails details = dictTypeMapper.findDetailsById(1);
         logger.info("size {}", details);
+    }
+
+
+
+    @Test
+    public void findDetailsByCodes() {
+        List<String> codes =new ArrayList<>();
+        codes.add("valuateType");
+//        codes.add("industry");
+//        codes.add("repay");
+//        codes.add("customerType");
+
+        List<DictDetails> details = dictTypeMapper.findDetailsByCodes(codes);
+
+        logger.info("size {}", details.size());
     }
 }

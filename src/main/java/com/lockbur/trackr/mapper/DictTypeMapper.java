@@ -17,4 +17,13 @@ public interface DictTypeMapper {
     public List<DictType> findAll();
 
     public DictDetails findDetailsById(Integer id);
+
+
+    /**
+     * 一次查询多个
+     *
+     * @param typeCodes
+     * @return
+     */
+    public List<DictDetails> findDetailsByCodes(List<String> typeCodes);
 }

@@ -2,8 +2,6 @@ package com.lockbur.trackr.api.v1;
 
 import com.lockbur.trackr.domain.DictDetails;
 import com.lockbur.trackr.domain.DictType;
-import com.lockbur.trackr.domain.Project;
-import com.lockbur.trackr.model.ProjectModel;
 import com.lockbur.trackr.rest.Page;
 import com.lockbur.trackr.rest.Pageable;
 import com.lockbur.trackr.rest.ResponseData;
@@ -12,8 +10,6 @@ import com.lockbur.trackr.rest.datatables.DataTableRequest;
 import com.lockbur.trackr.service.DictService;
 import com.lockbur.trackr.service.DictTypeService;
 import com.lockbur.trackr.service.EmployeeService;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;

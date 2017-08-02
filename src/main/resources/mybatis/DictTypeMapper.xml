@@ -28,13 +28,13 @@
     </select>
 
     <resultMap id="codeDetailsResultMap" type="com.lockbur.trackr.domain.DictDetails">
-        <id column="id" property="id"/>
-        <result column="code" property="code"/>
-        <result column="name" property="name"/>
-        <result column="system" property="system"/>
-        <result column="creatorId" property="creatorId"/>
-        <result column="createTime" property="createTime"/>
-        <result column="updateTime" property="updateTime"/>
+        <id column="type.id" property="id"/>
+        <result column="type.code" property="code"/>
+        <result column="type.name" property="name"/>
+        <result column="type.system" property="system"/>
+        <result column="type.creatorId" property="creatorId"/>
+        <result column="type.createTime" property="createTime"/>
+        <result column="type.updateTime" property="updateTime"/>
         <collection property="dicts" ofType="com.lockbur.trackr.domain.Dict">
             <id column="dict.id" property="id"/>
             <result column="dict.typeId" property="typeId"/>
@@ -49,30 +49,51 @@
         </collection>
     </resultMap>
 
-    <select id="findDetailsById" resultMap="codeDetailsResultMap">
-        SELECT
-            tc.id AS "id",
-            tc.name AS "name",
-            tc.system AS "system",
-            tc.creator_id AS "creatorId",
-            tc.create_time AS "createTime",
-            tc.update_time AS "updateTime",
+
+    <sql id="Detail_Column_List">
+            tc.id AS "type.id",
+            tc.name AS "type.name",
+            tc.code AS "type.code",
+            tc.system AS "type.system",
+            tc.creator_id AS "type.creatorId",
+            tc.create_time AS "type.createTime",
+            tc.update_time AS "type.updateTime",
 
             td.id AS "dict.id",
             td.type_id AS "dict.typeId",
-            td.code AS "dict.code",
             td.name AS "dict.name",
+            td.code AS "dict.code",
             td.description AS "dict.description",
             td.position AS "dict.position",
             td.active AS "dict.active",
             td.creator_id AS "dict.creatorId",
             td.create_time AS "dict.createTime",
             td.update_time AS "dict.updateTime"
+    </sql>
+
+    <select id="findDetailsById" resultMap="codeDetailsResultMap">
+        SELECT
+            <include refid="Detail_Column_List"/>
         FROM
             tb_dict_type tc
             LEFT JOIN tb_dict td ON tc.id = td.type_id
         WHERE
         tc.id=#{id}
+        order BY td.id DESC
+    </select>
+
+
+    <select id="findDetailsByCodes" resultMap="codeDetailsResultMap">
+        SELECT
+          <include refid="Detail_Column_List"/>
+        FROM
+        tb_dict_type tc
+        LEFT JOIN tb_dict td ON tc.id = td.type_id
+        WHERE
+        tc.code in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
         order BY td.id DESC
     </select>
 </mapper>
