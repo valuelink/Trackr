@@ -66,7 +66,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Page<ProjectModel> selectByPage(Pageable pageable) {
+    public Page<ProjectModel> findByPage(Pageable pageable) {
         List<Project> content = projectMapper.selectByPage(pageable);
         Long count = projectMapper.countByPage(pageable);
 

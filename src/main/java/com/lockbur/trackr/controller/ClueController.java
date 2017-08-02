@@ -4,15 +4,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * 客户管理
- * Created by wangkun23 on 2017/7/24.
+ * 潜在客户管理(线索管理)
+ * Created by wangkun23 on 2017/8/2.
  */
 @Controller
-@RequestMapping(value = "/company")
-public class CompanyController {
+@RequestMapping(value = "/clue")
+public class ClueController {
 
     @RequestMapping("/list")
     public String list() {
-        return "/company/list";
+        return "/clue/list";
     }
+
 }

@@ -39,13 +39,13 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="layout-boxed.html" class="auto">
+                                    <a href="/clue/list" class="auto">
                                         <i class="fa fa-angle-right text-xs"></i>
                                         <span>潜在客户管理</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="layout-fluid.html" class="auto">
+                                    <a href="/competitor/list" class="auto">
                                         <i class="fa fa-angle-right text-xs"></i>
                                         <span>友商管理</span>
                                     </a>

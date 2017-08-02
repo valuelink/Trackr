@@ -23,7 +23,7 @@ public class ProjectServiceTest extends TestBase {
     @Test
     public void start() {
         Pageable pageable = new Pageable(1, 100);
-        Page<ProjectModel> page = projectService.selectByPage(pageable);
+        Page<ProjectModel> page = projectService.findByPage(pageable);
         LOGGER.info("page {}", page);
     }
 }

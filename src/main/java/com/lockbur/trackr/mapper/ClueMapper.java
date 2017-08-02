@@ -1,6 +1,9 @@
 package com.lockbur.trackr.mapper;
 
 import com.lockbur.trackr.domain.Clue;
+import com.lockbur.trackr.rest.Pageable;
+
+import java.util.List;
 
 
 /**
@@ -39,5 +42,22 @@ public interface ClueMapper {
      * @param record
      */
     int updateByPrimaryKeySelective(Clue record);
+
+    /**
+     * 分页查询列表
+     *
+     * @param pageable
+     * @return
+     */
+    public List<Clue> findByPage(Pageable pageable);
+
+    /**
+     * *
+     * 分页查询 count
+     *
+     * @param pageable
+     * @return
+     */
+    public Long countByPage(Pageable pageable);
 
 }
