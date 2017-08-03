@@ -24,9 +24,9 @@
         company.update_time ,
         company.master_id,
 
-        creator.id,
-        creator.login_name,
-        creator.real_name
+        creator.id AS "creator.id",
+        creator.login_name AS "creator.login_name",
+        creator.real_name AS "creator.real_name"
     </sql>
 
     <insert id="insert" parameterType="Company" useGeneratedKeys="true" keyProperty="id">
@@ -140,13 +140,13 @@
     </update>
 
     <!--分页使用 findByPage-->
-    <select id="findByPage" resultType="com.lockbur.trackr.model.CompanyModel" parameterType="com.lockbur.trackr.rest.Pageable">
+    <select id="findByPage" resultType="com.lockbur.trackr.model.CompanyModel"
+            parameterType="com.lockbur.trackr.rest.Pageable">
         SELECT
-          <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List"/>
         FROM
         tb_company company
-        LEFT JOIN
-        (SELECT id,login_name,real_name FROM tb_user) creator ON company.creator_id=creator.id
+        LEFT JOIN tb_user creator ON company.creator_id=creator.id
         <where>
             <if test="searchValue != null and searchValue != ''">
                 AND company.abbr_name like CONCAT(#{searchValue},'%' )
@@ -173,15 +173,15 @@
 
     <!-- 关联查询出创建人信息 -->
     <select id="findById" resultType="com.lockbur.trackr.model.CompanyModel">
-            SELECT
-              <include refid="Base_Column_List"/>
-            FROM
-            tb_company AS company
-            LEFT JOIN tb_user AS creator
-            ON 
-            company.creator_id=creator.id
-            WHERE 
-            company.id = #{id} AND company.status = 1;
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        tb_company AS company
+        LEFT JOIN tb_user AS creator
+        ON
+        company.creator_id=creator.id
+        WHERE
+        company.id = #{id} AND company.status = 1;
     </select>
 
     <select id="findNextId" resultType="Integer">

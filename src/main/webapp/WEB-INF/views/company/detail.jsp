@@ -23,6 +23,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <i class="fa fa-list"></i> 客户详细信息
+                                <a href="javascript:void(0);" class="pull-right"><i class="fa fa-edit"></i></a>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -72,7 +73,7 @@
                                         </div>
                                         <label class="col-sm-2 control-label">创建人</label>
                                         <div class="col-sm-3">
-                                            <p class="form-control-static">{{company.creatorId}}</p>
+                                            <p class="form-control-static">{{company.creator.realName}}</p>
                                         </div>
                                     </div>
 
@@ -96,28 +97,24 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <i class="fa fa-list"></i> 合同列表
-                                <span class="badge badge-sm up bg-danger count" style="display: inline-block;">{{contracts.length}}</span>
+                                <span class="badge badge-sm up bg-danger count">{{contracts.length}}</span>
                             </div>
                             <div class="panel-body">
                                 <table class="table table-bordered table-condensed table-responsive">
                                     <thead>
                                     <tr>
-                                        <th>合同名称</th>
                                         <th>合同编号</th>
+                                        <th>合同名称</th>
                                         <th>金额</th>
                                         <th>合同状态</th>
-                                        <th>操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr v-for="contract in contracts">
-                                        <td>{{contract.contractName}}</td>
                                         <td>{{contract.contractNumber}}</td>
+                                        <td>{{contract.contractName}}</td>
                                         <td>{{contract.amount}}</td>
                                         <td>{{contract.status}}</td>
-                                        <td>
-                                            <a href="#">查看</a>
-                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
