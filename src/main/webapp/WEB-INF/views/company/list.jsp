@@ -114,7 +114,7 @@
                     data: 'id',
                     name: 'id',
                     "render": function (data, type, full, meta) {
-                        return '<a href="/company/details/' + data + '" class="text-info">详细信息</a>';
+                        return '<a href="/company/detail/' + data + '" class="text-info">详细信息</a>';
                     }
                 }
             ],

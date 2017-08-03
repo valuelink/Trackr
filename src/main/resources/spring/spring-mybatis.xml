@@ -9,12 +9,6 @@
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <property name="mapperLocations" value="classpath:/mybatis/*Mapper.xml"/>
         <property name="typeAliasesPackage" value="com.lockbur.trackr.domain"/>
-        <!--<property name="configurationProperties">-->
-            <!--<map>-->
-                <!--<entry key="mapUnderscoreToCamelCase" value="true"></entry>-->
-                <!--<entry key="logImpl" value="STDOUT_LOGGING"></entry>-->
-            <!--</map>-->
-        <!--</property>-->
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

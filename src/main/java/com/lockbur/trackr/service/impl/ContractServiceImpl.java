@@ -23,7 +23,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public void create(Contract contract) {
-        
+
     }
 
     @Override
@@ -36,6 +36,18 @@ public class ContractServiceImpl implements ContractService {
     @Override
     public ContractModel findById(Integer id) {
         return null;
+    }
+
+    /**
+     * 查看某个公司的全部合同, 在当前用户权限下
+     *
+     * @param userId
+     * @param companyId
+     * @return
+     */
+    @Override
+    public List<ContractModel> findByCompanyId(Integer userId, Integer companyId) {
+        return contractMapper.findByCompanyId(userId, companyId);
     }
 
 

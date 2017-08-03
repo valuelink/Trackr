@@ -2,6 +2,7 @@ package com.lockbur.trackr.mapper;
 
 import com.lockbur.trackr.model.ContractModel;
 import com.lockbur.trackr.rest.Pageable;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -27,4 +28,14 @@ public interface ContractMapper {
      * @return
      */
     public Long countByPage(Pageable pageable);
+
+
+    /**
+     * 查看某个公司客户的全部合同, 在当前用户权限下
+     *
+     * @param userId
+     * @param companyId
+     * @return
+     */
+    public List<ContractModel> findByCompanyId(@Param("userId") Integer userId, @Param("companyId") Integer companyId);
 }

@@ -8,15 +8,25 @@
         company.master ,
         company.associated_count ,
         company.company_name ,
-        company.abbr_name ,company.industry_id ,company.province_id ,company.city_id ,company.address ,
-        company.location_en_name,company.sign_code,
-        company.email,company.web_site ,company.telephone ,company.fax ,
-        company.creator_id ,company.create_time ,company.update_time ,
+        company.abbr_name ,
+        company.industry_id ,
+        company.province_id ,
+        company.city_id ,
+        company.address ,
+        company.location_en_name,
+        company.sign_code,
+        company.email,
+        company.web_site ,
+        company.telephone ,
+        company.fax ,
+        company.creator_id ,
+        company.create_time ,
+        company.update_time ,
         company.master_id,
-        <!--注意如果是关联对象已定要写AS 别名,并使用双引号包含-->
-        creator.id AS "creator.id",
-        creator.login_name AS "creator.login_name",
-        creator.real_name AS "creator.real_name"
+
+        creator.id,
+        creator.login_name,
+        creator.real_name
     </sql>
 
     <insert id="insert" parameterType="Company" useGeneratedKeys="true" keyProperty="id">
@@ -132,7 +142,7 @@
     <!--分页使用 findByPage-->
     <select id="findByPage" resultType="com.lockbur.trackr.model.CompanyModel" parameterType="com.lockbur.trackr.rest.Pageable">
         SELECT
-        <include refid="Base_Column_List"/>
+          <include refid="Base_Column_List"/>
         FROM
         tb_company company
         LEFT JOIN
@@ -164,8 +174,7 @@
     <!-- 关联查询出创建人信息 -->
     <select id="findById" resultType="com.lockbur.trackr.model.CompanyModel">
             SELECT
-            company.*,
-            u.id,u.login_name,u.real_name
+              <include refid="Base_Column_List"/>
             FROM
             tb_company  company
             LEFT JOIN

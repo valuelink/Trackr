@@ -247,6 +247,17 @@
     <!--//END 分页使用 findByPage-->
 
 
+    <select id="findByCompanyId" resultType="com.lockbur.trackr.model.ContractModel">
+        select
+          <include refid="Base_Column_List"/>
+        from
+        tb_contract
+        where
+        t1.status != 0
+        and t1.company_id = #{companyId}
+
+    </select>
+
     <select id="findNextId" resultType="Integer">
 		select ifnull(max(id), 0) + 1 from t_contract
 	</select>
