@@ -21,9 +21,15 @@
                 <section class="vbox">
                     <section class="scrollable wrapper bg-white-only">
                         <div class="panel panel-default">
+                            <header class="panel-heading">
+
+                                Progress bar
+                            </header>
                             <div class="panel-heading">
+                                <ul class="nav nav-pills pull-right">
+                                    <li><a href="#">Random</a></li>
+                                </ul>
                                 <i class="fa fa-list"></i> 客户详细信息
-                                <a href="javascript:void(0);" class="pull-right"><i class="fa fa-edit"></i></a>
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
