@@ -26,85 +26,77 @@
                             </div>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
-                                <div class="clearfix">
-                                    <fieldset>
-                                        <legend>
-                                            <h4>
-                                                <i class="glyphicon glyphicon-plus-sign"></i>
-                                                王坤项目借款申请
-                                                <small>详细信息</small>
-                                            </h4>
-                                        </legend>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">公司简称 </label>
-                                            <div class="col-sm-3">
-                                                <p class="form-control-static">{{company.abbrName}}</p>
-                                            </div>
-
-                                            <label class="col-sm-2 control-label">所在地 </label>
-                                            <div class="col-sm-3">
-                                                <p class="form-control-static">{{company.cityId}}</p>
-                                            </div>
-                                        </div>
-                                        <div class="line line-dashed b-b line-lg pull-in"></div>
-
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">公司全称</label>
-                                            <div class="col-sm-3">
-                                                <p class="form-control-static">{{company.companyName}}</p>
-                                            </div>
-                                            <label class="col-sm-2 control-label">地址</label>
-                                            <div class="col-sm-3">
-                                                <p class="form-control-static">{{company.address}}</p>
-                                            </div>
-                                        </div>
-                                        <div class="line line-dashed b-b line-lg pull-in"></div>
-
-
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">客户编号</label>
-                                            <div class="col-sm-3">
-                                                <p class="form-control-static">{{company.companyNumber}}</p>
-                                            </div>
-                                            <label class="col-sm-2 control-label">组邮箱</label>
-                                            <div class="col-sm-3">
-                                                <p class="form-control-static">{{company.email}}</p>
-                                            </div>
+                                <form class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">公司简称 </label>
+                                        <div class="col-sm-3">
+                                            <p class="form-control-static">{{company.abbrName}}</p>
                                         </div>
 
-                                        <div class="line line-dashed b-b line-lg pull-in"></div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">所在行业</label>
-                                            <div class="col-sm-3">
-                                                <p class="form-control-static">{{company.industryId}}</p>
-                                            </div>
-                                            <label class="col-sm-2 control-label">创建人</label>
-                                            <div class="col-sm-3">
-                                                <p class="form-control-static">{{company.creatorId}}</p>
-                                            </div>
+                                        <label class="col-sm-2 control-label">所在地 </label>
+                                        <div class="col-sm-3">
+                                            <p class="form-control-static">{{company.cityId}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">公司全称</label>
+                                        <div class="col-sm-3">
+                                            <p class="form-control-static">{{company.companyName}}</p>
+                                        </div>
+                                        <label class="col-sm-2 control-label">地址</label>
+                                        <div class="col-sm-3">
+                                            <p class="form-control-static">{{company.address}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">客户编号</label>
+                                        <div class="col-sm-3">
+                                            <p class="form-control-static">{{company.companyNumber}}</p>
+                                        </div>
+                                        <label class="col-sm-2 control-label">组邮箱</label>
+                                        <div class="col-sm-3">
+                                            <p class="form-control-static">{{company.email}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">所在行业</label>
+                                        <div class="col-sm-3">
+                                            <p class="form-control-static">{{company.industryId}}</p>
+                                        </div>
+                                        <label class="col-sm-2 control-label">创建人</label>
+                                        <div class="col-sm-3">
+                                            <p class="form-control-static">{{company.creatorId}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">签约代号</label>
+                                        <div class="col-sm-3">
+                                            <p class="form-control-static">{{company.signCode}}</p>
                                         </div>
 
-                                        <div class="line line-dashed b-b line-lg pull-in"></div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">签约代号</label>
-                                            <div class="col-sm-3">
-                                                <p class="form-control-static">{{company.signCode}}</p>
-                                            </div>
-
-                                            <label class="col-sm-2 control-label">最后修改时间</label>
-                                            <div class="col-sm-3">
-                                                <p class="form-control-static">{{company.updateTime}}</p>
-                                            </div>
+                                        <label class="col-sm-2 control-label">最后修改时间</label>
+                                        <div class="col-sm-3">
+                                            <p class="form-control-static">{{company.updateTime}}</p>
                                         </div>
-                                    </fieldset>
-                                </div>
+                                    </div>
+                                </form>
                             </div>
                             <!-- /.panel-body -->
                         </div>
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <i class="fa fa-list"></i> 合同列表 ({{contracts.length}})
+                                <i class="fa fa-list"></i> 合同列表
+                                <span class="badge badge-sm up bg-danger count" style="display: inline-block;">{{contracts.length}}</span>
                             </div>
                             <div class="panel-body">
                                 <table class="table table-bordered table-condensed table-responsive">
@@ -126,7 +118,6 @@
                                         <td>
                                             <a href="#">查看</a>
                                         </td>
-
                                     </tr>
                                     </tbody>
                                 </table>

@@ -176,13 +176,12 @@
             SELECT
               <include refid="Base_Column_List"/>
             FROM
-            tb_company  company
-            LEFT JOIN
-            (SELECT id,login_name,real_name FROM tb_user) u
+            tb_company AS company
+            LEFT JOIN tb_user AS creator
             ON 
-            company.creator_id=u.id
+            company.creator_id=creator.id
             WHERE 
-            company.id = #{id} AND status = 1;
+            company.id = #{id} AND company.status = 1;
     </select>
 
     <select id="findNextId" resultType="Integer">

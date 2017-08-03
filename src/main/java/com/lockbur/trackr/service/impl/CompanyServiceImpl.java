@@ -29,7 +29,8 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public CompanyModel findById(Integer id) {
-        return null;
+        CompanyModel model = companyMapper.findById(id);
+        return model;
     }
 
 }

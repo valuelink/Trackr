@@ -11,6 +11,13 @@ import java.util.List;
  */
 public interface CompanyMapper {
 
+    /**
+     * 根据ID查询
+     *
+     * @param id
+     * @return
+     */
+    public CompanyModel findById(Integer id);
 
     /**
      * 分页查询列表

@@ -253,9 +253,7 @@
         from
         tb_contract
         where
-        t1.status != 0
-        and t1.company_id = #{companyId}
-
+        company_id = #{companyId}
     </select>
 
     <select id="findNextId" resultType="Integer">
