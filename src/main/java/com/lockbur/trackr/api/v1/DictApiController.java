@@ -7,10 +7,16 @@ import com.lockbur.trackr.service.DictService;
 import com.lockbur.trackr.service.DictTypeService;
 import com.lockbur.trackr.service.EmployeeService;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -20,6 +26,9 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/v1/dict")
 public class DictApiController {
+
+    final Logger logger = LoggerFactory.getLogger(getClass());
+
 
     @Resource
     EmployeeService employeeService;
@@ -51,7 +60,15 @@ public class DictApiController {
      * @return
      */
     @RequestMapping(value = "/saveOrUpdate", method = RequestMethod.POST)
-    public ResponseData saveOrUpdate(Dict dict) {
+    public ResponseData saveOrUpdate(@Valid Dict dict, BindingResult bindingResult) {
+        //验证错误
+        if (bindingResult.hasErrors()) {
+            FieldError error = bindingResult.getFieldErrors().get(0);
+            String message = error.getField() + error.getDefaultMessage();
+            logger.info("验证错误信息 {}", message);
+            return ResponseData.error("100000", message);
+        }
+
         Integer creator = employeeService.getCurrentUserId();
         if (StringUtils.isNotEmpty(dict.getName())) {
             if (dict.getId() != null) {

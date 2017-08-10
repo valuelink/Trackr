@@ -15,10 +15,10 @@
 
         <!-- 数据库链接URL、用户名、密码 -->
         <jdbcConnection
-                driverClass="${jdbc.driver}"
-                connectionURL="${jdbc.url}"
-                userId="${jdbc.username}"
-                password="${jdbc.password}">
+                driverClass="com.mysql.jdbc.Driver"
+                connectionURL="jdbc:mysql://mysql.master.dev.7mxing.com/contracts"
+                userId="dbadmin"
+                password="2016admin*JYW">
         </jdbcConnection>
 
         <!--
@@ -67,8 +67,8 @@
         <!--</table>-->
 
 
-        <table tableName="tb_competitor"
-               domainObjectName="Competitor"
+        <table tableName="tb_contract"
+               domainObjectName="Contract"
                enableCountByExample="false"
                enableDeleteByExample="false"
                enableUpdateByExample="false"

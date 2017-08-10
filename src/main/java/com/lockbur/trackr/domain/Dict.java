@@ -3,6 +3,7 @@ package com.lockbur.trackr.domain;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -28,6 +29,7 @@ public class Dict implements Serializable {
 
     @Getter
     @Setter
+    @NotEmpty
     /*字典code，一般是需要使用枚举的字段名*/
     private String code;
 

@@ -15,6 +15,8 @@ import java.util.Date;
 @ToString
 public class Clue implements Serializable {
 
+
+
     /**
      * <pre>
      * 唯一标识
